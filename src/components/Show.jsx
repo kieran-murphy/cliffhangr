@@ -1,16 +1,20 @@
 import React from "react";
+import Rating from "./Rating";
 
-const Show = () => {
+const Show = ({ title, img }) => {
   return (
-    <div class="card lg:card-side bg-base-200 shadow-xl mt-10 mx-5">
+    <div className="card lg:card-side bg-base-200 shadow-xl my-5 mx-5">
       <figure>
-        <img src="https://placeimg.com/400/400/arch" alt="Album" />
+        <img src={img} alt="Album" />
       </figure>
-      <div class="card-body">
-        <h2 class="card-title">New show is released!</h2>
+      <div className="card-body">
+        <h2 className="card-title">{title}</h2>
         <p></p>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary">View</button>
+        <div className="flex flex-row place-content-between w-full">
+          <Rating />
+          <div className="card-actions justify-end">
+            <button className="btn btn-secondary">View</button>
+          </div>
         </div>
       </div>
     </div>
