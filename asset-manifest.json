@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/cliffhangr/static/css/main.24776213.css",
+    "main.js": "/cliffhangr/static/js/main.6bbc53e6.js",
+    "index.html": "/cliffhangr/index.html",
+    "main.24776213.css.map": "/cliffhangr/static/css/main.24776213.css.map",
+    "main.6bbc53e6.js.map": "/cliffhangr/static/js/main.6bbc53e6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.24776213.css",
+    "static/js/main.6bbc53e6.js"
+  ]
+}
