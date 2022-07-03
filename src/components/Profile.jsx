@@ -1,18 +1,21 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+
 import Reviews from "./Reviews";
 
 const Profile = () => {
+  const { username } = useParams();
   const [tab, setTab] = useState("profile");
 
   return (
     <div className="">
-      <div className="w-full flex flex-row place-content-evenly ">
+      <div className="w-full flex flex-row lg:flex-col place-content-evenly ">
         <div class="avatar my-8 ">
           <div class="w-20 rounded-full ring ring-slate-400 ring-offset-base-100 ring-offset-2">
             <img src="https://staticg.sportskeeda.com/editor/2022/03/8a925-16473693898539-1920.jpg" />
           </div>
         </div>
-        <h1 className="text-4xl font-bold self-center">Steve</h1>
+        <h1 className="text-4xl font-bold self-center">{username}</h1>
       </div>
       <div class="flex place-content-center tabs tabs-boxed ">
         <a

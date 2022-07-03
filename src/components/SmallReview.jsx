@@ -4,7 +4,7 @@ const SmallReview = ({ title, img }) => {
   return (
     <div class="card card-side bg-base-100 shadow-xl mb-4 h-24">
       <figure>
-        <img src={img} alt="Movie" />
+        <img src={img} alt="Movie" className="w-40" />
       </figure>
       <div class="card-body flex">
         <p class="font-semibold">{title}</p>

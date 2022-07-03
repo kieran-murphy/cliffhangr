@@ -1,6 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Navbar = ({ setPlace, place }) => {
+const Navbar = () => {
+  const username = "steve";
+
   return (
     <div className="navbar bg-base-300">
       <div className="navbar-start">
@@ -36,12 +39,9 @@ const Navbar = ({ setPlace, place }) => {
             </li>
           </ul>
         </div>
-        <a
-          className="btn btn-ghost normal-case text-xl"
-          onClick={() => setPlace("home")}
-        >
-          cliffhangr
-        </a>
+        <Link to={`/`}>
+          <a className="btn btn-ghost normal-case text-xl">cliffhangr</a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
@@ -57,14 +57,9 @@ const Navbar = ({ setPlace, place }) => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a
-          className="btn"
-          onClick={() =>
-            place === "profile" ? setPlace("home") : setPlace("profile")
-          }
-        >
-          Profile
-        </a>
+        <Link to={`/user/${username}`}>
+          <a className="btn">Profile</a>
+        </Link>
       </div>
     </div>
   );
