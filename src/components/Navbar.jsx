@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { themeChange } from "theme-change";
 
 const Navbar = () => {
   const username = "steve";
@@ -34,13 +35,16 @@ const Navbar = () => {
             <li>
               <a>Explore 🧭</a>
             </li>
+
             <li>
-              <a>Friends 👥</a>
+              <a>Theme 🎨</a>
             </li>
           </ul>
         </div>
         <Link to={`/`}>
-          <a className="btn btn-ghost normal-case text-xl">cliffhangr</a>
+          <button className="btn btn-ghost normal-case text-xl">
+            cliffhangr
+          </button>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -51,14 +55,15 @@ const Navbar = () => {
           <li tabIndex="0">
             <a>Explore 🧭</a>
           </li>
+
           <li>
-            <a>Friends 👥</a>
+            <a>Theme 🎨</a>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
         <Link to={`/user/${username}`}>
-          <a className="btn">Profile</a>
+          <button className="btn">Profile</button>
         </Link>
       </div>
     </div>

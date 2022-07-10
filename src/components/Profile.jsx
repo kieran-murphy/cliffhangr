@@ -10,28 +10,28 @@ const Profile = () => {
   return (
     <div className="">
       <div className="w-full flex flex-row lg:flex-col place-content-evenly ">
-        <div class="avatar my-8 ">
-          <div class="w-20 rounded-full ring ring-slate-400 ring-offset-base-100 ring-offset-2">
+        <div className="avatar my-8 ">
+          <div className="w-20 rounded-full ring ring-slate-400 ring-offset-base-100 ring-offset-2">
             <img src="https://staticg.sportskeeda.com/editor/2022/03/8a925-16473693898539-1920.jpg" />
           </div>
         </div>
         <h1 className="text-4xl font-bold self-center">{username}</h1>
       </div>
-      <div class="flex place-content-center tabs tabs-boxed ">
+      <div className="flex place-content-center tabs tabs-boxed ">
         <a
-          class={`tab ${tab === "profile" ? "tab-active" : ""}`}
+          className={`tab ${tab === "profile" ? "tab-active" : ""}`}
           onClick={() => setTab("profile")}
         >
           Profile
         </a>
         <a
-          class={`tab ${tab === "reviews" ? "tab-active" : ""}`}
+          className={`tab ${tab === "reviews" ? "tab-active" : ""}`}
           onClick={() => setTab("reviews")}
         >
           Reviews
         </a>
         <a
-          class={`tab ${tab === "watchlist" ? "tab-active" : ""}`}
+          className={`tab ${tab === "watchlist" ? "tab-active" : ""}`}
           onClick={() => setTab("watchlist")}
         >
           Watchlist
@@ -39,29 +39,29 @@ const Profile = () => {
       </div>
       <div className="w-full flex place-content-center">
         {tab === "profile" ? (
-          <div class="w-full stats stats-vertical shadow text-center m-6 bg-base-200">
-            <div class="stat">
-              <div class="stat-title">Reviews</div>
-              <div class="stat-value text-success">82</div>
-              <div class="stat-desc">Jan 1st - Feb 1st</div>
+          <div className="w-full stats stats-vertical shadow text-center m-6 bg-base-200">
+            <div className="stat">
+              <div className="stat-title">Reviews</div>
+              <div className="stat-value text-success">82</div>
+              <div className="stat-desc">Jan 1st - Feb 1st</div>
             </div>
 
-            <div class="stat">
-              <div class="stat-title">Avg Score</div>
-              <div class="stat-value text-success">4.6</div>
-              <div class="stat-desc">Out of five stars</div>
+            <div className="stat">
+              <div className="stat-title">Avg Score</div>
+              <div className="stat-value text-success">4.6</div>
+              <div className="stat-desc">Out of five stars</div>
             </div>
 
-            <div class="stat">
-              <div class="stat-title">Following</div>
-              <div class="stat-value text-warning">4,200</div>
-              <div class="stat-desc">↗︎ 400 (22%)</div>
+            <div className="stat">
+              <div className="stat-title">Following</div>
+              <div className="stat-value text-warning">4,200</div>
+              <div className="stat-desc">↗︎ 400 (22%)</div>
             </div>
 
-            <div class="stat">
-              <div class="stat-title">Followers</div>
-              <div class="stat-value text-secondary">1,200</div>
-              <div class="stat-desc">↗︎ 90 (14%)</div>
+            <div className="stat">
+              <div className="stat-title">Followers</div>
+              <div className="stat-value text-secondary">1,200</div>
+              <div className="stat-desc">↗︎ 90 (14%)</div>
             </div>
           </div>
         ) : (
