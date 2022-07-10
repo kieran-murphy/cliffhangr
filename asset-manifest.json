@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/cliffhangr/static/css/main.24776213.css",
-    "main.js": "/cliffhangr/static/js/main.0dacc10b.js",
+    "main.css": "/cliffhangr/static/css/main.8df0991e.css",
+    "main.js": "/cliffhangr/static/js/main.1f2d793a.js",
     "index.html": "/cliffhangr/index.html",
-    "main.24776213.css.map": "/cliffhangr/static/css/main.24776213.css.map",
-    "main.0dacc10b.js.map": "/cliffhangr/static/js/main.0dacc10b.js.map"
+    "main.8df0991e.css.map": "/cliffhangr/static/css/main.8df0991e.css.map",
+    "main.1f2d793a.js.map": "/cliffhangr/static/js/main.1f2d793a.js.map"
   },
   "entrypoints": [
-    "static/css/main.24776213.css",
-    "static/js/main.0dacc10b.js"
+    "static/css/main.8df0991e.css",
+    "static/js/main.1f2d793a.js"
   ]
 }
