@@ -16,9 +16,9 @@ root.render(
     {/* <Background> */}
     <Navbar />
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/user/:username" element={<Profile />} />
-      <Route path="/show/:showname" element={<ShowDetail />} />
+      <Route path="/cliffhangr" element={<App />} />
+      <Route path="cliffhangr/user/:username" element={<Profile />} />
+      <Route path="cliffhangr/show/:title" element={<ShowDetail />} />
     </Routes>
     {/* </Background> */}
     {/* </ThemeProvider> */}

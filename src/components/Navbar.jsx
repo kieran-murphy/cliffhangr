@@ -41,7 +41,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <Link to={`/`}>
+        <Link to={`/cliffhangr`}>
           <button className="btn btn-ghost normal-case text-xl">
             cliffhangr
           </button>
@@ -55,14 +55,13 @@ const Navbar = () => {
           <li tabIndex="0">
             <a>Explore 🧭</a>
           </li>
-
           <li>
             <a>Theme 🎨</a>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to={`/user/${username}`}>
+        <Link to={`cliffhangr/user/${username}`}>
           <button className="btn">Profile</button>
         </Link>
       </div>
