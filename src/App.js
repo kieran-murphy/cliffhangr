@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import Navbar from "./components/Navbar";
 import Search from "./components/Search";
 
+
 function App() {
   const [place, setPlace] = useState("home");
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import ShowReviewList from "./ShowReviewList";
 var data = require("../data/shows.json");
 
 const ShowDetail = ({}) => {
@@ -30,9 +31,10 @@ const ShowDetail = ({}) => {
     </p>
     
     <div className="flex w-full place-content-center ">
-      <div className="flex flex-col w-full text-center" >
+      <div className="flex flex-col w-full text-center place-content-between" >
       <h1 className="font-light text-lg">{data[title].stars} out of 5 stars</h1>
-      <button className="btn btn-success w-full">Write a Review</button>
+      <button className="btn btn-success w-full mt-4">Write a Review</button>
+      <ShowReviewList title={title}/>
       </div>
     </div>
      </div>

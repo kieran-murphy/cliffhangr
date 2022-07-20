@@ -8,6 +8,7 @@ import App from "./App";
 import ShowDetail from "./components/ShowDetail";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
+import ReviewForm from "./components/ReviewForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,6 +20,7 @@ root.render(
       <Route path="/cliffhangr" element={<App />} />
       <Route path="cliffhangr/user/:username" element={<Profile />} />
       <Route path="cliffhangr/show/:title" element={<ShowDetail />} />
+      <Route path="cliffhangr/show/:title/create_review" element={<ShowDetail />} />
     </Routes>
     {/* </Background> */}
     {/* </ThemeProvider> */}
