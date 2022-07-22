@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
-const ShowReview = ({review}) => {
+const ShowReview = ({ review }) => {
   return (
-    <div>{review.name}: {review.text}</div>
-  )
-}
+    <div className="bg-base-300 text-center m-2 h-10 rounded-md">
+      {review.name}: {review.text}
+    </div>
+  );
+};
 
-export default ShowReview
+export default ShowReview;
