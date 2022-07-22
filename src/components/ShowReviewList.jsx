@@ -7,7 +7,9 @@ const ShowReviewList = ({ title }) => {
     <div className="mt-6">
       <div className="flex flex-row place-content-between mx-2">
         <h1 className="text-2xl font-medium mt-4">Reviews</h1>
-        <h1 className="text-2xl font-medium mt-4"> 2</h1>
+        <h1 className="text-2xl font-medium mt-4">
+          {reviews.reviews[title] ? reviews.reviews[title].length : 0}
+        </h1>
       </div>
 
       <hr className="m-1 opacity-50" />

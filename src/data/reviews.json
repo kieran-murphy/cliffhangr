@@ -1,6 +1,6 @@
 {
     "reviews": {
-    "Lost": [{"name": "sawyer", "text": "this is a review"}, {"name": "kate", "text": "this is a review"}],
-    "Ozark": [{"name": "marty", "text": "godammit jonah"}]
+    "Lost": [{"name": "Sawyer", "text": "this is a review"}, {"name": "Kate", "text": "this is a review"}],
+    "Ozark": [{"name": "Marty", "text": "godammit jonah"}]
     }
 }
