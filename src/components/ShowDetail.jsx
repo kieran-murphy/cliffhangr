@@ -1,15 +1,19 @@
 import { useState } from "react";
+import Rating from "./Rating";
 import { useParams } from "react-router-dom";
 import ShowReviewList from "./ShowReviewList";
+import ReviewConfirmation from "./ReviewConfirmation";
 var data = require("../data/shows.json");
 
 const ShowDetail = ({}) => {
   const { title } = useParams();
+  const [confirm, setConfirm] = useState(false);
   return (
     <div>
       <div className="min-h-60">
         <img src={data[title].img} alt={title} />
       </div>
+
       <div className="mx-6">
         <div className="my-4 flex flex-row place-content-between">
           <div>
@@ -40,12 +44,45 @@ const ShowDetail = ({}) => {
             <h1 className="font-light text-lg text-center">
               {data[title].stars} out of 5 stars
             </h1>
-            <button className="btn btn-success w-full mt-4">
+            <label for="my-modal" class="btn btn-success w-full mt-4">
               Write a Review
-            </button>
+            </label>
           </div>
         </div>
         <ShowReviewList title={title} />
+      </div>
+
+      {confirm ? <ReviewConfirmation setConfirm={setConfirm} /> : null}
+
+      <input type="checkbox" id="my-modal" class="modal-toggle" />
+      <div class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box relative">
+          <label
+            for="my-modal"
+            class="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
+          <h3 class="text-2xl font-bold text-center">Create Review</h3>
+          <div className="flex flex-col place-content-between">
+            <h3 className="mt-4">Rating:</h3>
+            <Rating />
+
+            <h3 className="mt-4">Review:</h3>
+            <textarea
+              class="textarea textarea-primary"
+              placeholder="Your review here"
+            ></textarea>
+
+            <label
+              className="btn btn-success mt-4"
+              for="my-modal"
+              // onClick={() => setConfirm(true)}
+            >
+              Create
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   );

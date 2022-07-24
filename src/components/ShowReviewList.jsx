@@ -4,7 +4,7 @@ var reviews = require("../data/reviews.json");
 
 const ShowReviewList = ({ title }) => {
   return (
-    <div className="mt-6">
+    <div className="my-6">
       <div className="flex flex-row place-content-between mx-2">
         <h1 className="text-2xl font-medium mt-4">Reviews</h1>
         <h1 className="text-2xl font-medium mt-4">
