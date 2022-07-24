@@ -27,7 +27,7 @@ function App() {
             img={
               "https://s3.amazonaws.com/static.rogerebert.com/uploads/blog_post/primary_image/streaming/netflix-ozark-season-4-tv-review/OZARK_402_Unit_00159R.jpg"
             }
-            score={4.5}
+            score={5}
           />
           <Show
             title={"American Horror Story"}
