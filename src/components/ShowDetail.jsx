@@ -42,7 +42,7 @@ const ShowDetail = ({}) => {
         <div className="flex w-full place-content-center ">
           <div className="flex flex-col w-full place-content-between">
             <h1 className="font-light text-lg text-center">
-              {data[title].stars} out of 5 stars
+              {data[title].score} out of 5 stars
             </h1>
             <label for="my-modal" class="btn btn-success w-full mt-4">
               Write a Review
@@ -66,7 +66,7 @@ const ShowDetail = ({}) => {
           <h3 class="text-2xl font-bold text-center">Create Review</h3>
           <div className="flex flex-col place-content-between">
             <h3 className="mt-4">Rating:</h3>
-            <Rating />
+            <Rating score={data[title].score} />
 
             <h3 className="mt-4">Review:</h3>
             <textarea
