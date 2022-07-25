@@ -8,24 +8,26 @@ var data = require("../data/shows.json");
 const ShowDetail = ({}) => {
   const { title } = useParams();
   const [confirm, setConfirm] = useState(false);
+  const [reviewScore, setReviewScore] = useState(0);
   return (
     <div>
       <div className="min-h-60">
-        <img src={data[title].img} alt={title} />
+        <img src={data.shows[title].img} alt={title} />
       </div>
 
       <div className="mx-6">
         <div className="my-4 flex flex-row place-content-between">
           <div>
-            <h1 className="font-bold text-3xl">{data[title].title}</h1>
+            <h1 className="font-bold text-3xl">{data.shows[title].title}</h1>
             <h1 className="font-light text-lg">
-              {data[title].seasons} season{data[title].seasons > 1 ? "s" : ""}
+              {data.shows[title].seasons} season
+              {data.shows[title].seasons > 1 ? "s" : ""}
             </h1>
           </div>
           <div className="flex flex-col text-center">
             <h1 className="font-bold text-2xl">2006</h1>
             <a
-              href={`https://www.youtube.com/results?sp=mAEA&search_query=${data[title].title}+trailer`}
+              href={`https://www.youtube.com/results?sp=mAEA&search_query=${data.shows[title].title}+trailer`}
             >
               <button className="btn btn-sm btn-secondary">Trailer</button>
             </a>
@@ -42,7 +44,7 @@ const ShowDetail = ({}) => {
         <div className="flex w-full place-content-center ">
           <div className="flex flex-col w-full place-content-between">
             <h1 className="font-light text-lg text-center">
-              {data[title].score} out of 5 stars
+              {data.shows[title].score} out of 5 stars
             </h1>
             <label for="my-modal" class="btn btn-success w-full mt-4">
               Write a Review
@@ -66,7 +68,10 @@ const ShowDetail = ({}) => {
           <h3 class="text-2xl font-bold text-center">Create Review</h3>
           <div className="flex flex-col place-content-between">
             <h3 className="mt-4">Rating:</h3>
-            <Rating score={data[title].score} />
+            <Rating
+              // reviewScore={reviewScore}
+              setReviewScore={setReviewScore}
+            />
 
             <h3 className="mt-4">Review:</h3>
             <textarea
@@ -77,7 +82,10 @@ const ShowDetail = ({}) => {
             <label
               className="btn btn-success mt-4"
               for="my-modal"
-              // onClick={() => setConfirm(true)}
+              onClick={() =>
+                // setConfirm(true)
+                alert(`Your rating: ${reviewScore}\nYour review: `)
+              }
             >
               Create
             </label>

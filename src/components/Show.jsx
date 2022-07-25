@@ -1,5 +1,5 @@
 import React from "react";
-import Rating from "./Rating";
+import DisplayRating from "./DisplayRating";
 import { Link } from "react-router-dom";
 
 const Show = ({ title, img, score }) => {
@@ -12,7 +12,7 @@ const Show = ({ title, img, score }) => {
         <h2 className="card-title">{title}</h2>
         <p></p>
         <div className="flex flex-row place-content-between w-full">
-          <Rating score={score} />
+          <DisplayRating score={score} />
           <div className="card-actions justify-end">
             <Link to={`show/${title}`}>
               <button className="btn btn-secondary">View</button>

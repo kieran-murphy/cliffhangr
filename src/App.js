@@ -4,6 +4,7 @@ import Show from "./components/Show";
 import Profile from "./components/Profile";
 import Navbar from "./components/Navbar";
 import Search from "./components/Search";
+var data = require("./data/shows.json");
 
 function App() {
   const [place, setPlace] = useState("home");
@@ -15,7 +16,7 @@ function App() {
       <div>
         <div className="flex flex-col justify-center">
           <Search />
-          <Show
+          {/* <Show
             title={"Lost"}
             img={
               "https://pm1.narvii.com/6254/8f6401d09c5faab40e6e2412e0c931c1697d8872_hq.jpg"
@@ -49,7 +50,12 @@ function App() {
               "https://ventsmagazine.com/wp-content/uploads/2021/03/wandavision-colapso-disney.jpg"
             }
             score={4.5}
-          />
+          /> */}
+          {data.shows.map((s) => {
+            return (
+              <Show title={s.title} img={s.img} score={s.score} key={s.title} />
+            );
+          })}
         </div>
       </div>
     </div>
