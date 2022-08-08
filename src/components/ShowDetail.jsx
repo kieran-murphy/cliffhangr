@@ -9,25 +9,36 @@ const ShowDetail = ({}) => {
   const { title } = useParams();
   const [confirm, setConfirm] = useState(false);
   const [reviewScore, setReviewScore] = useState(0);
+
+  let dataIndex;
+
+  for (let i = 0; i < data.shows.length; i++) {
+    if (data.shows[i].title === title) {
+      dataIndex = i;
+    }
+  }
+
   return (
     <div>
       <div className="min-h-60">
-        <img src={data.shows[title].img} alt={title} />
+        <img src={data.shows[dataIndex].img} alt={title} />
       </div>
 
       <div className="mx-6">
         <div className="my-4 flex flex-row place-content-between">
           <div>
-            <h1 className="font-bold text-3xl">{data.shows[title].title}</h1>
+            <h1 className="font-bold text-3xl">
+              {data.shows[dataIndex].title}
+            </h1>
             <h1 className="font-light text-lg">
-              {data.shows[title].seasons} season
-              {data.shows[title].seasons > 1 ? "s" : ""}
+              {data.shows[dataIndex].seasons} season
+              {data.shows[dataIndex].seasons > 1 ? "s" : ""}
             </h1>
           </div>
           <div className="flex flex-col text-center">
             <h1 className="font-bold text-2xl">2006</h1>
             <a
-              href={`https://www.youtube.com/results?sp=mAEA&search_query=${data.shows[title].title}+trailer`}
+              href={`https://www.youtube.com/results?sp=mAEA&search_query=${data.shows[dataIndex].title}+trailer`}
             >
               <button className="btn btn-sm btn-secondary">Trailer</button>
             </a>
@@ -44,7 +55,7 @@ const ShowDetail = ({}) => {
         <div className="flex w-full place-content-center ">
           <div className="flex flex-col w-full place-content-between">
             <h1 className="font-light text-lg text-center">
-              {data.shows[title].score} out of 5 stars
+              {data.shows[dataIndex].score} out of 5 stars
             </h1>
             <label for="my-modal" class="btn btn-success w-full mt-4">
               Write a Review
