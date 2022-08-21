@@ -5,6 +5,10 @@ import { themeChange } from "theme-change";
 const Navbar = () => {
   const username = "steve";
 
+  useEffect(() => {
+    themeChange(false);
+  }, []);
+
   return (
     <div className="navbar bg-base-300">
       <div className="navbar-start">

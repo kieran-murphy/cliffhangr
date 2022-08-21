@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Show from "./components/Show";
 import Profile from "./components/Profile";
@@ -6,8 +6,10 @@ import Navbar from "./components/Navbar";
 import Search from "./components/Search";
 var data = require("./data/shows.json");
 
+
 function App() {
   const [place, setPlace] = useState("home");
+  
 
   return (
     <div className="w-full">
