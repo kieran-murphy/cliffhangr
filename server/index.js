@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const app = express();
+const cors = require("cors")
 
+const app = express();
+app.use(cors);
 // mongoose.connect("mongodb+srv://mongo:X4LVTsp23GqQyeYp@cluster0.lvvgf.mongodb.net/cliffhangr?retryWrites=true&w=majority", {
 mongoose.connect("mongodb+srv://mongo:X4LVTsp23GqQyeYp@cluster0.bve17ml.mongodb.net/cliffhangr?retryWrites=true&w=majority", {
 useNewUrlParser: true,
@@ -40,7 +42,7 @@ const Users = mongoose.model(
     "users"
   );
 
-app.get("/shows/", (req, res) => {
+app.get("/shows", (req, res) => {
   Shows.find()
     .limit(10)
     .exec((err, shows) => {
@@ -55,6 +57,7 @@ app.get("/shows/", (req, res) => {
             shows: shows,
             total: count,
           });
+          console.log('success')
         });
       }
     });
