@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const cors = require("cors")
+// const cors = require("cors")
 
 const app = express();
-app.use(cors);
+// app.use(cors);
 // mongoose.connect("mongodb+srv://mongo:X4LVTsp23GqQyeYp@cluster0.lvvgf.mongodb.net/cliffhangr?retryWrites=true&w=majority", {
-mongoose.connect("mongodb+srv://mongo:X4LVTsp23GqQyeYp@cluster0.bve17ml.mongodb.net/cliffhangr?retryWrites=true&w=majority", {
-useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://mongo:X4LVTsp23GqQyeYp@cluster0.bve17ml.mongodb.net/cliffhangr?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 const ShowsSchema = new mongoose.Schema({
   _id: String,
@@ -20,27 +23,19 @@ const ShowsSchema = new mongoose.Schema({
 });
 
 const UsersSchema = new mongoose.Schema({
-    _id: String,
-    name: String,
-    age: Number,
-    following: Array,
-    followers: Array,
-    favorites: Array,
-    profilePicture: String,
-    bio: String,
-  });
+  _id: String,
+  name: String,
+  age: Number,
+  following: Array,
+  followers: Array,
+  favorites: Array,
+  profilePicture: String,
+  bio: String,
+});
 
-const Shows = mongoose.model(
-  "shows",
-  ShowsSchema,
-  "shows"
-);
+const Shows = mongoose.model("shows", ShowsSchema, "shows");
 
-const Users = mongoose.model(
-    "users",
-    UsersSchema,
-    "users"
-  );
+const Users = mongoose.model("users", UsersSchema, "users");
 
 app.get("/shows", (req, res) => {
   Shows.find()
@@ -57,83 +52,85 @@ app.get("/shows", (req, res) => {
             shows: shows,
             total: count,
           });
-          console.log('success')
+          console.log("success");
         });
       }
     });
 });
 
 app.get("/shows/:id/", (req, res) => {
-    const id = mongoose.ObjectId(req.params.id);
-    console.log(`searching for ${id}`);
-    
-    Shows.find({
+  const id = mongoose.ObjectId(req.params.id);
+  console.log(`searching for ${id}`);
+
+  Shows.find({
+    _id: id,
+  }).exec((err, shows) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      Shows.estimatedDocumentCount({
         _id: id,
-      })
-      .exec((err, shows) => {
+      }).exec((err, count) => {
         if (err) {
-          res.status(500).send(err);
-        } else {
-          Shows.estimatedDocumentCount({
-            _id: id,
-          }).exec((err, count) => {
-            if (err) {
-              console.log(err);
-            }
-            res.status(200).send({
-              shows: shows,
-              total: count,
-            });
-          });
+          console.log(err);
         }
+        res.status(200).send({
+          shows: shows,
+          total: count,
+        });
       });
+    }
   });
+});
 
 app.get("/users", (req, res) => {
-    Users.find()
-      .limit(10)
-      .exec((err, users) => {
-        if (err) {
-          res.status(500).send(err);
-        } else {
-          Users.estimatedDocumentCount().exec((err, count) => {
-            if (err) {
-              console.log(err);
-            }
-            res.status(200).send({
-              users: users,
-              total: count,
-            });
+  Users.find()
+    .limit(10)
+    .exec((err, users) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        Users.estimatedDocumentCount().exec((err, count) => {
+          if (err) {
+            console.log(err);
+          }
+          res.status(200).send({
+            users: users,
+            total: count,
           });
-        }
-      });
-  });
+        });
+      }
+    });
+});
 
-  app.get("/users/:username/", (req, res) => {
-    const username = req.params.username;
-    console.log(`searching for ${username}`);
-    
-    Users.find({
+app.get("/users/:username/", (req, res) => {
+  const username = req.params.username;
+  console.log(`searching for ${username}`);
+
+  Users.find({
+    name: username,
+  }).exec((err, users) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      Users.estimatedDocumentCount({
         name: username,
-      })
-      .exec((err, users) => {
+      }).exec((err, count) => {
         if (err) {
-          res.status(500).send(err);
-        } else {
-          Users.estimatedDocumentCount({
-            name: username,
-          }).exec((err, count) => {
-            if (err) {
-              console.log(err);
-            }
-            res.status(200).send({
-              users: users,
-              total: count,
-            });
-          });
+          console.log(err);
         }
+        res.status(200).send({
+          users: users,
+          total: count,
+        });
       });
+    }
   });
+});
+
+app.get("/api", (req, res) => {
+  res.json({ users: ["user man", "userTwo", "userThree", "userFour"] });
+});
 
 app.listen(8080, () => {
   console.log("API is running on port 8080");

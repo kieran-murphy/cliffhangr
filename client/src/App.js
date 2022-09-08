@@ -12,9 +12,7 @@ function App() {
 
   useEffect(() => {
     async function getRecords() {
-      const response = await fetch(`http://localhost:8080/shows`, {
-        method: "GET",
-      });
+      const response = await fetch("/shows");
 
       // if (!response.ok) {
       //   const message = `An error occurred: ${response.statusText}`;
@@ -23,13 +21,13 @@ function App() {
       // }
       console.log(response)
       const records = await response.json();
-      setShows(records);
+      setShows(records.shows);
     }
 
     getRecords();
 
     return;
-  }, [shows]);
+  }, []);
 
   return (
     <div className="w-full">
