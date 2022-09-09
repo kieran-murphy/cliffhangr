@@ -14,16 +14,17 @@ mongoose.connect(
 );
 
 const ShowsSchema = new mongoose.Schema({
-  _id: String,
+  _id: mongoose.Schema.ObjectId,
   title: String,
   img: String,
   score: Number,
   seasons: Number,
   year: Number,
+  reviews: Array,
 });
 
 const UsersSchema = new mongoose.Schema({
-  _id: String,
+  _id: mongoose.Schema.ObjectId,
   name: String,
   age: Number,
   following: Array,
@@ -59,7 +60,7 @@ app.get("/shows", (req, res) => {
 });
 
 app.get("/shows/:id/", (req, res) => {
-  const id = mongoose.ObjectId(req.params.id);
+  const id = req.params.id;
   console.log(`searching for ${id}`);
 
   Shows.find({
@@ -76,7 +77,6 @@ app.get("/shows/:id/", (req, res) => {
         }
         res.status(200).send({
           shows: shows,
-          total: count,
         });
       });
     }

@@ -13,13 +13,12 @@ function App() {
   useEffect(() => {
     async function getRecords() {
       const response = await fetch("/shows");
-
-      // if (!response.ok) {
-      //   const message = `An error occurred: ${response.statusText}`;
-      //   window.alert(message);
-      //   return;
-      // }
-      console.log(response)
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+      console.log(response);
       const records = await response.json();
       setShows(records.shows);
     }
@@ -39,7 +38,13 @@ function App() {
 
           {shows.map((s) => {
             return (
-              <Show title={s.title} img={s.img} score={s.score} key={s.title} />
+              <Show
+                title={s.title}
+                img={s.img}
+                score={s.score}
+                key={s.title}
+                id={s._id}
+              />
             );
           })}
         </div>

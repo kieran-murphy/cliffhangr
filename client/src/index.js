@@ -14,8 +14,6 @@ import ReviewForm from "./components/ReviewForm";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 function Index() {
-  
-
   return (
     <BrowserRouter>
       {/* <ThemeProvider> */}
@@ -24,9 +22,9 @@ function Index() {
       <Routes>
         <Route path="/cliffhangr" element={<App />} />
         <Route path="cliffhangr/user/:username" element={<Profile />} />
-        <Route path="cliffhangr/show/:title" element={<ShowDetail />} />
+        <Route path="cliffhangr/show/:id" element={<ShowDetail />} />
         <Route
-          path="cliffhangr/show/:title/create_review"
+          path="cliffhangr/show/:id/create_review"
           element={<ShowDetail />}
         />
       </Routes>
