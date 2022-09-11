@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
-// const cors = require("cors")
 
 const app = express();
-// app.use(cors);
-// mongoose.connect("mongodb+srv://mongo:X4LVTsp23GqQyeYp@cluster0.lvvgf.mongodb.net/cliffhangr?retryWrites=true&w=majority", {
 mongoose.connect(
   "mongodb+srv://mongo:X4LVTsp23GqQyeYp@cluster0.bve17ml.mongodb.net/cliffhangr?retryWrites=true&w=majority",
   {
@@ -76,9 +73,28 @@ app.get("/shows/:id/", (req, res) => {
           console.log(err);
         }
         res.status(200).send({
-          shows: shows,
+          shows: shows[0],
         });
       });
+    }
+  });
+});
+
+app.post("/shows/:id/addreview", (req, res) => {
+  const id = req.params.id;
+  const listingQuery = { _id: id };
+  const updates = {
+    $set: {
+      reviews: [{ user: "update", score: 5.0, text: "update" }],
+    },
+  };
+  Shows.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res
+        .status(400)
+        .send(`Error updating likes on listing with id ${listingQuery.id}!`);
+    } else {
+      console.log("1 document updated");
     }
   });
 });

@@ -11,6 +11,13 @@ const ShowDetail = ({}) => {
   const [reviewScore, setReviewScore] = useState(0);
   const [show, setShow] = useState({});
 
+  const addReview = () => {
+    const requestOptions = {
+      method: "POST",
+    };
+    fetch(`/shows/${id}/addreview`, requestOptions);
+  };
+
   useEffect(() => {
     async function getShow() {
       const response = await fetch(`/shows/${id}`);
@@ -19,9 +26,10 @@ const ShowDetail = ({}) => {
         window.alert(message);
         return;
       }
-      console.log(response);
+
       const records = await response.json();
-      setShow(records.shows[0]);
+      console.log(records);
+      setShow(records.shows);
     }
 
     getShow();
@@ -61,6 +69,16 @@ const ShowDetail = ({}) => {
           reprehenderit in voluptate velit esse cillum dolore eu
         </p>
 
+        <label
+          className="btn btn-info mt-4 align-middle"
+          onClick={() =>
+            // setConfirm(true)
+            addReview()
+          }
+        >
+          test add thing
+        </label>
+
         <div className="flex w-full place-content-center ">
           <div className="flex flex-col w-full place-content-between">
             <h1 className="font-light text-lg text-center">
@@ -71,7 +89,8 @@ const ShowDetail = ({}) => {
             </label>
           </div>
         </div>
-        <ShowReviewList title={show.title} />
+
+        {show.reviews ? <ShowReviewList reviews={show.reviews} /> : null}
       </div>
 
       {confirm ? <ReviewConfirmation setConfirm={setConfirm} /> : null}
