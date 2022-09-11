@@ -18,6 +18,16 @@ const ShowDetail = ({}) => {
     fetch(`/shows/${id}/addreview`, requestOptions);
   };
 
+  const deleteReview = (user) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user: user }),
+    };
+    fetch(`/shows/${id}/deletereview`, requestOptions);
+    console.log(requestOptions);
+  };
+
   useEffect(() => {
     async function getShow() {
       const response = await fetch(`/shows/${id}`);
@@ -69,16 +79,6 @@ const ShowDetail = ({}) => {
           reprehenderit in voluptate velit esse cillum dolore eu
         </p>
 
-        <label
-          className="btn btn-info mt-4 align-middle"
-          onClick={() =>
-            // setConfirm(true)
-            addReview()
-          }
-        >
-          test add thing
-        </label>
-
         <div className="flex w-full place-content-center ">
           <div className="flex flex-col w-full place-content-between">
             <h1 className="font-light text-lg text-center">
@@ -90,7 +90,9 @@ const ShowDetail = ({}) => {
           </div>
         </div>
 
-        {show.reviews ? <ShowReviewList reviews={show.reviews} /> : null}
+        {show.reviews ? (
+          <ShowReviewList reviews={show.reviews} deleteReview={deleteReview} />
+        ) : null}
       </div>
 
       {confirm ? <ReviewConfirmation setConfirm={setConfirm} /> : null}
@@ -107,10 +109,7 @@ const ShowDetail = ({}) => {
           <h3 class="text-2xl font-bold text-center">Create Review</h3>
           <div className="flex flex-col place-content-between">
             <h3 className="mt-4">Rating:</h3>
-            <Rating
-              // reviewScore={reviewScore}
-              setReviewScore={setReviewScore}
-            />
+            <Rating setReviewScore={setReviewScore} />
 
             <h3 className="mt-4">Review:</h3>
             <textarea
@@ -121,10 +120,10 @@ const ShowDetail = ({}) => {
             <label
               className="btn btn-success mt-4"
               for="my-modal"
-              onClick={() =>
-                // setConfirm(true)
-                alert(`Your rating: ${reviewScore}\nYour review: `)
-              }
+              onClick={() => {
+                alert(`Your rating: ${reviewScore}\nYour review: `);
+                addReview();
+              }}
             >
               Create
             </label>

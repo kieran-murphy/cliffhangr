@@ -1,7 +1,7 @@
 import React from "react";
 import ShowReview from "./ShowReview";
 
-const ShowReviewList = ({ reviews }) => {
+const ShowReviewList = ({ reviews, deleteReview }) => {
   return (
     <div className="my-6">
       <div className="flex flex-row place-content-between mx-2">
@@ -12,8 +12,13 @@ const ShowReviewList = ({ reviews }) => {
       <hr className="m-1 opacity-50" />
       <div>
         {reviews.length > 0 ? (
-          reviews.map((review) => (
-            <ShowReview key={review.user} review={review} />
+          reviews.map((review, index) => (
+            <ShowReview
+              key={review.user}
+              review={review}
+              deleteReview={deleteReview}
+              index={index}
+            />
           ))
         ) : (
           <div>no reviews yet</div>

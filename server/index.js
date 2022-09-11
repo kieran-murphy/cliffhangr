@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 
 const app = express();
+app.use(express.json());
 mongoose.connect(
   "mongodb+srv://mongo:X4LVTsp23GqQyeYp@cluster0.bve17ml.mongodb.net/cliffhangr?retryWrites=true&w=majority",
   {
@@ -86,7 +87,7 @@ app.post("/shows/:id/addreview", (req, res) => {
 
   const updates = {
     $push: {
-      reviews: { user: "update", score: 5.0, text: "update" },
+      reviews: { user: "steve", score: 4.0, text: "review" },
     },
   };
   Shows.updateOne(listingQuery, updates, function (err, _result) {
@@ -96,6 +97,28 @@ app.post("/shows/:id/addreview", (req, res) => {
         .send(`Error updating likes on listing with id ${listingQuery.id}!`);
     } else {
       console.log("1 review added");
+    }
+  });
+});
+
+app.post("/shows/:id/deletereview/", (req, res) => {
+  const id = req.params.id;
+  const user = req.body.user;
+  const listingQuery = { _id: id };
+
+  const updates = {
+    $pull: {
+      reviews: { user: user },
+    },
+  };
+  Shows.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res
+        .status(400)
+        .send(`Error deleting review on show with id ${listingQuery.id}!`);
+    } else {
+      console.log(req.body);
+      console.log("1 review deleted");
     }
   });
 });
