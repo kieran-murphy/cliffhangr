@@ -83,9 +83,10 @@ app.get("/shows/:id/", (req, res) => {
 app.post("/shows/:id/addreview", (req, res) => {
   const id = req.params.id;
   const listingQuery = { _id: id };
+
   const updates = {
-    $set: {
-      reviews: [{ user: "update", score: 5.0, text: "update" }],
+    $push: {
+      reviews: { user: "update", score: 5.0, text: "update" },
     },
   };
   Shows.updateOne(listingQuery, updates, function (err, _result) {
@@ -94,7 +95,7 @@ app.post("/shows/:id/addreview", (req, res) => {
         .status(400)
         .send(`Error updating likes on listing with id ${listingQuery.id}!`);
     } else {
-      console.log("1 document updated");
+      console.log("1 review added");
     }
   });
 });
