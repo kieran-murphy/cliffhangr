@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
+var defaultShows = require("../client/src/data/shows.json");
 
 const app = express();
 app.use(express.json());
@@ -164,6 +165,44 @@ app.get("/users/:username/", (req, res) => {
           total: count,
         });
       });
+    }
+  });
+});
+
+app.post("/users/deletechats/", (req, res) => {
+  const listingQuery = { letsChat: "https://stin.to/pbf69" };
+
+  Users.deleteMany(listingQuery, function (err, _result) {
+    if (err) {
+      res
+        .status(400)
+        .send(`Error deleting review on show with id ${listingQuery.id}!`);
+    } else {
+      console.log("chats deleted");
+    }
+  });
+});
+
+app.post("/shows/deletechats/", (req, res) => {
+  const listingQuery = { letsChat: "https://stin.to/pbf69" };
+
+  Shows.deleteMany(listingQuery, function (err, _result) {
+    if (err) {
+      res
+        .status(400)
+        .send(`Error deleting review on show with id ${listingQuery.id}!`);
+    } else {
+      console.log("chats deleted");
+    }
+  });
+});
+
+app.post("/shows/addallshows/", (req, res) => {
+  Shows.insertMany(defaultShows.shows, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error adding shows!`);
+    } else {
+      console.log("shows added");
     }
   });
 });

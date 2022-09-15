@@ -42,7 +42,7 @@ function App() {
                 title={s.title}
                 img={s.img}
                 score={s.score}
-                key={s.title}
+                key={s._id}
                 id={s._id}
               />
             );
