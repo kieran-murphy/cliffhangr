@@ -1,0 +1,5 @@
+{
+    "users": [
+        {"name": "Steve", "age": 36, "following": [], "followers": [], "favorites": [], "profilePicture": "", "bio": "this is a bio"}
+    ]
+}

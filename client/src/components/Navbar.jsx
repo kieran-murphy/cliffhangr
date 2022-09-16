@@ -39,10 +39,14 @@ const Navbar = () => {
             <li>
               <a>Explore 🧭</a>
             </li>
-
             <li>
               <a>Theme 🎨</a>
             </li>
+            <Link to={`/cliffhangr/admin/settings`}>
+              <li>
+                <div>Control panel ⚙️</div>
+              </li>
+            </Link>
           </ul>
         </div>
         <Link to={`/cliffhangr`}>
@@ -62,6 +66,11 @@ const Navbar = () => {
           <li>
             <a>Theme 🎨</a>
           </li>
+          <Link to={`/cliffhangr/admin/settings`}>
+            <li>
+              <div>Control panel ⚙️</div>
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="navbar-end">

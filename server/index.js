@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 var defaultShows = require("../client/src/data/shows.json");
+var defaultUsers = require("../client/src/data/users.json");
 
 const app = express();
 app.use(express.json());
@@ -203,6 +204,16 @@ app.post("/shows/addallshows/", (req, res) => {
       res.status(400).send(`Error adding shows!`);
     } else {
       console.log("shows added");
+    }
+  });
+});
+
+app.post("/shows/addallusers/", (req, res) => {
+  Users.insertMany(defaultUsers.users, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error adding shows!`);
+    } else {
+      console.log("users added");
     }
   });
 });

@@ -99,27 +99,27 @@ const ShowDetail = ({}) => {
 
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
-        <div class="modal-box relative">
+        <div className="modal-box relative">
           <label
-            for="my-modal"
-            class="btn btn-sm btn-circle absolute right-2 top-2"
+            htmlFor="my-modal"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
           </label>
-          <h3 class="text-2xl font-bold text-center">Create Review</h3>
+          <h3 className="text-2xl font-bold text-center">Create Review</h3>
           <div className="flex flex-col place-content-between">
             <h3 className="mt-4">Rating:</h3>
             <Rating setReviewScore={setReviewScore} />
 
             <h3 className="mt-4">Review:</h3>
             <textarea
-              class="textarea textarea-primary"
+              className="textarea textarea-primary"
               placeholder="Your review here"
             ></textarea>
 
             <label
               className="btn btn-success mt-4"
-              for="my-modal"
+              htmlFor="my-modal"
               onClick={() => {
                 alert(`Your rating: ${reviewScore}\nYour review: `);
                 addReview();
