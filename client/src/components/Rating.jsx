@@ -3,7 +3,6 @@ import ReactStars from "react-stars";
 
 const Rating = ({ setReviewScore }) => {
   const ratingChanged = (newRating) => {
-    // console.log(newRating);
     setReviewScore(newRating);
   };
   return (

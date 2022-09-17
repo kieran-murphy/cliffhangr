@@ -85,11 +85,14 @@ app.get("/shows/:id/", (req, res) => {
 
 app.post("/shows/:id/addreview", (req, res) => {
   const id = req.params.id;
+  const user = req.body.user;
+  const reviewComment = req.body.reviewComment;
+  const reviewScore = req.body.reviewScore;
   const listingQuery = { _id: id };
 
   const updates = {
     $push: {
-      reviews: { user: "steve", score: 4.0, text: "review" },
+      reviews: { user: "steve", score: reviewScore, text: reviewComment },
     },
   };
   Shows.updateOne(listingQuery, updates, function (err, _result) {
@@ -208,7 +211,7 @@ app.post("/shows/addallshows/", (req, res) => {
   });
 });
 
-app.post("/shows/addallusers/", (req, res) => {
+app.post("/users/addallusers/", (req, res) => {
   Users.insertMany(defaultUsers.users, function (err, _result) {
     if (err) {
       res.status(400).send(`Error adding shows!`);

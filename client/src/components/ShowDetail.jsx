@@ -10,10 +10,16 @@ const ShowDetail = ({}) => {
   const [confirm, setConfirm] = useState(false);
   const [reviewScore, setReviewScore] = useState(0);
   const [show, setShow] = useState({});
+  const [reviewComment, setReviewComment] = useState("");
 
-  const addReview = () => {
+  const addReview = (reviewComment, reviewScore) => {
     const requestOptions = {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        reviewComment: reviewComment,
+        reviewScore: reviewScore,
+      }),
     };
     fetch(`/shows/${id}/addreview`, requestOptions);
   };
@@ -26,6 +32,10 @@ const ShowDetail = ({}) => {
     };
     fetch(`/shows/${id}/deletereview`, requestOptions);
     console.log(requestOptions);
+  };
+
+  const handleReviewChange = (event) => {
+    setReviewComment(event.target.value);
   };
 
   useEffect(() => {
@@ -113,6 +123,8 @@ const ShowDetail = ({}) => {
 
             <h3 className="mt-4">Review:</h3>
             <textarea
+              value={reviewComment}
+              onChange={handleReviewChange}
               className="textarea textarea-primary"
               placeholder="Your review here"
             ></textarea>
@@ -121,8 +133,9 @@ const ShowDetail = ({}) => {
               className="btn btn-success mt-4"
               htmlFor="my-modal"
               onClick={() => {
-                alert(`Your rating: ${reviewScore}\nYour review: `);
-                addReview();
+                addReview(reviewComment, reviewScore);
+                setReviewComment("");
+                setReviewScore(0);
               }}
             >
               Create
