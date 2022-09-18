@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Rating from "./Rating";
 import { useParams } from "react-router-dom";
+import { SwapSpinner } from "react-spinners-kit";
 import ShowReviewList from "./ShowReviewList";
 import ReviewConfirmation from "./ReviewConfirmation";
 var data = require("../data/shows.json");
@@ -8,9 +9,10 @@ var data = require("../data/shows.json");
 const ShowDetail = ({}) => {
   const { id } = useParams();
   const [confirm, setConfirm] = useState(false);
-  const [reviewScore, setReviewScore] = useState(0);
   const [show, setShow] = useState({});
   const [reviewComment, setReviewComment] = useState("");
+  const [reviewScore, setReviewScore] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const addReview = (reviewComment, reviewScore) => {
     const requestOptions = {
@@ -46,10 +48,10 @@ const ShowDetail = ({}) => {
         window.alert(message);
         return;
       }
-
       const records = await response.json();
       console.log(records);
       setShow(records.shows);
+      setLoading(false);
     }
 
     getShow();
@@ -57,7 +59,11 @@ const ShowDetail = ({}) => {
     return;
   }, []);
 
-  return (
+  return loading === true ? (
+    <div className="py-10 w-full flex flex-row place-content-center">
+      <SwapSpinner size={60} loading={true} />
+    </div>
+  ) : (
     <div>
       <div className="min-h-60">
         <img src={show.img} alt={show.title} />
@@ -81,13 +87,7 @@ const ShowDetail = ({}) => {
             </a>
           </div>
         </div>
-        <p className=" my-8 italic font-light">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu
-        </p>
+        <p className=" my-8 italic font-light">{show.desc}</p>
 
         <div className="flex w-full place-content-center ">
           <div className="flex flex-col w-full place-content-between">

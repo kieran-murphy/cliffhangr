@@ -17,6 +17,7 @@ const ShowsSchema = new mongoose.Schema({
   _id: mongoose.Schema.ObjectId,
   title: String,
   img: String,
+  desc: String,
   score: Number,
   seasons: Number,
   year: Number,
@@ -53,7 +54,6 @@ app.get("/shows", (req, res) => {
             shows: shows,
             total: count,
           });
-          console.log("success");
         });
       }
     });
