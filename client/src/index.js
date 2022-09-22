@@ -9,7 +9,6 @@ import App from "./App";
 import ShowDetail from "./components/ShowDetail";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
-import ReviewForm from "./components/ReviewForm";
 import ControlPanel from "./components/ControlPanel";
 import Login from "./components/Login";
 

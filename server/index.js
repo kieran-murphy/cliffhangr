@@ -85,21 +85,29 @@ app.get("/shows/:id/", (req, res) => {
 
 app.post("/shows/:id/addreview", (req, res) => {
   const id = req.params.id;
-  const user = req.body.user;
+  const reviewUser = req.body.reviewUser;
   const reviewComment = req.body.reviewComment;
   const reviewScore = req.body.reviewScore;
+  const reviewUpvotes = 0;
   const listingQuery = { _id: id };
+  var reviewTime = new Date();
 
   const updates = {
     $push: {
-      reviews: { user: "steve", score: reviewScore, text: reviewComment },
+      reviews: {
+        user: reviewUser,
+        score: reviewScore,
+        text: reviewComment,
+        upvotes: reviewUpvotes,
+        time: reviewTime,
+      },
     },
   };
   Shows.updateOne(listingQuery, updates, function (err, _result) {
     if (err) {
       res
         .status(400)
-        .send(`Error updating likes on listing with id ${listingQuery.id}!`);
+        .send(`Error updating reviews on listing with id ${listingQuery.id}!`);
     } else {
       console.log("1 review added");
     }

@@ -13,12 +13,15 @@ const ShowDetail = ({}) => {
   const [reviewComment, setReviewComment] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
   const [loading, setLoading] = useState(true);
+  // const [refresh, setRefresh] = useState(false);
 
   const addReview = (reviewComment, reviewScore) => {
+    let reviewUser = (Math.random() + 1).toString(36).substring(7);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        reviewUser: reviewUser,
         reviewComment: reviewComment,
         reviewScore: reviewScore,
       }),
@@ -57,7 +60,7 @@ const ShowDetail = ({}) => {
     getShow();
 
     return;
-  }, []);
+  }, [loading]);
 
   return loading === true ? (
     <div className="py-10 w-full flex flex-row place-content-center">
@@ -92,7 +95,7 @@ const ShowDetail = ({}) => {
         <div className="flex w-full place-content-center ">
           <div className="flex flex-col w-full place-content-between">
             <h1 className="font-light text-lg text-center">
-              {show.score} out of 5 stars
+              {show.score} out of 5 stars ⭐
             </h1>
             <label htmlFor="my-modal" className="btn btn-success w-full mt-4">
               Write a Review
@@ -118,9 +121,6 @@ const ShowDetail = ({}) => {
           </label>
           <h3 className="text-2xl font-bold text-center">Create Review</h3>
           <div className="flex flex-col place-content-between">
-            <h3 className="mt-4">Rating:</h3>
-            <Rating setReviewScore={setReviewScore} />
-
             <h3 className="mt-4">Review:</h3>
             <textarea
               value={reviewComment}
@@ -129,6 +129,9 @@ const ShowDetail = ({}) => {
               placeholder="Your review here"
             ></textarea>
 
+            <h3 className="mt-4">Rating:</h3>
+            <Rating setReviewScore={setReviewScore} />
+
             <label
               className="btn btn-success mt-4"
               htmlFor="my-modal"
@@ -136,6 +139,9 @@ const ShowDetail = ({}) => {
                 addReview(reviewComment, reviewScore);
                 setReviewComment("");
                 setReviewScore(0);
+                // setRefresh(true);
+                // setRefresh(false);
+                setLoading(true);
               }}
             >
               Create
