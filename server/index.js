@@ -89,6 +89,7 @@ app.post("/shows/:id/addreview", (req, res) => {
   const reviewComment = req.body.reviewComment;
   const reviewScore = req.body.reviewScore;
   const reviewUpvotes = 0;
+  const reviewComments = [];
   const listingQuery = { _id: id };
   var reviewTime = new Date();
 
@@ -99,7 +100,8 @@ app.post("/shows/:id/addreview", (req, res) => {
         score: reviewScore,
         text: reviewComment,
         upvotes: reviewUpvotes,
-        time: reviewTime,
+        comments: reviewComments,
+        time: reviewTime.toLocaleDateString(),
       },
     },
   };
@@ -132,6 +134,29 @@ app.post("/shows/:id/deletereview/", (req, res) => {
     } else {
       console.log(req.body);
       console.log("1 review deleted");
+    }
+  });
+});
+
+app.post("/shows/:id/updateupvotes/", (req, res) => {
+  const id = req.params.id;
+  const user = req.body.user;
+  const updatedUpvotes = req.body.updatedUpvotes;
+  const listingQuery = { _id: id, reviews: { $elemMatch: { user: { $eq: user } } } };
+
+  const updates = {
+    $set: {
+      "reviews.$.upvotes": updatedUpvotes,
+    },
+  };
+  Shows.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res
+        .status(400)
+        .send(`Error updating review from ${user} on show with id ${listingQuery.id}!`);
+    } else {
+      // console.log(req.body);
+      console.log("1 review updated");
     }
   });
 });

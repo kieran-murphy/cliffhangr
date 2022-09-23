@@ -13,7 +13,6 @@ const ShowDetail = ({}) => {
   const [reviewComment, setReviewComment] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
   const [loading, setLoading] = useState(true);
-  // const [refresh, setRefresh] = useState(false);
 
   const addReview = (reviewComment, reviewScore) => {
     let reviewUser = (Math.random() + 1).toString(36).substring(7);
@@ -39,6 +38,17 @@ const ShowDetail = ({}) => {
     console.log(requestOptions);
   };
 
+  const updateUpvotes = (user, updatedUpvotes) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user: user, updatedUpvotes: updatedUpvotes }),
+    };
+    fetch(`/shows/${id}/updateupvotes`, requestOptions);
+    console.log(requestOptions);
+    setLoading(true);
+  };
+
   const handleReviewChange = (event) => {
     setReviewComment(event.target.value);
   };
@@ -56,9 +66,7 @@ const ShowDetail = ({}) => {
       setShow(records.shows);
       setLoading(false);
     }
-
     getShow();
-
     return;
   }, [loading]);
 
@@ -104,7 +112,7 @@ const ShowDetail = ({}) => {
         </div>
 
         {show.reviews ? (
-          <ShowReviewList reviews={show.reviews} deleteReview={deleteReview} />
+          <ShowReviewList reviews={show.reviews} deleteReview={deleteReview} updateUpvotes={updateUpvotes}  />
         ) : null}
       </div>
 
@@ -139,8 +147,6 @@ const ShowDetail = ({}) => {
                 addReview(reviewComment, reviewScore);
                 setReviewComment("");
                 setReviewScore(0);
-                // setRefresh(true);
-                // setRefresh(false);
                 setLoading(true);
               }}
             >
