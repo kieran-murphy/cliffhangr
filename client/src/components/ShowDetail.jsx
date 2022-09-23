@@ -38,11 +38,21 @@ const ShowDetail = ({}) => {
     console.log(requestOptions);
   };
 
-  const updateUpvotes = (user, updatedUpvotes) => {
+  const addReviewComment = (user) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: user, updatedUpvotes: updatedUpvotes }),
+      body: JSON.stringify({ user: user }),
+    };
+    fetch(`/shows/${id}/addreviewcomment`, requestOptions);
+    console.log(requestOptions);
+  };
+
+  const updateUpvotes = (user, comment) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user: user, comment: comment }),
     };
     fetch(`/shows/${id}/updateupvotes`, requestOptions);
     console.log(requestOptions);
@@ -112,7 +122,7 @@ const ShowDetail = ({}) => {
         </div>
 
         {show.reviews ? (
-          <ShowReviewList reviews={show.reviews} deleteReview={deleteReview} updateUpvotes={updateUpvotes}  />
+          <ShowReviewList reviews={show.reviews} deleteReview={deleteReview} updateUpvotes={updateUpvotes} addReviewComment={addReviewComment} />
         ) : null}
       </div>
 

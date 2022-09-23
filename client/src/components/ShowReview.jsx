@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import DisplayRating from "./DisplayRating";
 import { FaRegTimesCircle, FaCaretUp, FaCaretDown } from "react-icons/fa";
 
-const ShowReview = ({ review, deleteReview, updateUpvotes,  }) => {
+const ShowReview = ({ review, deleteReview, updateUpvotes, addReviewComment }) => {
   
   const [commentInput, setCommentInput] = useState(false);
 
@@ -69,7 +69,13 @@ const ShowReview = ({ review, deleteReview, updateUpvotes,  }) => {
               className="textarea textarea-primary my-2"
               placeholder="Your comment here"
             ></textarea>
-            <button className="btn w-full" onClick={() => setCommentInput(false)}>Add</button>
+            <button className="btn w-full" onClick={
+              () => {
+                addReviewComment('person man','this is a comment')
+                setCommentInput(false)
+              }
+              
+              }>Add</button>
             </div>
             )
             :
@@ -83,7 +89,7 @@ const ShowReview = ({ review, deleteReview, updateUpvotes,  }) => {
             )
             :
             ( 
-            <h3>comments here</h3>
+            <h3>{review.comments[0].text}</h3>
           )}
           </div>
         </label>
