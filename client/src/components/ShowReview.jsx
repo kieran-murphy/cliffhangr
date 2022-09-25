@@ -79,7 +79,7 @@ const ShowReview = ({
                     <button
                       className="btn w-full"
                       onClick={() => {
-                        addReviewComment("person man", "this is a comment");
+                        addReviewComment(review.user, "this is a comment");
                         setCommentInput(false);
                       }}
                     >

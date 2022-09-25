@@ -38,11 +38,11 @@ const ShowDetail = ({}) => {
     console.log(requestOptions);
   };
 
-  const addReviewComment = (user) => {
+  const addReviewComment = (user, comment) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: user }),
+      body: JSON.stringify({ user: user, comment: comment }),
     };
     fetch(`/shows/${id}/addreviewcomment`, requestOptions);
     console.log(requestOptions);

@@ -176,8 +176,8 @@ app.post("/shows/:id/addreviewcomment/", (req, res) => {
   };
 
   const updates = {
-    $set: {
-      "reviews.$.comments": [{ user: user, text: comment }],
+    $push: {
+      "reviews.$.comments": { user: user, text: comment },
     },
   };
   Shows.updateOne(listingQuery, updates, function (err, _result) {
