@@ -14,14 +14,14 @@ const ShowDetail = ({}) => {
   const [reviewScore, setReviewScore] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const addReview = (reviewComment, reviewScore) => {
+  const addReview = (text, reviewScore) => {
     let reviewUser = (Math.random() + 1).toString(36).substring(7);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         reviewUser: reviewUser,
-        reviewComment: reviewComment,
+        text: text,
         reviewScore: reviewScore,
       }),
     };
@@ -48,11 +48,11 @@ const ShowDetail = ({}) => {
     console.log(requestOptions);
   };
 
-  const updateUpvotes = (user, comment) => {
+  const updateUpvotes = (user, updatedUpvotes) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: user, comment: comment }),
+      body: JSON.stringify({ user: user, updatedUpvotes: updatedUpvotes }),
     };
     fetch(`/shows/${id}/updateupvotes`, requestOptions);
     console.log(requestOptions);
@@ -122,7 +122,12 @@ const ShowDetail = ({}) => {
         </div>
 
         {show.reviews ? (
-          <ShowReviewList reviews={show.reviews} deleteReview={deleteReview} updateUpvotes={updateUpvotes} addReviewComment={addReviewComment} />
+          <ShowReviewList
+            reviews={show.reviews}
+            deleteReview={deleteReview}
+            updateUpvotes={updateUpvotes}
+            addReviewComment={addReviewComment}
+          />
         ) : null}
       </div>
 

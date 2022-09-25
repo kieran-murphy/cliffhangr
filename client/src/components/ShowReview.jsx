@@ -1,9 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import DisplayRating from "./DisplayRating";
 import { FaRegTimesCircle, FaCaretUp, FaCaretDown } from "react-icons/fa";
 
-const ShowReview = ({ review, deleteReview, updateUpvotes, addReviewComment }) => {
-  
+const ShowReview = ({
+  review,
+  deleteReview,
+  updateUpvotes,
+  addReviewComment,
+}) => {
   const [commentInput, setCommentInput] = useState(false);
 
   return (
@@ -48,49 +52,55 @@ const ShowReview = ({ review, deleteReview, updateUpvotes, addReviewComment }) =
             <div className="divider"></div>
             <h3 className="text-md font-bold">Upvotes</h3>
             <div className="flex flex-row place-items-center">
-              <button onClick={() => updateUpvotes(review.user, review.upvotes + 1)} className="btn gap-2 text-green-500 text-xl m-2">
+              <button
+                onClick={() => updateUpvotes(review.user, review.upvotes + 1)}
+                className="btn gap-2 text-green-500 text-xl m-2"
+              >
                 <FaCaretUp></FaCaretUp>
               </button>
               <h3 className="text-3xl flex-end m-2">{review.upvotes}</h3>
-              <button onClick={() => updateUpvotes(review.user, review.upvotes - 1)} className="btn gap-2 text-red-600 text-2xl m-2">
+              <button
+                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
+                className="btn gap-2 text-red-600 text-2xl m-2"
+              >
                 <FaCaretDown></FaCaretDown>
               </button>
-
             </div>
             <div className="divider"></div>
             <h3 className="text-md font-bold">Comments</h3>
-            {
-            review.comments.length === 0 ? (
-            <div className="flex flex-col place-items-center">
-            {
-            commentInput ? (
-            <div className="flex flex-col place-items-center">
-            <textarea
-              className="textarea textarea-primary my-2"
-              placeholder="Your comment here"
-            ></textarea>
-            <button className="btn w-full" onClick={
-              () => {
-                addReviewComment('person man','this is a comment')
-                setCommentInput(false)
-              }
-              
-              }>Add</button>
-            </div>
-            )
-            :
-            ( 
-              <div>
-              <h3>No comments yet. Add one!</h3> 
-            <button className="btn w-full" onClick={() => setCommentInput(true)}>+</button>
-            </div>
-          )}
-            </div>
-            )
-            :
-            ( 
-            <h3>{review.comments[0].text}</h3>
-          )}
+            {review.comments.length === 0 ? (
+              <div className="flex flex-col place-items-center">
+                {commentInput ? (
+                  <div className="flex flex-col place-items-center">
+                    <textarea
+                      className="textarea textarea-primary my-2"
+                      placeholder="Your comment here"
+                    ></textarea>
+                    <button
+                      className="btn w-full"
+                      onClick={() => {
+                        addReviewComment("person man", "this is a comment");
+                        setCommentInput(false);
+                      }}
+                    >
+                      Add
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <h3>No comments yet. Add one!</h3>
+                    <button
+                      className="btn w-full"
+                      onClick={() => setCommentInput(true)}
+                    >
+                      +
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <h3>{review.comments[0].text}</h3>
+            )}
           </div>
         </label>
       </label>

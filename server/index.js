@@ -86,7 +86,7 @@ app.get("/shows/:id/", (req, res) => {
 app.post("/shows/:id/addreview", (req, res) => {
   const id = req.params.id;
   const reviewUser = req.body.reviewUser;
-  const reviewComment = req.body.reviewComment;
+  const text = req.body.text;
   const reviewScore = req.body.reviewScore;
   const reviewUpvotes = 0;
   const reviewComments = [];
@@ -98,13 +98,14 @@ app.post("/shows/:id/addreview", (req, res) => {
       reviews: {
         user: reviewUser,
         score: reviewScore,
-        text: reviewComment,
+        text: text,
         upvotes: reviewUpvotes,
         comments: reviewComments,
         time: reviewTime.toLocaleDateString(),
       },
     },
   };
+
   Shows.updateOne(listingQuery, updates, function (err, _result) {
     if (err) {
       res
@@ -142,7 +143,10 @@ app.post("/shows/:id/updateupvotes/", (req, res) => {
   const id = req.params.id;
   const user = req.body.user;
   const updatedUpvotes = req.body.updatedUpvotes;
-  const listingQuery = { _id: id, reviews: { $elemMatch: { user: { $eq: user } } } };
+  const listingQuery = {
+    _id: id,
+    reviews: { $elemMatch: { user: { $eq: user } } },
+  };
 
   const updates = {
     $set: {
@@ -153,7 +157,9 @@ app.post("/shows/:id/updateupvotes/", (req, res) => {
     if (err) {
       res
         .status(400)
-        .send(`Error updating review from ${user} on show with id ${listingQuery.id}!`);
+        .send(
+          `Error updating review from ${user} on show with id ${listingQuery.id}!`
+        );
     } else {
       console.log("1 review updated");
     }
@@ -164,18 +170,23 @@ app.post("/shows/:id/addreviewcomment/", (req, res) => {
   const id = req.params.id;
   const user = req.body.user;
   const comment = req.body.comment;
-  const listingQuery = { _id: id, reviews: { $elemMatch: { user: { $eq: user } } } };
+  const listingQuery = {
+    _id: id,
+    reviews: { $elemMatch: { user: { $eq: user } } },
+  };
 
   const updates = {
     $set: {
-      "reviews.$.comments": [{user: user, text: comment}],
+      "reviews.$.comments": [{ user: user, text: comment }],
     },
   };
   Shows.updateOne(listingQuery, updates, function (err, _result) {
     if (err) {
       res
         .status(400)
-        .send(`Error updating review from ${user} on show with id ${listingQuery.id}!`);
+        .send(
+          `Error updating review from ${user} on show with id ${listingQuery.id}!`
+        );
     } else {
       console.log("1 comment added");
     }
