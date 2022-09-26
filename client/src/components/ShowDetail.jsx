@@ -45,7 +45,8 @@ const ShowDetail = ({}) => {
       body: JSON.stringify({ user: user, comment: comment }),
     };
     fetch(`/shows/${id}/addreviewcomment`, requestOptions);
-    console.log(requestOptions);
+    // console.log(requestOptions);
+    setLoading(true);
   };
 
   const updateUpvotes = (user, updatedUpvotes) => {
@@ -55,7 +56,7 @@ const ShowDetail = ({}) => {
       body: JSON.stringify({ user: user, updatedUpvotes: updatedUpvotes }),
     };
     fetch(`/shows/${id}/updateupvotes`, requestOptions);
-    console.log(requestOptions);
+    // console.log(requestOptions);
     setLoading(true);
   };
 

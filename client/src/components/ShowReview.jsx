@@ -50,6 +50,40 @@ const ShowReview = ({
               ></FaRegTimesCircle>
             </div> */}
             <div className="divider"></div>
+            <h3 className="text-md font-bold">Reacts</h3>
+            <div className="flex flex-row place-items-center">
+              <button
+                onClick={() => updateUpvotes(review.user, review.upvotes + 1)}
+                className="btn text-green-500 text-xl"
+              >
+                😍
+              </button>
+              <button
+                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
+                className="btn text-red-600 text-xl"
+              >
+                😂
+              </button>
+              <button
+                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
+                className="btn text-red-600 text-xl"
+              >
+                😮
+              </button>
+              <button
+                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
+                className="btn text-red-600 text-xl"
+              >
+                😢
+              </button>
+              <button
+                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
+                className="btn text-red-600 text-xl"
+              >
+                😡
+              </button>
+            </div>
+            <div className="divider"></div>
             <h3 className="text-md font-bold">Upvotes</h3>
             <div className="flex flex-row place-items-center">
               <button
@@ -99,7 +133,33 @@ const ShowReview = ({
                 )}
               </div>
             ) : (
-              <h3>{review.comments[0].text}</h3>
+              <div>
+                {review.comments.map((comment) => {
+                  return (
+                    <div className="w-full">
+                      <div className="divider"></div>
+                      <div className="flex flex-row place-content-between place-items-center">
+                        <img
+                          className="rounded-full w-6 h-6"
+                          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png"
+                          alt="d"
+                        />
+                        <h3 className="font-bold mx-2">{comment.user}</h3>
+                        <h3>{comment.text}</h3>
+                      </div>
+                    </div>
+                  );
+                })}
+                <button
+                  className="btn w-full my-4"
+                  onClick={() => {
+                    addReviewComment(review.user, "this is a comment");
+                    setCommentInput(false);
+                  }}
+                >
+                  Add
+                </button>
+              </div>
             )}
           </div>
         </label>
