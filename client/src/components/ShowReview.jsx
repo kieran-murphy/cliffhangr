@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DisplayRating from "./DisplayRating";
 import { FaRegTimesCircle, FaCaretUp, FaCaretDown } from "react-icons/fa";
+import { ImStarEmpty, ImStarFull, ImHappy } from "react-icons/im"; //https://react-icons.github.io/react-icons/icons?name=im
 
 const ShowReview = ({
   review,
@@ -50,7 +51,7 @@ const ShowReview = ({
               ></FaRegTimesCircle>
             </div> */}
             <div className="divider"></div>
-            <h3 className="text-md font-bold">Reacts</h3>
+            <h3 className="text-md font-bold">React</h3>
             <div className="flex flex-row place-items-center">
               <button
                 onClick={() => updateUpvotes(review.user, review.upvotes + 1)}
@@ -83,7 +84,8 @@ const ShowReview = ({
                 😡
               </button>
             </div>
-            <div className="divider"></div>
+
+            {/* <div className="divider"></div>
             <h3 className="text-md font-bold">Upvotes</h3>
             <div className="flex flex-row place-items-center">
               <button
@@ -99,6 +101,40 @@ const ShowReview = ({
               >
                 <FaCaretDown></FaCaretDown>
               </button>
+            </div> */}
+            <div className="divider"></div>
+
+            <div className="flex flex-row place-items-center">
+              <button className="btn gap-2 mx-2 font-bold">
+                <h1 className="">
+                  <ImStarEmpty />
+                </h1>
+                Favourite
+              </button>
+
+              <div className="mx-2 gap-2 dropdown">
+                <label tabIndex={0} className="btn m-1">
+                  <ImHappy />
+                  React
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <a>😍</a>
+                  </li>
+                  <li>
+                    <a>😍</a>
+                  </li>
+                  <li>
+                    <a>😍</a>
+                  </li>
+                  <li>
+                    <a>😍</a>
+                  </li>
+                </ul>
+              </div>
             </div>
             <div className="divider"></div>
             <h3 className="text-md font-bold">Comments</h3>
