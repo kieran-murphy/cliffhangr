@@ -8,6 +8,7 @@ const ShowReview = ({
   deleteReview,
   updateUpvotes,
   addReviewComment,
+  addReaction,
 }) => {
   const [commentInput, setCommentInput] = useState(false);
 
@@ -50,35 +51,79 @@ const ShowReview = ({
                 }}
               ></FaRegTimesCircle>
             </div> */}
+            <div className="mt-4">
+            32 
+            {review.reacts.map((react) => {
+                  return (
+                    
+                      react.reaction
+                    
+                  );
+                })}
+                </div>
+            <div className="divider"></div>
+
+            <div className="flex flex-row place-items-center">
+              <button className="btn font-bold">
+                <h1 className="">
+                  <ImStarEmpty />
+                </h1>
+                Favourite
+              </button>
+
+              {/* <div className="dropdown">
+                <label tabIndex={0} className="btn m-1">
+                  <ImHappy />
+                  React
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <a>😍</a>
+                  </li>
+                  <li>
+                    <a>😍</a>
+                  </li>
+                  <li>
+                    <a>😍</a>
+                  </li>
+                  <li>
+                    <a>😍</a>
+                  </li>
+                </ul>
+              </div> */}
+            </div>
             <div className="divider"></div>
             <h3 className="text-md font-bold">React</h3>
             <div className="flex flex-row place-items-center">
               <button
-                onClick={() => updateUpvotes(review.user, review.upvotes + 1)}
+                onClick={() => addReaction(review.user, '😍')}
                 className="btn text-green-500 text-xl"
               >
                 😍
               </button>
               <button
-                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
+                onClick={() => addReaction(review.user, '😂')}
                 className="btn text-red-600 text-xl"
               >
                 😂
               </button>
               <button
-                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
+                onClick={() => addReaction(review.user, '😮')}
                 className="btn text-red-600 text-xl"
               >
                 😮
               </button>
               <button
-                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
+                onClick={() => addReaction(review.user, '😢')}
                 className="btn text-red-600 text-xl"
               >
                 😢
               </button>
               <button
-                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
+                onClick={() => addReaction(review.user, '😡')}
                 className="btn text-red-600 text-xl"
               >
                 😡
@@ -102,40 +147,7 @@ const ShowReview = ({
                 <FaCaretDown></FaCaretDown>
               </button>
             </div> */}
-            <div className="divider"></div>
 
-            <div className="flex flex-row place-items-center">
-              <button className="btn gap-2 mx-2 font-bold">
-                <h1 className="">
-                  <ImStarEmpty />
-                </h1>
-                Favourite
-              </button>
-
-              <div className="mx-2 gap-2 dropdown">
-                <label tabIndex={0} className="btn m-1">
-                  <ImHappy />
-                  React
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                >
-                  <li>
-                    <a>😍</a>
-                  </li>
-                  <li>
-                    <a>😍</a>
-                  </li>
-                  <li>
-                    <a>😍</a>
-                  </li>
-                  <li>
-                    <a>😍</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
             <div className="divider"></div>
             <h3 className="text-md font-bold">Comments</h3>
             {review.comments.length === 0 ? (

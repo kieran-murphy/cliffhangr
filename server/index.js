@@ -88,7 +88,7 @@ app.post("/shows/:id/addreview", (req, res) => {
   const reviewUser = req.body.reviewUser;
   const text = req.body.text;
   const reviewScore = req.body.reviewScore;
-  const reviewUpvotes = 0;
+  const reviewReacts = [{reaction: '😍', user: 'fhhf'},{reaction: '😡', user: 'knfkjnf'}];
   const reviewComments = [];
   const listingQuery = { _id: id };
   var reviewTime = new Date();
@@ -99,7 +99,7 @@ app.post("/shows/:id/addreview", (req, res) => {
         user: reviewUser,
         score: reviewScore,
         text: text,
-        upvotes: reviewUpvotes,
+        reacts: reviewReacts,
         comments: reviewComments,
         time: reviewTime.toLocaleDateString(),
       },
@@ -151,6 +151,33 @@ app.post("/shows/:id/updateupvotes/", (req, res) => {
   const updates = {
     $set: {
       "reviews.$.upvotes": updatedUpvotes,
+    },
+  };
+  Shows.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res
+        .status(400)
+        .send(
+          `Error updating review from ${user} on show with id ${listingQuery.id}!`
+        );
+    } else {
+      console.log("1 review updated");
+    }
+  });
+});
+
+app.post("/shows/:id/addreaction/", (req, res) => {
+  const id = req.params.id;
+  const user = req.body.user;
+  const reaction = req.body.reaction;
+  const listingQuery = {
+    _id: id,
+    reviews: { $elemMatch: { user: { $eq: user } } },
+  };
+
+  const updates = {
+    $set: {
+      "reviews.$.reacts": [{'reaction': reaction, 'user': user}],
     },
   };
   Shows.updateOne(listingQuery, updates, function (err, _result) {

@@ -60,6 +60,17 @@ const ShowDetail = ({}) => {
     setLoading(true);
   };
 
+  const addReaction = (user, reaction) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user: user, reaction: reaction }),
+    };
+    fetch(`/shows/${id}/addreaction`, requestOptions);
+    // console.log(requestOptions);
+    setLoading(true);
+  };
+
   const handleReviewChange = (event) => {
     setReviewComment(event.target.value);
   };
@@ -128,6 +139,7 @@ const ShowDetail = ({}) => {
             deleteReview={deleteReview}
             updateUpvotes={updateUpvotes}
             addReviewComment={addReviewComment}
+            addReaction={addReaction}
           />
         ) : null}
       </div>
