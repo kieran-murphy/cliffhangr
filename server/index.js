@@ -88,7 +88,7 @@ app.post("/shows/:id/addreview", (req, res) => {
   const reviewUser = req.body.reviewUser;
   const text = req.body.text;
   const reviewScore = req.body.reviewScore;
-  const reviewReacts = [{reaction: '😍', user: 'fhhf'},{reaction: '😡', user: 'knfkjnf'}];
+  const reviewReacts = [];
   const reviewComments = [];
   const listingQuery = { _id: id };
   var reviewTime = new Date();
@@ -176,8 +176,8 @@ app.post("/shows/:id/addreaction/", (req, res) => {
   };
 
   const updates = {
-    $set: {
-      "reviews.$.reacts": [{'reaction': reaction, 'user': user}],
+    $push: {
+      "reviews.$.reacts": {'reaction': reaction, 'user': user},
     },
   };
   Shows.updateOne(listingQuery, updates, function (err, _result) {

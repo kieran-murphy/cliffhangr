@@ -12,6 +12,18 @@ const ShowReview = ({
 }) => {
   const [commentInput, setCommentInput] = useState(false);
 
+  let arr = [];
+  review.reacts.forEach(el => arr.push(el.reaction));
+  let counts = arr.reduce((counts, num) => {
+    counts[num] = (counts[num] || 0) + 1;
+    return counts;
+  }, {});
+  arr.sort(function(p0,p1){
+    return counts[p1] - counts[p0];
+  });
+  arr = Array.from(new Set(arr));
+  console.log(arr);
+
   return (
     <div className="my-4 pt-1 text-center h-10 ">
       <label
@@ -52,14 +64,12 @@ const ShowReview = ({
               ></FaRegTimesCircle>
             </div> */}
             <div className="mt-4">
-            32 
-            {review.reacts.map((react) => {
+            {arr.slice(0,3).map((react) => {
                   return (
-                    
-                      react.reaction
-                    
+                      react
                   );
                 })}
+                {review.reacts.length}
                 </div>
             <div className="divider"></div>
 
