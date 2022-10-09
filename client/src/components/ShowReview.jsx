@@ -11,18 +11,18 @@ const ShowReview = ({
   addReaction,
 }) => {
   const [commentInput, setCommentInput] = useState(false);
+  const [reactionsExpanded, setReactionsExpanded] = useState(false);
 
   let arr = [];
-  review.reacts.forEach(el => arr.push(el.reaction));
+  review.reacts.forEach((el) => arr.push(el.reaction));
   let counts = arr.reduce((counts, num) => {
     counts[num] = (counts[num] || 0) + 1;
     return counts;
   }, {});
-  arr.sort(function(p0,p1){
+  arr.sort(function (p0, p1) {
     return counts[p1] - counts[p0];
   });
   arr = Array.from(new Set(arr));
-  console.log(arr);
 
   return (
     <div className="my-4 pt-1 text-center h-10 ">
@@ -39,9 +39,10 @@ const ShowReview = ({
         )} */}
         <div className="flex flex-row place-items-center">
           <h1>{review.upvotes}</h1>
-          <h1 className="text-green-500 text-2xl">
-            <FaCaretUp></FaCaretUp>
-          </h1>
+          {arr.slice(0, 3).map((react) => {
+            return react;
+          })}
+          {review.reacts.length}
         </div>
       </label>
       <input type="checkbox" id={review.text} className="modal-toggle" />
@@ -63,100 +64,68 @@ const ShowReview = ({
                 }}
               ></FaRegTimesCircle>
             </div> */}
-            <div className="mt-4">
-            {arr.slice(0,3).map((react) => {
+            {reactionsExpanded ? (
+              <div className="mt-4" onClick={() => setReactionsExpanded(false)}>
+                {review.reacts.map((react) => {
                   return (
-                      react
+                    <div>
+                      {react.reaction} - {react.user}
+                    </div>
                   );
                 })}
+              </div>
+            ) : (
+              <div className="mt-4" onClick={() => setReactionsExpanded(true)}>
+                {arr.slice(0, 3).map((react) => {
+                  return react;
+                })}
                 {review.reacts.length}
-                </div>
+              </div>
+            )}
             <div className="divider"></div>
 
             <div className="flex flex-row place-items-center">
-              <button className="btn font-bold">
+              <button className="btn gap-2 font-bold">
                 <h1 className="">
                   <ImStarEmpty />
                 </h1>
                 Favourite
               </button>
-
-              {/* <div className="dropdown">
-                <label tabIndex={0} className="btn m-1">
-                  <ImHappy />
-                  React
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                >
-                  <li>
-                    <a>😍</a>
-                  </li>
-                  <li>
-                    <a>😍</a>
-                  </li>
-                  <li>
-                    <a>😍</a>
-                  </li>
-                  <li>
-                    <a>😍</a>
-                  </li>
-                </ul>
-              </div> */}
             </div>
             <div className="divider"></div>
             <h3 className="text-md font-bold">React</h3>
             <div className="flex flex-row place-items-center">
               <button
-                onClick={() => addReaction(review.user, '😍')}
+                onClick={() => addReaction(review.user, "😍")}
                 className="btn text-green-500 text-xl"
               >
                 😍
               </button>
               <button
-                onClick={() => addReaction(review.user, '😂')}
+                onClick={() => addReaction(review.user, "😂")}
                 className="btn text-red-600 text-xl"
               >
                 😂
               </button>
               <button
-                onClick={() => addReaction(review.user, '😮')}
+                onClick={() => addReaction(review.user, "😮")}
                 className="btn text-red-600 text-xl"
               >
                 😮
               </button>
               <button
-                onClick={() => addReaction(review.user, '😢')}
+                onClick={() => addReaction(review.user, "😢")}
                 className="btn text-red-600 text-xl"
               >
                 😢
               </button>
               <button
-                onClick={() => addReaction(review.user, '😡')}
+                onClick={() => addReaction(review.user, "😡")}
                 className="btn text-red-600 text-xl"
               >
                 😡
               </button>
             </div>
-
-            {/* <div className="divider"></div>
-            <h3 className="text-md font-bold">Upvotes</h3>
-            <div className="flex flex-row place-items-center">
-              <button
-                onClick={() => updateUpvotes(review.user, review.upvotes + 1)}
-                className="btn gap-2 text-green-500 text-xl m-2"
-              >
-                <FaCaretUp></FaCaretUp>
-              </button>
-              <h3 className="text-3xl flex-end m-2">{review.upvotes}</h3>
-              <button
-                onClick={() => updateUpvotes(review.user, review.upvotes - 1)}
-                className="btn gap-2 text-red-600 text-2xl m-2"
-              >
-                <FaCaretDown></FaCaretDown>
-              </button>
-            </div> */}
 
             <div className="divider"></div>
             <h3 className="text-md font-bold">Comments</h3>
