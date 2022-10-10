@@ -281,6 +281,7 @@ app.post("/users/favoriteshow", (req, res) => {
       res.status(400).send(`Error favoriting`);
     } else {
       console.log("1 favorite added");
+      console.log(req.body);
     }
   });
 });
