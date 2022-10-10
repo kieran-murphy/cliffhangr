@@ -4,11 +4,13 @@ import { FaRegTimesCircle, FaCaretUp, FaCaretDown } from "react-icons/fa";
 import { ImStarEmpty, ImStarFull, ImHappy } from "react-icons/im"; //https://react-icons.github.io/react-icons/icons?name=im
 
 const ShowReview = ({
+  show,
   review,
   deleteReview,
   updateUpvotes,
   addReviewComment,
   addReaction,
+  favoriteShow,
 }) => {
   const [commentInput, setCommentInput] = useState(false);
   const [reactionsExpanded, setReactionsExpanded] = useState(false);
@@ -85,7 +87,12 @@ const ShowReview = ({
             <div className="divider"></div>
 
             <div className="flex flex-row place-items-center">
-              <button className="btn gap-2 font-bold">
+              <button
+                className="btn gap-2 font-bold"
+                onClick={() =>
+                  favoriteShow("632c533d7979865b28559842", show.id)
+                }
+              >
                 <h1 className="">
                   <ImStarEmpty />
                 </h1>

@@ -1,7 +1,15 @@
 import React from "react";
 import ShowReview from "./ShowReview";
 
-const ShowReviewList = ({ reviews, deleteReview, updateUpvotes, addReviewComment, addReaction }) => {
+const ShowReviewList = ({
+  show,
+  reviews,
+  deleteReview,
+  updateUpvotes,
+  addReviewComment,
+  addReaction,
+  favoriteShow,
+}) => {
   return (
     <div className="my-6">
       <div className="flex flex-row place-content-between mx-2">
@@ -16,11 +24,13 @@ const ShowReviewList = ({ reviews, deleteReview, updateUpvotes, addReviewComment
             <ShowReview
               key={review.user}
               review={review}
+              show={show}
               deleteReview={deleteReview}
               updateUpvotes={updateUpvotes}
               index={index}
               addReviewComment={addReviewComment}
               addReaction={addReaction}
+              favoriteShow={favoriteShow}
             />
           ))
         ) : (

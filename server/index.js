@@ -177,7 +177,7 @@ app.post("/shows/:id/addreaction/", (req, res) => {
 
   const updates = {
     $push: {
-      "reviews.$.reacts": {'reaction': reaction, 'user': user},
+      "reviews.$.reacts": { reaction: reaction, user: user },
     },
   };
   Shows.updateOne(listingQuery, updates, function (err, _result) {
@@ -261,6 +261,26 @@ app.get("/users/:username/", (req, res) => {
           total: count,
         });
       });
+    }
+  });
+});
+
+app.post("/users/favoriteshow", (req, res) => {
+  const userID = req.body.userID;
+  const showID = req.body.showID;
+
+  const listingQuery = { _id: userID };
+
+  const updates = {
+    $push: {
+      favorites: showID,
+    },
+  };
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error favoriting`);
+    } else {
+      console.log("1 favorite added");
     }
   });
 });

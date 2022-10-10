@@ -71,6 +71,16 @@ const ShowDetail = ({}) => {
     setLoading(true);
   };
 
+  const favoriteShow = (userID, showID) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userID: userID, showID: showID }),
+    };
+    fetch(`/users/favoriteshow`, requestOptions);
+    console.log(requestOptions);
+  };
+
   const handleReviewChange = (event) => {
     setReviewComment(event.target.value);
   };
@@ -135,11 +145,13 @@ const ShowDetail = ({}) => {
 
         {show.reviews ? (
           <ShowReviewList
+            show={show}
             reviews={show.reviews}
             deleteReview={deleteReview}
             updateUpvotes={updateUpvotes}
             addReviewComment={addReviewComment}
             addReaction={addReaction}
+            favoriteShow={favoriteShow}
           />
         ) : null}
       </div>
