@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import Reviews from "./Reviews";
+import ProfileReviews from "./ProfileReviews";
 
 const Profile = () => {
   const { username } = useParams();
@@ -67,7 +67,7 @@ const Profile = () => {
             </div>
           </div>
         ) : (
-          <Reviews />
+          <ProfileReviews />
         )}
       </div>
     </div>

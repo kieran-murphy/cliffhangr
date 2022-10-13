@@ -4,6 +4,14 @@ import { useParams } from "react-router-dom";
 import { SwapSpinner } from "react-spinners-kit";
 import ShowReviewList from "./ShowReviewList";
 import ReviewConfirmation from "./ReviewConfirmation";
+import {
+  ImStarEmpty,
+  ImStarFull,
+  ImHappy,
+  ImClock,
+  ImPencil,
+  ImPlay,
+} from "react-icons/im";
 var data = require("../data/shows.json");
 
 const ShowDetail = ({}) => {
@@ -81,6 +89,26 @@ const ShowDetail = ({}) => {
     console.log(requestOptions);
   };
 
+  const favoriteReview = (userID, showID) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userID: userID, showID: showID }),
+    };
+    fetch(`/users/favoriteshow`, requestOptions);
+    console.log(requestOptions);
+  };
+
+  const addWatchlist = (userID, showID) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userID: userID, showID: showID }),
+    };
+    fetch(`/users/addwatchlist`, requestOptions);
+    console.log(requestOptions);
+  };
+
   const handleReviewChange = (event) => {
     setReviewComment(event.target.value);
   };
@@ -126,7 +154,9 @@ const ShowDetail = ({}) => {
             <a
               href={`https://www.youtube.com/results?sp=mAEA&search_query=${show.title}+trailer`}
             >
-              <button className="btn btn-sm btn-secondary">Trailer</button>
+              <button className="btn btn-sm btn-secondary gap-2">
+                <ImPlay /> Trailer
+              </button>
             </a>
           </div>
         </div>
@@ -137,9 +167,32 @@ const ShowDetail = ({}) => {
             <h1 className="font-light text-lg text-center">
               {show.score} out of 5 stars ⭐
             </h1>
-            <label htmlFor="my-modal" className="btn btn-success w-full mt-4">
+            <label
+              htmlFor="my-modal"
+              className="btn btn-success w-full mt-4 gap-2"
+            >
+              <ImPencil />
               Write a Review
             </label>
+
+            <button
+              className="btn gap-2 mt-3 font-bold"
+              onClick={() => favoriteShow("6347d5f8ba969d1eeee69110", show._id)}
+            >
+              <h1 className="">
+                <ImStarEmpty />
+              </h1>
+              Favourite
+            </button>
+            <button
+              className="btn gap-2 mt-3 font-bold"
+              onClick={() => addWatchlist("6347d5f8ba969d1eeee69110", show._id)}
+            >
+              <h1 className="">
+                <ImClock />
+              </h1>
+              Add to watchlist
+            </button>
           </div>
         </div>
 

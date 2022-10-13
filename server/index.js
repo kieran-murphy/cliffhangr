@@ -30,7 +30,9 @@ const UsersSchema = new mongoose.Schema({
   age: Number,
   following: Array,
   followers: Array,
-  favorites: Array,
+  favoriteReviews: Array,
+  favoriteShows: Array,
+  watchList: Array,
   profilePicture: String,
   bio: String,
 });
@@ -273,7 +275,49 @@ app.post("/users/favoriteshow", (req, res) => {
 
   const updates = {
     $push: {
-      favorites: showID,
+      favoriteShows: showID,
+    },
+  };
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error favoriting`);
+    } else {
+      console.log("1 favorite added");
+      console.log(req.body);
+    }
+  });
+});
+
+app.post("/users/favoritereview", (req, res) => {
+  const userID = req.body.userID;
+  const showID = req.body.showID;
+
+  const listingQuery = { _id: userID };
+
+  const updates = {
+    $push: {
+      favoriteReviews: showID,
+    },
+  };
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error favoriting`);
+    } else {
+      console.log("1 favorite added");
+      console.log(req.body);
+    }
+  });
+});
+
+app.post("/users/addwatchlist", (req, res) => {
+  const userID = req.body.userID;
+  const showID = req.body.showID;
+
+  const listingQuery = { _id: userID };
+
+  const updates = {
+    $push: {
+      watchList: showID,
     },
   };
   Users.updateOne(listingQuery, updates, function (err, _result) {

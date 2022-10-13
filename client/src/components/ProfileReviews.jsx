@@ -4,7 +4,7 @@ import SmallReview from "./SmallReview";
 const Reviews = () => {
   return (
     <div className="m-6">
-      <SmallReview
+      {/* <SmallReview
         title="The Wire"
         img="https://www.nme.com/wp-content/uploads/2022/06/the-wire-10.jpg"
       />
@@ -27,7 +27,7 @@ const Reviews = () => {
       <SmallReview
         title="Loki"
         img="https://cf-images.us-east-1.prod.boltdns.net/v1/static/5359769168001/2640e963-a265-4be0-aefa-0235088248ea/c3585606-a351-453a-a07f-9901aec67aa8/1280x720/match/image.jpg"
-      />
+      /> */}
     </div>
   );
 };
