@@ -1,14 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProfileReviews from "./ProfileReviews";
 
 const Profile = () => {
   const { username } = useParams();
   const [tab, setTab] = useState("profile");
+  const [user, setUser] = useState({});
+
+  async function getUser() {
+    const response = await fetch(`/users/${username}`);
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+    console.log(response);
+    const f = await response.json();
+    setUser(f.users[0]);
+    
+  }
+
+  useEffect(() => {
+    getUser();
+    return;
+  }, []);
 
   return (
+
     <div className="">
-      <div className="w-full flex flex-row lg:flex-col place-content-evenly ">
+      <div className="w-full flex flex-row lg:flex-col place-content-evenly">
         <div className="avatar my-8 ">
           <div className="w-20 rounded-full ring ring-slate-400 ring-offset-base-100 ring-offset-2">
             <img
@@ -17,7 +37,7 @@ const Profile = () => {
             />
           </div>
         </div>
-        <h1 className="text-4xl font-bold self-center">{username}</h1>
+        <h1 className="text-4xl font-bold self-center">{user.name}</h1>
       </div>
       <div className="flex place-content-center tabs tabs-boxed ">
         <a
@@ -56,13 +76,13 @@ const Profile = () => {
 
             <div className="stat">
               <div className="stat-title">Following</div>
-              <div className="stat-value text-warning">4,200</div>
+              <div className="stat-value text-warning">{user.following.length}</div>
               <div className="stat-desc">↗︎ 400 (22%)</div>
             </div>
 
             <div className="stat">
               <div className="stat-title">Followers</div>
-              <div className="stat-value text-secondary">1,200</div>
+              <div className="stat-value text-secondary">{user.followers.length}</div>
               <div className="stat-desc">↗︎ 90 (14%)</div>
             </div>
           </div>

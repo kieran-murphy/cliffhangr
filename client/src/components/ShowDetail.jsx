@@ -79,31 +79,31 @@ const ShowDetail = ({}) => {
     setLoading(true);
   };
 
-  const favoriteShow = (userID, showID) => {
+  const favoriteShow = (name, showID) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userID: userID, showID: showID }),
+      body: JSON.stringify({ name: name, showID: showID }),
     };
     fetch(`/users/favoriteshow`, requestOptions);
     console.log(requestOptions);
   };
 
-  const favoriteReview = (userID, showID) => {
+  const favoriteReview = (name, showID) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userID: userID, showID: showID }),
+      body: JSON.stringify({ name: name, showID: showID }),
     };
     fetch(`/users/favoriteshow`, requestOptions);
     console.log(requestOptions);
   };
 
-  const addWatchlist = (userID, showID) => {
+  const addWatchlist = (name, showID) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userID: userID, showID: showID }),
+      body: JSON.stringify({ name: name, showID: showID }),
     };
     fetch(`/users/addwatchlist`, requestOptions);
     console.log(requestOptions);
@@ -177,7 +177,7 @@ const ShowDetail = ({}) => {
 
             <button
               className="btn gap-2 mt-3 font-bold"
-              onClick={() => favoriteShow("6347d5f8ba969d1eeee69110", show._id)}
+              onClick={() => favoriteShow("Steve", show._id)}
             >
               <h1 className="">
                 <ImStarEmpty />
@@ -186,7 +186,7 @@ const ShowDetail = ({}) => {
             </button>
             <button
               className="btn gap-2 mt-3 font-bold"
-              onClick={() => addWatchlist("6347d5f8ba969d1eeee69110", show._id)}
+              onClick={() => addWatchlist("Steve", show._id)}
             >
               <h1 className="">
                 <ImClock />

@@ -268,10 +268,10 @@ app.get("/users/:username/", (req, res) => {
 });
 
 app.post("/users/favoriteshow", (req, res) => {
-  const userID = req.body.userID;
+  const name = req.body.name;
   const showID = req.body.showID;
 
-  const listingQuery = { _id: userID };
+  const listingQuery = { name: name };
 
   const updates = {
     $push: {
@@ -283,16 +283,15 @@ app.post("/users/favoriteshow", (req, res) => {
       res.status(400).send(`Error favoriting`);
     } else {
       console.log("1 favorite added");
-      console.log(req.body);
     }
   });
 });
 
 app.post("/users/favoritereview", (req, res) => {
-  const userID = req.body.userID;
+  const name = req.body.name;
   const showID = req.body.showID;
 
-  const listingQuery = { _id: userID };
+  const listingQuery = { name: name };
 
   const updates = {
     $push: {
@@ -304,16 +303,15 @@ app.post("/users/favoritereview", (req, res) => {
       res.status(400).send(`Error favoriting`);
     } else {
       console.log("1 favorite added");
-      console.log(req.body);
     }
   });
 });
 
 app.post("/users/addwatchlist", (req, res) => {
-  const userID = req.body.userID;
+  const name = req.body.name;
   const showID = req.body.showID;
 
-  const listingQuery = { _id: userID };
+  const listingQuery = { name: name };
 
   const updates = {
     $push: {
@@ -324,8 +322,7 @@ app.post("/users/addwatchlist", (req, res) => {
     if (err) {
       res.status(400).send(`Error favoriting`);
     } else {
-      console.log("1 favorite added");
-      console.log(req.body);
+      console.log("1 watchlist added");
     }
   });
 });

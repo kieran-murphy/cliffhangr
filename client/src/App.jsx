@@ -10,21 +10,20 @@ function App() {
   const [place, setPlace] = useState("home");
   const [shows, setShows] = useState([]);
 
-  useEffect(() => {
-    async function getRecords() {
-      const response = await fetch("/shows");
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-      console.log(response);
-      const records = await response.json();
-      setShows(records.shows);
+  async function getShows() {
+    const response = await fetch("/shows");
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
     }
+    console.log(response);
+    const records = await response.json();
+    setShows(records.shows);
+  }
 
-    getRecords();
-
+  useEffect(() => {
+    getShows();
     return;
   }, []);
 

@@ -90,7 +90,7 @@ const ShowReview = ({
               <button
                 className="btn gap-2 font-bold"
                 onClick={() =>
-                  favoriteShow("6347d5f8ba969d1eeee69110", show._id)
+                  favoriteShow("Steve", show._id)
                 }
               >
                 <h1 className="">
