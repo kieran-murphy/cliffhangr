@@ -248,7 +248,7 @@ app.get("/users/:username/", (req, res) => {
 
   Users.find({
     name: username,
-  }).exec((err, users) => {
+  }).collation( { locale: 'en', strength: 2 } ).exec((err, users) => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -259,8 +259,7 @@ app.get("/users/:username/", (req, res) => {
           console.log(err);
         }
         res.status(200).send({
-          users: users,
-          total: count,
+          users: users[0],
         });
       });
     }

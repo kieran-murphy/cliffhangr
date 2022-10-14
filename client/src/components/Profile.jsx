@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ProfileReviews from "./ProfileReviews";
+import Watchlist from "./Watchlist";
 
 const Profile = () => {
   const { username } = useParams();
   const [tab, setTab] = useState("profile");
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({name: "loading", age: 0, following: [], followers: [], favoriteReviews: [], favoriteShows: [], watchList: [], profilePicture: "", bio: "loading bio"});
 
   async function getUser() {
     const response = await fetch(`/users/${username}`);
@@ -14,9 +14,10 @@ const Profile = () => {
       window.alert(message);
       return;
     }
-    console.log(response);
     const f = await response.json();
-    setUser(f.users[0]);
+    console.log(username)
+    console.log(f);
+    setUser(f.users);
     
   }
 
@@ -87,7 +88,7 @@ const Profile = () => {
             </div>
           </div>
         ) : (
-          <ProfileReviews />
+          <Watchlist user={user}/>
         )}
       </div>
     </div>
