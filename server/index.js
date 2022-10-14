@@ -30,6 +30,7 @@ const UsersSchema = new mongoose.Schema({
   age: Number,
   following: Array,
   followers: Array,
+  reviews: Array,
   favoriteReviews: Array,
   favoriteShows: Array,
   watchList: Array,
@@ -248,22 +249,24 @@ app.get("/users/:username/", (req, res) => {
 
   Users.find({
     name: username,
-  }).collation( { locale: 'en', strength: 2 } ).exec((err, users) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      Users.estimatedDocumentCount({
-        name: username,
-      }).exec((err, count) => {
-        if (err) {
-          console.log(err);
-        }
-        res.status(200).send({
-          users: users[0],
+  })
+    .collation({ locale: "en", strength: 2 })
+    .exec((err, users) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        Users.estimatedDocumentCount({
+          name: username,
+        }).exec((err, count) => {
+          if (err) {
+            console.log(err);
+          }
+          res.status(200).send({
+            user: users[0],
+          });
         });
-      });
-    }
-  });
+      }
+    });
 });
 
 app.post("/users/favoriteshow", (req, res) => {

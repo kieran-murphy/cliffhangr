@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 import { SwapSpinner } from "react-spinners-kit";
 import ShowReviewList from "./ShowReviewList";
 import ReviewConfirmation from "./ReviewConfirmation";
+import getUser from "../functions/getUser";
+import getShow from "../functions/getShow";
 import {
   ImStarEmpty,
   ImStarFull,
-  ImHappy,
   ImClock,
   ImPencil,
   ImPlay,
@@ -21,6 +22,18 @@ const ShowDetail = ({}) => {
   const [reviewComment, setReviewComment] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
   const [loading, setLoading] = useState(true);
+  const username = "Steve";
+  const [user, setUser] = useState({
+    name: "loading",
+    age: 0,
+    following: [],
+    followers: [],
+    favoriteReviews: [],
+    favoriteShows: [],
+    watchList: [],
+    profilePicture: "",
+    bio: "loading bio",
+  });
 
   const addReview = (text, reviewScore) => {
     let reviewUser = (Math.random() + 1).toString(36).substring(7);
@@ -114,19 +127,8 @@ const ShowDetail = ({}) => {
   };
 
   useEffect(() => {
-    async function getShow() {
-      const response = await fetch(`/shows/${id}`);
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-      const records = await response.json();
-      console.log(records);
-      setShow(records.shows);
-      setLoading(false);
-    }
-    getShow();
+    getUser(username, setUser, setLoading);
+    getShow(id, setShow, setLoading);
     return;
   }, [loading]);
 

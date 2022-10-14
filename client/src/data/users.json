@@ -1,9 +1,9 @@
 {
     "users": [
-        {"name": "Steve", "age": 36, "following": [], "followers": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"},
-        {"name": "Bob", "age": 36, "following": [], "followers": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"},
-        {"name": "Jimmy", "age": 36, "following": [], "followers": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"},
-        {"name": "Tom", "age": 36, "following": [], "followers": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"},
-        {"name": "Igor", "age": 36, "following": [], "followers": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"}
+        {"name": "Steve", "age": 36, "following": [], "followers": [], "reviews": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"},
+        {"name": "Bob", "age": 36, "following": [], "followers": [], "reviews": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"},
+        {"name": "Jimmy", "age": 36, "following": [], "followers": [], "reviews": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"},
+        {"name": "Tom", "age": 36, "following": [], "followers": [], "reviews": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"},
+        {"name": "Igor", "age": 36, "following": [], "followers": [], "reviews": [], "favoriteReviews": [], "favoriteShows": [], "watchList": [], "profilePicture": "", "bio": "this is a bio"}
     ]
 }

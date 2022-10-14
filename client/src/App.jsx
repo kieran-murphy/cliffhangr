@@ -4,26 +4,15 @@ import Show from "./components/Show";
 import Profile from "./components/Profile";
 import Navbar from "./components/Navbar";
 import Search from "./components/Search";
+import getAllShows from "./functions/getAllShows";
 var data = require("./data/shows.json");
 
 function App() {
   const [place, setPlace] = useState("home");
   const [shows, setShows] = useState([]);
 
-  async function getShows() {
-    const response = await fetch("/shows");
-    if (!response.ok) {
-      const message = `An error occurred: ${response.statusText}`;
-      window.alert(message);
-      return;
-    }
-    console.log(response);
-    const records = await response.json();
-    setShows(records.shows);
-  }
-
   useEffect(() => {
-    getShows();
+    getAllShows(setShows);
     return;
   }, []);
 

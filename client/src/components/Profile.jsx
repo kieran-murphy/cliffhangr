@@ -1,33 +1,31 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Watchlist from "./Watchlist";
+import getUser from "../functions/getUser";
 
 const Profile = () => {
   const { username } = useParams();
+  const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState("profile");
-  const [user, setUser] = useState({name: "loading", age: 0, following: [], followers: [], favoriteReviews: [], favoriteShows: [], watchList: [], profilePicture: "", bio: "loading bio"});
-
-  async function getUser() {
-    const response = await fetch(`/users/${username}`);
-    if (!response.ok) {
-      const message = `An error occurred: ${response.statusText}`;
-      window.alert(message);
-      return;
-    }
-    const f = await response.json();
-    console.log(username)
-    console.log(f);
-    setUser(f.users);
-    
-  }
+  const [user, setUser] = useState({
+    name: "loading",
+    age: 0,
+    following: [],
+    followers: [],
+    reviews: [],
+    favoriteReviews: [],
+    favoriteShows: [],
+    watchList: [],
+    profilePicture: "",
+    bio: "loading bio",
+  });
 
   useEffect(() => {
-    getUser();
+    getUser(username, setUser, setLoading);
     return;
   }, []);
 
   return (
-
     <div className="">
       <div className="w-full flex flex-row lg:flex-col place-content-evenly">
         <div className="avatar my-8 ">
@@ -65,7 +63,9 @@ const Profile = () => {
           <div className="w-full stats stats-vertical shadow text-center m-6 bg-base-200">
             <div className="stat">
               <div className="stat-title">Reviews</div>
-              <div className="stat-value text-success">82</div>
+              <div className="stat-value text-success">
+                {user.reviews.length}
+              </div>
               <div className="stat-desc">Jan 1st - Feb 1st</div>
             </div>
 
@@ -77,18 +77,22 @@ const Profile = () => {
 
             <div className="stat">
               <div className="stat-title">Following</div>
-              <div className="stat-value text-warning">{user.following.length}</div>
+              <div className="stat-value text-warning">
+                {user.following.length}
+              </div>
               <div className="stat-desc">↗︎ 400 (22%)</div>
             </div>
 
             <div className="stat">
               <div className="stat-title">Followers</div>
-              <div className="stat-value text-secondary">{user.followers.length}</div>
+              <div className="stat-value text-secondary">
+                {user.followers.length}
+              </div>
               <div className="stat-desc">↗︎ 90 (14%)</div>
             </div>
           </div>
         ) : (
-          <Watchlist user={user}/>
+          <Watchlist user={user} />
         )}
       </div>
     </div>
