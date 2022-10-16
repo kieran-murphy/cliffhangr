@@ -15,7 +15,7 @@ const WatchlistItem = ({ id }) => {
     <Link to={`../cliffhangr/show/${id}`}>
       <div className="card card-side bg-base-100 shadow-xl mb-4 h-24">
         <figure>
-          <img src={show.img} alt="Movie" className="w-40" />
+          <img src={show.img} alt={show.title} className="w-40" />
         </figure>
         <div className="card-body flex">
           <p className="font-semibold">{show.title}</p>

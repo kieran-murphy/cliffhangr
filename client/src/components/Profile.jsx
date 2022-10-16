@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Watchlist from "./Watchlist";
+import Favourites from "./Favourites";
 import getUser from "../functions/getUser";
 
 const Profile = () => {
@@ -47,9 +48,9 @@ const Profile = () => {
         </a>
         <a
           className={`tab ${tab === "reviews" ? "tab-active" : ""}`}
-          onClick={() => setTab("reviews")}
+          onClick={() => setTab("favourites")}
         >
-          Reviews
+          Favourites
         </a>
         <a
           className={`tab ${tab === "watchlist" ? "tab-active" : ""}`}
@@ -91,8 +92,10 @@ const Profile = () => {
               <div className="stat-desc">↗︎ 90 (14%)</div>
             </div>
           </div>
-        ) : (
+        ) : tab === "watchlist" ? (
           <Watchlist user={user} />
+        ) : (
+          <Favourites user={user} />
         )}
       </div>
     </div>

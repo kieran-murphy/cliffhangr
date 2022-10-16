@@ -104,13 +104,13 @@ const ShowDetail = ({}) => {
     console.log(requestOptions);
   };
 
-  const favoriteReview = (name, showID) => {
+  const unfavoriteShow = (name, showID) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: name, showID: showID }),
     };
-    fetch(`/users/favoriteshow`, requestOptions);
+    fetch(`/users/unfavoriteshow`, requestOptions);
     console.log(requestOptions);
   };
 
@@ -191,7 +191,10 @@ const ShowDetail = ({}) => {
             {user.favoriteShows.includes(show._id) ? (
               <button
                 className="btn btn-error gap-2 mt-3 font-bold"
-                onClick={() => alert("hi")}
+                onClick={() => {
+                  unfavoriteShow("Steve", show._id);
+                  setLoading(true);
+                }}
               >
                 <h1 className="">
                   <ImStarEmpty />

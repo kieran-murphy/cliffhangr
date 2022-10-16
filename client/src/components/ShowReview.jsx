@@ -84,9 +84,9 @@ const ShowReview = ({
                 {review.reacts.length}
               </div>
             )}
-            <div className="divider"></div>
+            {/* <div className="divider"></div>
 
-            <div className="flex flex-row place-items-center">
+             <div className="flex flex-row place-items-center">
               <button
                 className="btn gap-2 font-bold"
                 onClick={() =>
@@ -98,7 +98,8 @@ const ShowReview = ({
                 </h1>
                 Favourite
               </button>
-            </div>
+            </div> */}
+
             <div className="divider"></div>
             <h3 className="text-md font-bold">React</h3>
             <div className="flex flex-row place-items-center">
@@ -133,7 +134,6 @@ const ShowReview = ({
                 😡
               </button>
             </div>
-
             <div className="divider"></div>
             <h3 className="text-md font-bold">Comments</h3>
             {review.comments.length === 0 ? (

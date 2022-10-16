@@ -289,26 +289,6 @@ app.post("/users/favoriteshow", (req, res) => {
   });
 });
 
-app.post("/users/favoritereview", (req, res) => {
-  const name = req.body.name;
-  const showID = req.body.showID;
-
-  const listingQuery = { name: name };
-
-  const updates = {
-    $push: {
-      favoriteReviews: showID,
-    },
-  };
-  Users.updateOne(listingQuery, updates, function (err, _result) {
-    if (err) {
-      res.status(400).send(`Error favoriting`);
-    } else {
-      console.log("1 favorite added");
-    }
-  });
-});
-
 app.post("/users/addwatchlist", (req, res) => {
   const name = req.body.name;
   const showID = req.body.showID;
@@ -329,6 +309,26 @@ app.post("/users/addwatchlist", (req, res) => {
   });
 });
 
+app.post("/users/unfavoriteshow", (req, res) => {
+  const name = req.body.name;
+  const showID = req.body.showID;
+
+  const listingQuery = { name: name };
+
+  const updates = {
+    $pull: {
+      favoriteShows: showID,
+    },
+  };
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error favoriting`);
+    } else {
+      console.log("1 favorite removed");
+    }
+  });
+});
+
 app.post("/users/removewatchlist", (req, res) => {
   const name = req.body.name;
   const showID = req.body.showID;
@@ -344,7 +344,7 @@ app.post("/users/removewatchlist", (req, res) => {
     if (err) {
       res.status(400).send(`Error favoriting`);
     } else {
-      console.log("1 watchlist added");
+      console.log("1 watchlist removed");
     }
   });
 });
