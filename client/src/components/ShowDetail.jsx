@@ -22,6 +22,8 @@ const ShowDetail = ({}) => {
   const [reviewComment, setReviewComment] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
   const [loading, setLoading] = useState(true);
+  // const [isFav, setIsFav] = useState(false);
+  // const [isWatchlist, setIsWatchlist] = useState(false);
   const username = "Steve";
   const [user, setUser] = useState({
     name: "loading",
@@ -122,6 +124,16 @@ const ShowDetail = ({}) => {
     console.log(requestOptions);
   };
 
+  const removeWatchlist = (name, showID) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: name, showID: showID }),
+    };
+    fetch(`/users/removewatchlist`, requestOptions);
+    console.log(requestOptions);
+  };
+
   const handleReviewChange = (event) => {
     setReviewComment(event.target.value);
   };
@@ -156,7 +168,7 @@ const ShowDetail = ({}) => {
             <a
               href={`https://www.youtube.com/results?sp=mAEA&search_query=${show.title}+trailer`}
             >
-              <button className="btn btn-sm btn-secondary gap-2">
+              <button className="btn btn-sm btn-info gap-2">
                 <ImPlay /> Trailer
               </button>
             </a>
@@ -176,25 +188,57 @@ const ShowDetail = ({}) => {
               <ImPencil />
               Write a Review
             </label>
-
-            <button
-              className="btn gap-2 mt-3 font-bold"
-              onClick={() => favoriteShow("Steve", show._id)}
-            >
-              <h1 className="">
-                <ImStarEmpty />
-              </h1>
-              Favourite
-            </button>
-            <button
-              className="btn gap-2 mt-3 font-bold"
-              onClick={() => addWatchlist("Steve", show._id)}
-            >
-              <h1 className="">
-                <ImClock />
-              </h1>
-              Add to watchlist
-            </button>
+            {user.favoriteShows.includes(show._id) ? (
+              <button
+                className="btn btn-error gap-2 mt-3 font-bold"
+                onClick={() => alert("hi")}
+              >
+                <h1 className="">
+                  <ImStarEmpty />
+                </h1>
+                Unfavourite
+              </button>
+            ) : (
+              <button
+                className="btn gap-2 mt-3 font-bold"
+                onClick={() => {
+                  favoriteShow("Steve", show._id);
+                  setLoading(true);
+                }}
+              >
+                <h1 className="">
+                  <ImStarEmpty />
+                </h1>
+                Favourite
+              </button>
+            )}
+            {user.watchList.includes(show._id) ? (
+              <button
+                className="btn btn-error gap-2 mt-3 font-bold"
+                onClick={() => {
+                  removeWatchlist("Steve", show._id);
+                  setLoading(true);
+                }}
+              >
+                <h1 className="">
+                  <ImClock />
+                </h1>
+                Remove from watchlist
+              </button>
+            ) : (
+              <button
+                className="btn gap-2 mt-3 font-bold"
+                onClick={() => {
+                  addWatchlist("Steve", show._id);
+                  setLoading(true);
+                }}
+              >
+                <h1 className="">
+                  <ImClock />
+                </h1>
+                Add to watchlist
+              </button>
+            )}
           </div>
         </div>
 

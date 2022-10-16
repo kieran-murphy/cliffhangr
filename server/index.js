@@ -329,6 +329,26 @@ app.post("/users/addwatchlist", (req, res) => {
   });
 });
 
+app.post("/users/removewatchlist", (req, res) => {
+  const name = req.body.name;
+  const showID = req.body.showID;
+
+  const listingQuery = { name: name };
+
+  const updates = {
+    $pull: {
+      watchList: showID,
+    },
+  };
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error favoriting`);
+    } else {
+      console.log("1 watchlist added");
+    }
+  });
+});
+
 app.post("/users/deletechats/", (req, res) => {
   const listingQuery = { letsChat: "https://stin.to/pbf69" };
 
@@ -338,7 +358,7 @@ app.post("/users/deletechats/", (req, res) => {
         .status(400)
         .send(`Error deleting review on show with id ${listingQuery.id}!`);
     } else {
-      console.log("chats deleted");
+      console.log("users deleted");
     }
   });
 });
@@ -352,7 +372,7 @@ app.post("/shows/deletechats/", (req, res) => {
         .status(400)
         .send(`Error deleting review on show with id ${listingQuery.id}!`);
     } else {
-      console.log("chats deleted");
+      console.log("shows deleted");
     }
   });
 });

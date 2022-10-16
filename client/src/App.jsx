@@ -18,12 +18,9 @@ function App() {
 
   return (
     <div className="w-full">
-      {/* <Navbar setPlace={setPlace} place={place} /> */}
-
       <div>
         <div className="flex flex-col justify-center">
           <Search />
-
           {shows.map((s) => {
             return (
               <Show

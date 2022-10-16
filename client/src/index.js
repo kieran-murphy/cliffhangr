@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { themeChange } from "theme-change";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-// import { ThemeProvider } from "./Theme/ThemeContext";
 import "./index.css";
 
 import App from "./App";
@@ -17,8 +16,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 function Index() {
   return (
     <BrowserRouter>
-      {/* <ThemeProvider> */}
-      {/* <Background> */}
       <Navbar />
       <Routes>
         <Route path="/cliffhangr" element={<App />} />
@@ -31,8 +28,6 @@ function Index() {
           element={<ShowDetail />}
         />
       </Routes>
-      {/* </Background> */}
-      {/* </ThemeProvider> */}
     </BrowserRouter>
   );
 }

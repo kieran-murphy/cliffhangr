@@ -6,7 +6,6 @@ async function getUser(username, setUser, setLoading) {
     return;
   }
   const f = await response.json();
-  console.log(username);
   console.log(f);
   setUser(f.user);
 }
