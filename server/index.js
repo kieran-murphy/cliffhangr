@@ -99,7 +99,8 @@ app.post("/shows/:id/addreview", (req, res) => {
   const updates = {
     $push: {
       reviews: {
-        user: reviewUser,
+        userId: reviewUser._id,
+        username: reviewUser.name,
         score: reviewScore,
         text: text,
         reacts: reviewReacts,

@@ -47,7 +47,7 @@ const Profile = () => {
           Profile
         </a>
         <a
-          className={`tab ${tab === "reviews" ? "tab-active" : ""}`}
+          className={`tab ${tab === "favourites" ? "tab-active" : ""}`}
           onClick={() => setTab("favourites")}
         >
           Favourites

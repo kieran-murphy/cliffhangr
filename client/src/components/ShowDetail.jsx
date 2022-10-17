@@ -38,7 +38,7 @@ const ShowDetail = ({}) => {
   });
 
   const addReview = (text, reviewScore) => {
-    let reviewUser = (Math.random() + 1).toString(36).substring(7);
+    let reviewUser = user;
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

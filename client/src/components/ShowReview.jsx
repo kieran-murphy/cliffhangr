@@ -32,7 +32,7 @@ const ShowReview = ({
         htmlFor={review.text}
         className="btn modal-button flex flex-row place-content-evenly"
       >
-        <h1 className="font-bold">{review.user}</h1>
+        <h1 className="font-bold">{review.username}</h1>
         <h1>{review.score}⭐</h1>
         {/* {review.text.length > 16 ? (
           <h1>{review.text.substring(0, 16)}...</h1>
@@ -52,7 +52,7 @@ const ShowReview = ({
         <label className="modal-box relative" htmlFor="">
           <div className="flex flex-col place-items-center">
             <div className="flex flex-row place-items-center">
-              <h3 className="text-2xl font-bold mr-4">{review.user}</h3>{" "}
+              <h3 className="text-2xl font-bold mr-4">{review.username}</h3>{" "}
               <DisplayRating score={review.score} />
             </div>
             <h1 className="my-2">{review.time}</h1>

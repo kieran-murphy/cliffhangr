@@ -1,14 +1,16 @@
 import React from "react";
 import WatchlistItem from "./WatchlistItem";
 
-const Watchlist = ({user}) => {
+const Watchlist = ({ user }) => {
   return (
     <div className="m-6">
-      {user.watchList.map((id) => {
-        return (
-          <WatchlistItem id={id} key={id} />
-        );
-      })}
+      {user.watchList.length !== 0 ? (
+        user.watchList.map((id) => {
+          return <WatchlistItem id={id} key={id} />;
+        })
+      ) : (
+        <h1>No watchlist shows yet</h1>
+      )}
     </div>
   );
 };
