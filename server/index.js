@@ -91,10 +91,10 @@ app.post("/shows/:id/addreview", (req, res) => {
   const reviewUser = req.body.reviewUser;
   const text = req.body.text;
   const reviewScore = req.body.reviewScore;
+  const reviewTime = req.body.reviewTime;
   const reviewReacts = [];
   const reviewComments = [];
   const listingQuery = { _id: id };
-  var reviewTime = new Date();
 
   const updates = {
     $push: {
@@ -105,7 +105,7 @@ app.post("/shows/:id/addreview", (req, res) => {
         text: text,
         reacts: reviewReacts,
         comments: reviewComments,
-        time: reviewTime.toLocaleDateString(),
+        time: reviewTime,
       },
     },
   };
@@ -268,6 +268,40 @@ app.get("/users/:username/", (req, res) => {
         });
       }
     });
+});
+
+app.post("/users/addreview", (req, res) => {
+  const userID = req.body.userID;
+  const showID = req.body.showID;
+  const text = req.body.text;
+  const reviewScore = req.body.reviewScore;
+  const reviewTime = req.body.reviewTime;
+  const reviewReacts = [];
+  const reviewComments = [];
+  const listingQuery = { _id: userID };
+
+  const updates = {
+    $push: {
+      reviews: {
+        showID: showID,
+        score: reviewScore,
+        text: text,
+        reacts: reviewReacts,
+        comments: reviewComments,
+        time: reviewTime,
+      },
+    },
+  };
+
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res
+        .status(400)
+        .send(`Error updating reviews on listing with id ${listingQuery.id}!`);
+    } else {
+      console.log("1 review added");
+    }
+  });
 });
 
 app.post("/users/favoriteshow", (req, res) => {

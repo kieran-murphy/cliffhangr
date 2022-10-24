@@ -70,7 +70,7 @@ const ShowReview = ({
               <div className="mt-4" onClick={() => setReactionsExpanded(false)}>
                 {review.reacts.map((react) => {
                   return (
-                    <div>
+                    <div key={react.user}>
                       {react.reaction} - {react.user}
                     </div>
                   );
@@ -84,21 +84,6 @@ const ShowReview = ({
                 {review.reacts.length}
               </div>
             )}
-            {/* <div className="divider"></div>
-
-             <div className="flex flex-row place-items-center">
-              <button
-                className="btn gap-2 font-bold"
-                onClick={() =>
-                  favoriteShow("Steve", show._id)
-                }
-              >
-                <h1 className="">
-                  <ImStarEmpty />
-                </h1>
-                Favourite
-              </button>
-            </div> */}
 
             <div className="divider"></div>
             <h3 className="text-md font-bold">React</h3>

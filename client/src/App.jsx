@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Show from "./components/Show";
-import Profile from "./components/Profile";
-import Navbar from "./components/Navbar";
 import Search from "./components/Search";
 import getAllShows from "./functions/getAllShows";
 import { SwapSpinner } from "react-spinners-kit";
-var data = require("./data/shows.json");
 
 function App() {
-  const [place, setPlace] = useState("home");
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
 

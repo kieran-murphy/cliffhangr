@@ -13,7 +13,6 @@ import {
   ImPencil,
   ImPlay,
 } from "react-icons/im";
-var data = require("../data/shows.json");
 
 const ShowDetail = () => {
   const { id } = useParams();
@@ -37,18 +36,32 @@ const ShowDetail = () => {
     bio: "loading bio",
   });
 
-  const addReview = (text, reviewScore) => {
+  const addReview = (text, reviewScore, show, user) => {
     let reviewUser = user;
-    const requestOptions = {
+    let reviewTime = new Date().toLocaleDateString();
+    const showRequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         reviewUser: reviewUser,
         text: text,
         reviewScore: reviewScore,
+        reviewTime: reviewTime,
       }),
     };
-    fetch(`/shows/${id}/addreview`, requestOptions);
+    const userRequestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userID: user._id,
+        showID: show._id,
+        text: text,
+        reviewScore: reviewScore,
+        reviewTime: reviewTime,
+      }),
+    };
+    fetch(`/shows/${show._id}/addreview`, showRequestOptions);
+    fetch(`/users/addreview`, userRequestOptions);
   };
 
   const deleteReview = (user) => {
@@ -286,7 +299,7 @@ const ShowDetail = () => {
               className="btn btn-success mt-4"
               htmlFor="my-modal"
               onClick={() => {
-                addReview(reviewComment, reviewScore);
+                addReview(reviewComment, reviewScore, show, user);
                 setReviewComment("");
                 setReviewScore(0);
                 setLoading(true);
