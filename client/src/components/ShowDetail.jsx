@@ -15,7 +15,7 @@ import {
 } from "react-icons/im";
 var data = require("../data/shows.json");
 
-const ShowDetail = ({}) => {
+const ShowDetail = () => {
   const { id } = useParams();
   const [confirm, setConfirm] = useState(false);
   const [show, setShow] = useState({});

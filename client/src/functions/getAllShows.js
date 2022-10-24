@@ -1,4 +1,4 @@
-async function getAllShows(setShows) {
+async function getAllShows(setShows, setLoading) {
   const response = await fetch("/shows");
   if (!response.ok) {
     const message = `An error occurred: ${response.statusText}`;
@@ -8,6 +8,7 @@ async function getAllShows(setShows) {
   console.log(response);
   const records = await response.json();
   setShows(records.shows);
+  setLoading(false);
 }
 
 export default getAllShows;

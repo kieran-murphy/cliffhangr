@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { SwapSpinner } from "react-spinners-kit";
 import Watchlist from "./Watchlist";
 import Favourites from "./Favourites";
 import getUser from "../functions/getUser";
 
 const Profile = () => {
   const { username } = useParams();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("profile");
   const [user, setUser] = useState({
     name: "loading",
@@ -24,9 +25,13 @@ const Profile = () => {
   useEffect(() => {
     getUser(username, setUser, setLoading);
     return;
-  }, []);
+  }, [loading]);
 
-  return (
+  return loading === true ? (
+    <div className="py-10 w-full flex flex-row place-content-center">
+      <SwapSpinner size={60} loading={true} />
+    </div>
+  ) : (
     <div className="">
       <div className="w-full flex flex-row lg:flex-col place-content-evenly">
         <div className="avatar my-8 ">

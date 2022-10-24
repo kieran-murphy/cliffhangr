@@ -42,7 +42,7 @@ const ShowReview = ({
         <div className="flex flex-row place-items-center">
           <h1>{review.upvotes}</h1>
           {arr.slice(0, 3).map((react) => {
-            return react;
+            return <h1 key={react}>{react}</h1>;
           })}
           {review.reacts.length}
         </div>
@@ -170,7 +170,7 @@ const ShowReview = ({
               <div>
                 {review.comments.map((comment) => {
                   return (
-                    <div className="w-full">
+                    <div className="w-full" key={comment}>
                       <div className="divider"></div>
                       <div className="flex flex-row place-content-between place-items-center">
                         <img

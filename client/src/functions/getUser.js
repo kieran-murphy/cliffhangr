@@ -8,6 +8,7 @@ async function getUser(username, setUser, setLoading) {
   const f = await response.json();
   console.log(f);
   setUser(f.user);
+  setLoading(false);
 }
 
 export default getUser;
