@@ -9,6 +9,7 @@ const Profile = () => {
   const { username } = useParams();
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("profile");
+  const [avgScore, setAvgScore] = useState(0.0);
   const [user, setUser] = useState({
     name: "loading",
     age: 0,
@@ -22,8 +23,16 @@ const Profile = () => {
     bio: "loading bio",
   });
 
+  const calcAvgScore = (user, setAvgScore) => {
+    const average =
+      user.reviews.reduce((total, next) => total + next.score, 0) /
+      user.reviews.length;
+    setAvgScore(average);
+  };
+
   useEffect(() => {
     getUser(username, setUser, setLoading);
+    calcAvgScore(user, setAvgScore);
     return;
   }, [loading]);
 
@@ -77,7 +86,7 @@ const Profile = () => {
 
             <div className="stat">
               <div className="stat-title">Avg Score</div>
-              <div className="stat-value text-success">4.6</div>
+              <div className="stat-value text-success">{avgScore}</div>
               <div className="stat-desc">Out of five stars</div>
             </div>
 
