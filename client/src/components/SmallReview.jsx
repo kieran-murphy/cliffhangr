@@ -1,15 +1,27 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import getShow from "../functions/getShow";
 
-const SmallReview = ({ title, img }) => {
+const SmallReview = ({ id }) => {
+  const [show, setShow] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getShow(id, setShow, setLoading);
+    return;
+  }, [loading]);
+
   return (
-    <div className="card card-side bg-base-100 shadow-xl mb-4 h-24">
-      <figure>
-        <img src={img} alt="Movie" className="w-40" />
-      </figure>
-      <div className="card-body flex">
-        <p className="font-semibold">{title}</p>
+    <Link to={`../cliffhangr/show/${id}`}>
+      <div className="card card-side bg-base-100 shadow-xl mb-4 h-24">
+        <figure>
+          <img src={show.img} alt={show.title} className="w-40" />
+        </figure>
+        <div className="card-body flex">
+          <p className="font-semibold">{show.title}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

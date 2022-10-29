@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { SwapSpinner } from "react-spinners-kit";
 import Watchlist from "./Watchlist";
 import Favourites from "./Favourites";
+import ProfileReviews from "./ProfileReviews";
 import getUser from "../functions/getUser";
 
 const Profile = () => {
@@ -61,6 +62,12 @@ const Profile = () => {
           Profile
         </a>
         <a
+          className={`tab ${tab === "reviews" ? "tab-active" : ""}`}
+          onClick={() => setTab("reviews")}
+        >
+          Reviews
+        </a>
+        <a
           className={`tab ${tab === "favourites" ? "tab-active" : ""}`}
           onClick={() => setTab("favourites")}
         >
@@ -86,7 +93,9 @@ const Profile = () => {
 
             <div className="stat">
               <div className="stat-title">Avg Score</div>
-              <div className="stat-value text-success">{avgScore}</div>
+              <div className="stat-value text-success">
+                {isNaN(avgScore) ? 0 : avgScore.toFixed(2)}
+              </div>
               <div className="stat-desc">Out of five stars</div>
             </div>
 
@@ -108,8 +117,10 @@ const Profile = () => {
           </div>
         ) : tab === "watchlist" ? (
           <Watchlist user={user} />
-        ) : (
+        ) : tab === "favourites" ? (
           <Favourites user={user} />
+        ) : (
+          <ProfileReviews user={user} />
         )}
       </div>
     </div>
