@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const express = require("express");
 var defaultShows = require("../client/src/data/shows.json");
 var defaultUsers = require("../client/src/data/users.json");
+var defaultReviews = require("../client/src/data/reviews.json");
 
 const app = express();
 app.use(express.json());
@@ -38,28 +39,57 @@ const UsersSchema = new mongoose.Schema({
   bio: String,
 });
 
+const ReviewsSchema = new mongoose.Schema({
+  _id: mongoose.Schema.ObjectId,
+  userId: String,
+  showId: String,
+  score: Number,
+  text: String,
+  reacts: Array,
+  comments: Array,
+  time: String,
+});
+
 const Shows = mongoose.model("shows", ShowsSchema, "shows");
 
 const Users = mongoose.model("users", UsersSchema, "users");
 
+const Reviews = mongoose.model("reviews", ReviewsSchema, "reviews");
+
 app.get("/shows", (req, res) => {
-  Shows.find()
-    .limit(10)
-    .exec((err, shows) => {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        Shows.estimatedDocumentCount().exec((err, count) => {
-          if (err) {
-            console.log(err);
-          }
-          res.status(200).send({
-            shows: shows,
-            total: count,
-          });
+  Shows.find().exec((err, shows) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      Shows.estimatedDocumentCount().exec((err, count) => {
+        if (err) {
+          console.log(err);
+        }
+        res.status(200).send({
+          shows: shows,
+          total: count,
         });
-      }
-    });
+      });
+    }
+  });
+});
+
+app.get("/reviews", (req, res) => {
+  Reviews.find().exec((err, reviews) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      Reviews.estimatedDocumentCount().exec((err, count) => {
+        if (err) {
+          console.log(err);
+        }
+        res.status(200).send({
+          reviews: reviews,
+          total: count,
+        });
+      });
+    }
+  });
 });
 
 app.get("/shows/:id/", (req, res) => {
@@ -225,23 +255,21 @@ app.post("/shows/:id/addreviewcomment/", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-  Users.find()
-    .limit(10)
-    .exec((err, users) => {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        Users.estimatedDocumentCount().exec((err, count) => {
-          if (err) {
-            console.log(err);
-          }
-          res.status(200).send({
-            users: users,
-            total: count,
-          });
+  Users.find().exec((err, users) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      Users.estimatedDocumentCount().exec((err, count) => {
+        if (err) {
+          console.log(err);
+        }
+        res.status(200).send({
+          users: users,
+          total: count,
         });
-      }
-    });
+      });
+    }
+  });
 });
 
 app.get("/users/:username/", (req, res) => {
@@ -428,6 +456,30 @@ app.post("/users/addallusers/", (req, res) => {
       res.status(400).send(`Error adding shows!`);
     } else {
       console.log("users added");
+    }
+  });
+});
+
+app.post("/reviews/addtest/", (req, res) => {
+  Reviews.insertMany(defaultReviews.reviews, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error adding shows!`);
+    } else {
+      console.log("reviews added");
+    }
+  });
+});
+
+app.post("/reviews/deletechats/", (req, res) => {
+  const listingQuery = { letsChat: "https://stin.to/pbf69" };
+
+  Reviews.deleteMany(listingQuery, function (err, _result) {
+    if (err) {
+      res
+        .status(400)
+        .send(`Error deleting review on show with id ${listingQuery.id}!`);
+    } else {
+      console.log("reviews deleted");
     }
   });
 });

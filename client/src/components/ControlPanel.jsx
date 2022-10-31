@@ -15,6 +15,13 @@ const ControlPanel = () => {
     fetch(`/users/deletechats/`, requestOptions);
   };
 
+  const deleteReviews = () => {
+    const requestOptions = {
+      method: "POST",
+    };
+    fetch(`/reviews/deletechats/`, requestOptions);
+  };
+
   const addAllShows = () => {
     const requestOptions = {
       method: "POST",
@@ -29,10 +36,17 @@ const ControlPanel = () => {
     fetch(`/users/addallusers/`, requestOptions);
   };
 
+  const addTestReviews = () => {
+    const requestOptions = {
+      method: "POST",
+    };
+    fetch(`/reviews/addtest/`, requestOptions);
+  };
+
   return (
     <div className="w-full px-10 place-content-center flex flex-col">
       <label
-        className="btn btn-error mt-4 w-full"
+        className="btn btn-error mt-8 w-full"
         onClick={() => deleteShows()}
       >
         Delete all shows
@@ -43,12 +57,15 @@ const ControlPanel = () => {
       >
         Delete all users
       </label>
-      <br></br>
-
       <label
-        className="btn btn-success mt-4 w-full"
-        onClick={() => addAllShows()}
+        className="btn btn-error mt-4 w-full"
+        onClick={() => deleteReviews()}
       >
+        Delete all reviews
+      </label>
+      <div className="divider"></div>
+
+      <label className="btn btn-success w-full" onClick={() => addAllShows()}>
         Populate shows
       </label>
       <label
@@ -56,6 +73,19 @@ const ControlPanel = () => {
         onClick={() => addAllUsers()}
       >
         Populate users
+      </label>
+      <label
+        className="btn btn-success mt-4 w-full"
+        onClick={() => addTestReviews()}
+      >
+        Populate reviews
+      </label>
+      <div className="divider"></div>
+      <label
+        className="btn btn-info w-full"
+        onClick={() => console.log("needs to be added")}
+      >
+        Reset everything
       </label>
     </div>
   );

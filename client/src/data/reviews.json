@@ -1,6 +1,13 @@
 {
-    "reviews": {
-    "Lost": [{"name": "Sawyer", "text": "this is a review"}, {"name": "Kate", "text": "this is a review"}],
-    "Ozark": [{"name": "Marty", "text": "godammit jonah"}]
-    }
+    "reviews": [
+        {
+            "userId": "635f9ac6552fc5f1eea6e468",
+            "showId": "635f9ac6552fc5f1eea6e468",
+            "score": 4.5,
+            "text": "bjhfbf",
+            "reacts": [ ],
+            "comments": [ ],
+            "time": "31/10/2022"
+            }
+        ]
 }
