@@ -36,32 +36,66 @@ const ShowDetail = () => {
     bio: "loading bio",
   });
 
+  // const addReview = (text, reviewScore, show, user) => {
+  //   let reviewUser = user;
+  //   let reviewTime = new Date().toLocaleDateString();
+  //   const showRequestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       reviewUser: reviewUser,
+  //       text: text,
+  //       reviewScore: reviewScore,
+  //       reviewTime: reviewTime,
+  //     }),
+  //   };
+  //   const userRequestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       userID: user._id,
+  //       showID: show._id,
+  //       text: text,
+  //       reviewScore: reviewScore,
+  //       reviewTime: reviewTime,
+  //     }),
+  //   };
+  //   fetch(`/shows/${show._id}/addreview`, showRequestOptions);
+  //   fetch(`/users/addreview`, userRequestOptions);
+  // };
+
   const addReview = (text, reviewScore, show, user) => {
-    let reviewUser = user;
     let reviewTime = new Date().toLocaleDateString();
-    const showRequestOptions = {
+    const review = {
+      userId: user._id,
+      showId: show._id,
+      score: reviewScore,
+      text: text,
+      reacts: [],
+      comments: [],
+      time: reviewTime,
+    };
+    // console.log(review);
+    const RequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        reviewUser: reviewUser,
-        text: text,
-        reviewScore: reviewScore,
-        reviewTime: reviewTime,
+        review: review,
       }),
     };
-    const userRequestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userID: user._id,
-        showID: show._id,
-        text: text,
-        reviewScore: reviewScore,
-        reviewTime: reviewTime,
-      }),
-    };
-    fetch(`/shows/${show._id}/addreview`, showRequestOptions);
-    fetch(`/users/addreview`, userRequestOptions);
+    fetch(`/reviews/add`, RequestOptions)
+      .then((res) => {
+        if (!res.ok) {
+          return res.text().then((text) => {
+            throw new Error(text);
+          });
+        } else {
+          return res.json();
+        }
+      })
+      .catch((err) => {
+        console.log("caught it!", err);
+      });
   };
 
   const deleteReview = (user) => {

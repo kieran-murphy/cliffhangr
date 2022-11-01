@@ -470,6 +470,29 @@ app.post("/reviews/addtest/", (req, res) => {
   });
 });
 
+app.post("/reviews/add/", (req, res) => {
+  const review = req.body.review;
+  Reviews.create(
+    {
+      userId: "fgwf",
+      showId: "gdsg",
+      score: 4.0,
+      text: "fggg",
+      reacts: [],
+      comments: [],
+      time: "31/10/2022",
+    },
+    function (err, _result) {
+      if (err) {
+        res.status(400).send(`Error adding review!`);
+        console.log(req.body);
+      } else {
+        console.log("review added");
+      }
+    }
+  );
+});
+
 app.post("/reviews/deletechats/", (req, res) => {
   const listingQuery = { letsChat: "https://stin.to/pbf69" };
 
@@ -482,6 +505,32 @@ app.post("/reviews/deletechats/", (req, res) => {
       console.log("reviews deleted");
     }
   });
+});
+
+app.get("/reviews/:showid/", (req, res) => {
+  const showid = req.params.showid;
+  console.log(`searching for ${showid}`);
+
+  Reviews.find({
+    showId: showid,
+  })
+    .collation({ locale: "en", strength: 2 })
+    .exec((err, reviews) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        Reviews.estimatedDocumentCount({
+          showId: showid,
+        }).exec((err, count) => {
+          if (err) {
+            console.log(err);
+          }
+          res.status(200).send({
+            reviews: reviews,
+          });
+        });
+      }
+    });
 });
 
 app.get("/api", (req, res) => {
