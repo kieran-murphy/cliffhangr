@@ -472,25 +472,14 @@ app.post("/reviews/addtest/", (req, res) => {
 
 app.post("/reviews/add/", (req, res) => {
   const review = req.body.review;
-  Reviews.create(
-    {
-      userId: "fgwf",
-      showId: "gdsg",
-      score: 4.0,
-      text: "fggg",
-      reacts: [],
-      comments: [],
-      time: "31/10/2022",
-    },
-    function (err, _result) {
-      if (err) {
-        res.status(400).send(`Error adding review!`);
-        console.log(req.body);
-      } else {
-        console.log("review added");
-      }
+  Reviews.insertMany(review, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error adding review!`);
+      console.log(req.body);
+    } else {
+      console.log("review added");
     }
-  );
+  });
 });
 
 app.post("/reviews/deletechats/", (req, res) => {
