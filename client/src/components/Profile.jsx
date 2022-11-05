@@ -26,18 +26,18 @@ const Profile = () => {
     bio: "loading bio",
   });
 
-  const calcAvgScore = (user, setAvgScore) => {
+  const calcAvgScore = (reviews, setAvgScore) => {
     const average =
-      user.reviews.reduce((total, next) => total + next.score, 0) /
-      user.reviews.length;
+      reviews.reduce((total, next) => total + next.score, 0) / reviews.length;
     setAvgScore(average);
+    console.log(avgScore);
   };
 
   useEffect(() => {
     getUser(username, setUser, setLoading);
-    getReviews(user._id, setReviews, setLoading, "user");
-    calcAvgScore(user, setAvgScore);
-    return;
+    getReviews(user._id, setReviews, setLoading, "user").then(
+      calcAvgScore(reviews, setAvgScore)
+    );
   }, [loading]);
 
   return loading === true ? (
@@ -88,9 +88,7 @@ const Profile = () => {
           <div className="w-full stats stats-vertical shadow text-center m-6 bg-base-200">
             <div className="stat">
               <div className="stat-title">Reviews</div>
-              <div className="stat-value text-success">
-                {user.reviews.length}
-              </div>
+              <div className="stat-value text-success">{reviews.length}</div>
               <div className="stat-desc">Jan 1st - Feb 1st</div>
             </div>
 

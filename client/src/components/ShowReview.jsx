@@ -4,10 +4,10 @@ import { FaRegTimesCircle, FaCaretUp, FaCaretDown } from "react-icons/fa";
 import { ImStarEmpty, ImStarFull, ImHappy, ImClock } from "react-icons/im"; //https://react-icons.github.io/react-icons/icons?name=im
 
 const ShowReview = ({
+  user,
   show,
   review,
   deleteReview,
-  updateUpvotes,
   addReviewComment,
   addReaction,
   favoriteShow,
@@ -89,31 +89,31 @@ const ShowReview = ({
             <h3 className="text-md font-bold">React</h3>
             <div className="flex flex-row place-items-center">
               <button
-                onClick={() => addReaction(review.user, "😍")}
+                onClick={() => addReaction(user, "😍", review._id)}
                 className="btn text-green-500 text-xl"
               >
                 😍
               </button>
               <button
-                onClick={() => addReaction(review.user, "😂")}
+                onClick={() => addReaction(user, "😂", review._id)}
                 className="btn text-red-600 text-xl"
               >
                 😂
               </button>
               <button
-                onClick={() => addReaction(review.user, "😮")}
+                onClick={() => addReaction(user, "😮", review._id)}
                 className="btn text-red-600 text-xl"
               >
                 😮
               </button>
               <button
-                onClick={() => addReaction(review.user, "😢")}
+                onClick={() => addReaction(user, "😢", review._id)}
                 className="btn text-red-600 text-xl"
               >
                 😢
               </button>
               <button
-                onClick={() => addReaction(review.user, "😡")}
+                onClick={() => addReaction(user, "😡", review._id)}
                 className="btn text-red-600 text-xl"
               >
                 😡

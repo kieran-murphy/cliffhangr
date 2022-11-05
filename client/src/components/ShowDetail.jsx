@@ -27,6 +27,7 @@ const ShowDetail = () => {
   // const [isWatchlist, setIsWatchlist] = useState(false);
   const username = "Steve";
   const [user, setUser] = useState({
+    _id: "ejhfbehfbf",
     name: "loading",
     age: 0,
     following: [],
@@ -123,24 +124,28 @@ const ShowDetail = () => {
     setLoading(true);
   };
 
-  const updateUpvotes = (user, updatedUpvotes) => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: user, updatedUpvotes: updatedUpvotes }),
-    };
-    fetch(`/shows/${id}/updateupvotes`, requestOptions);
-    // console.log(requestOptions);
-    setLoading(true);
-  };
+  // const updateUpvotes = (user, updatedUpvotes) => {
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ user: user, updatedUpvotes: updatedUpvotes }),
+  //   };
+  //   fetch(`/shows/${id}/updateupvotes`, requestOptions);
+  //   // console.log(requestOptions);
+  //   setLoading(true);
+  // };
 
-  const addReaction = (user, reaction) => {
+  const addReaction = (user, reaction, reviewID) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: user, reaction: reaction }),
+      body: JSON.stringify({
+        userID: user._id,
+        username: user.name,
+        reaction: reaction,
+      }),
     };
-    fetch(`/shows/${id}/addreaction`, requestOptions);
+    fetch(`/reviews/${reviewID}/addreaction`, requestOptions);
     // console.log(requestOptions);
     setLoading(true);
   };
@@ -299,10 +304,10 @@ const ShowDetail = () => {
 
         {show.reviews ? (
           <ShowReviewList
+            user={user}
             show={show}
             reviews={reviews}
             deleteReview={deleteReview}
-            updateUpvotes={updateUpvotes}
             addReviewComment={addReviewComment}
             addReaction={addReaction}
             favoriteShow={favoriteShow}

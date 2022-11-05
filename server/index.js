@@ -175,54 +175,56 @@ app.post("/shows/:id/deletereview/", (req, res) => {
   });
 });
 
-app.post("/shows/:id/updateupvotes/", (req, res) => {
-  const id = req.params.id;
-  const user = req.body.user;
-  const updatedUpvotes = req.body.updatedUpvotes;
-  const listingQuery = {
-    _id: id,
-    reviews: { $elemMatch: { user: { $eq: user } } },
-  };
+// app.post("/shows/:id/addreaction/", (req, res) => {
+//   const id = req.params.id;
+//   const user = req.body.user;
+//   const reaction = req.body.reaction;
+//   const listingQuery = {
+//     _id: id,
+//     reviews: { $elemMatch: { user: { $eq: user } } },
+//   };
 
-  const updates = {
-    $set: {
-      "reviews.$.upvotes": updatedUpvotes,
-    },
-  };
-  Shows.updateOne(listingQuery, updates, function (err, _result) {
-    if (err) {
-      res
-        .status(400)
-        .send(
-          `Error updating review from ${user} on show with id ${listingQuery.id}!`
-        );
-    } else {
-      console.log("1 review updated");
-    }
-  });
-});
+//   const updates = {
+//     $push: {
+//       "reviews.$.reacts": { reaction: reaction, user: user },
+//     },
+//   };
+//   Shows.updateOne(listingQuery, updates, function (err, _result) {
+//     if (err) {
+//       res
+//         .status(400)
+//         .send(
+//           `Error updating review from ${user} on show with id ${listingQuery.id}!`
+//         );
+//     } else {
+//       console.log("1 review updated");
+//     }
+//   });
+// });
 
-app.post("/shows/:id/addreaction/", (req, res) => {
+app.post("/reviews/:id/addreaction/", (req, res) => {
   const id = req.params.id;
-  const user = req.body.user;
   const reaction = req.body.reaction;
+  const userID = req.body.userID;
+  const username = req.body.username;
   const listingQuery = {
     _id: id,
-    reviews: { $elemMatch: { user: { $eq: user } } },
   };
 
   const updates = {
     $push: {
-      "reviews.$.reacts": { reaction: reaction, user: user },
+      reacts: {
+        reaction: reaction,
+        userID: userID,
+        username: username,
+      },
     },
   };
-  Shows.updateOne(listingQuery, updates, function (err, _result) {
+  Reviews.updateOne(listingQuery, updates, function (err, _result) {
     if (err) {
       res
         .status(400)
-        .send(
-          `Error updating review from ${user} on show with id ${listingQuery.id}!`
-        );
+        .send(`Error updating review on show with id ${listingQuery.id}!`);
     } else {
       console.log("1 review updated");
     }

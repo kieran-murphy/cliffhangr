@@ -2,10 +2,10 @@ import React from "react";
 import ShowReview from "./ShowReview";
 
 const ShowReviewList = ({
+  user,
   show,
   reviews,
   deleteReview,
-  updateUpvotes,
   addReviewComment,
   addReaction,
   favoriteShow,
@@ -23,10 +23,10 @@ const ShowReviewList = ({
           reviews.map((review, index) => (
             <ShowReview
               key={review.user}
+              user={user}
               review={review}
               show={show}
               deleteReview={deleteReview}
-              updateUpvotes={updateUpvotes}
               index={index}
               addReviewComment={addReviewComment}
               addReaction={addReaction}
