@@ -42,7 +42,9 @@ const UsersSchema = new mongoose.Schema({
 const ReviewsSchema = new mongoose.Schema({
   _id: mongoose.Schema.ObjectId,
   userId: String,
+  username: String,
   showId: String,
+  title: String,
   score: Number,
   text: String,
   reacts: Array,
@@ -496,7 +498,7 @@ app.post("/reviews/deletechats/", (req, res) => {
   });
 });
 
-app.get("/reviews/:showid/", (req, res) => {
+app.get("/reviews/show/:showid/", (req, res) => {
   const showid = req.params.showid;
   console.log(`searching for ${showid}`);
 
@@ -510,6 +512,32 @@ app.get("/reviews/:showid/", (req, res) => {
       } else {
         Reviews.estimatedDocumentCount({
           showId: showid,
+        }).exec((err, count) => {
+          if (err) {
+            console.log(err);
+          }
+          res.status(200).send({
+            reviews: reviews,
+          });
+        });
+      }
+    });
+});
+
+app.get("/reviews/user/:userid/", (req, res) => {
+  const userid = req.params.userid;
+  console.log(`searching for ${userid}`);
+
+  Reviews.find({
+    userId: userid,
+  })
+    .collation({ locale: "en", strength: 2 })
+    .exec((err, reviews) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        Reviews.estimatedDocumentCount({
+          userId: userid,
         }).exec((err, count) => {
           if (err) {
             console.log(err);

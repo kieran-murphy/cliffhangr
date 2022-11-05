@@ -5,12 +5,14 @@ import Watchlist from "./Watchlist";
 import Favourites from "./Favourites";
 import ProfileReviews from "./ProfileReviews";
 import getUser from "../functions/getUser";
+import getReviews from "../functions/getReviews";
 
 const Profile = () => {
   const { username } = useParams();
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("profile");
   const [avgScore, setAvgScore] = useState(0.0);
+  const [reviews, setReviews] = useState([]);
   const [user, setUser] = useState({
     name: "loading",
     age: 0,
@@ -33,6 +35,7 @@ const Profile = () => {
 
   useEffect(() => {
     getUser(username, setUser, setLoading);
+    getReviews(user._id, setReviews, setLoading, "user");
     calcAvgScore(user, setAvgScore);
     return;
   }, [loading]);
@@ -120,7 +123,7 @@ const Profile = () => {
         ) : tab === "favourites" ? (
           <Favourites user={user} />
         ) : (
-          <ProfileReviews user={user} />
+          <ProfileReviews reviews={reviews} />
         )}
       </div>
     </div>

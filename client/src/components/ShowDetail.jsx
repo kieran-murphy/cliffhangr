@@ -6,6 +6,7 @@ import ShowReviewList from "./ShowReviewList";
 import ReviewConfirmation from "./ReviewConfirmation";
 import getUser from "../functions/getUser";
 import getShow from "../functions/getShow";
+import getReviews from "../functions/getReviews";
 import {
   ImStarEmpty,
   ImStarFull,
@@ -21,6 +22,7 @@ const ShowDetail = () => {
   const [reviewComment, setReviewComment] = useState("");
   const [reviewScore, setReviewScore] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState([]);
   // const [isFav, setIsFav] = useState(false);
   // const [isWatchlist, setIsWatchlist] = useState(false);
   const username = "Steve";
@@ -68,7 +70,9 @@ const ShowDetail = () => {
     let reviewTime = new Date().toLocaleDateString();
     const review = {
       userId: user._id,
+      username: user.name,
       showId: show._id,
+      title: show.title,
       score: reviewScore,
       text: text,
       reacts: [],
@@ -188,6 +192,7 @@ const ShowDetail = () => {
   useEffect(() => {
     getUser(username, setUser, setLoading);
     getShow(id, setShow, setLoading);
+    getReviews(id, setReviews, setLoading, "show");
     return;
   }, [loading]);
 
@@ -295,7 +300,7 @@ const ShowDetail = () => {
         {show.reviews ? (
           <ShowReviewList
             show={show}
-            reviews={show.reviews}
+            reviews={reviews}
             deleteReview={deleteReview}
             updateUpvotes={updateUpvotes}
             addReviewComment={addReviewComment}
