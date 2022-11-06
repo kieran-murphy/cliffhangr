@@ -1,7 +1,7 @@
 import React from "react";
 import ReactStars from "react-stars";
 
-const DisplayRating = ({ score }) => {
+const DisplayRating = ({ score, size }) => {
   const ratingChanged = (newRating) => {
     console.log(newRating);
   };
@@ -10,7 +10,7 @@ const DisplayRating = ({ score }) => {
       count={5}
       value={score}
       onChange={ratingChanged}
-      size={30}
+      size={size}
       color2={"#ffd700"}
       edit={false}
     />
