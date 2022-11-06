@@ -113,14 +113,17 @@ const ShowDetail = () => {
     console.log(requestOptions);
   };
 
-  const addReviewComment = (user, comment) => {
+  const addReviewComment = (user, comment, reviewID) => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: user, comment: comment }),
+      body: JSON.stringify({
+        username: user.name,
+        userID: user._id,
+        comment: comment,
+      }),
     };
-    fetch(`/shows/${id}/addreviewcomment`, requestOptions);
-    // console.log(requestOptions);
+    fetch(`/reviews/${reviewID}/addreviewcomment`, requestOptions);
     setLoading(true);
   };
 

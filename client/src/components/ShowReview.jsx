@@ -12,6 +12,7 @@ const ShowReview = ({
   addReaction,
   favoriteShow,
 }) => {
+  const [commentText, setCommentText] = useState("");
   const [commentInput, setCommentInput] = useState(false);
   const [reactionsExpanded, setReactionsExpanded] = useState(false);
 
@@ -25,6 +26,10 @@ const ShowReview = ({
     return counts[p1] - counts[p0];
   });
   arr = Array.from(new Set(arr));
+
+  function handleChange(event) {
+    setCommentText(event.target.value);
+  }
 
   return (
     <div className="my-4 pt-1 text-center h-10 ">
@@ -127,12 +132,14 @@ const ShowReview = ({
                   <div className="flex flex-col place-items-center">
                     <textarea
                       className="textarea textarea-primary my-2"
+                      value={commentText}
+                      onChange={handleChange}
                       placeholder="Your comment here"
                     ></textarea>
                     <button
                       className="btn w-full"
                       onClick={() => {
-                        addReviewComment(review.user, "this is a comment");
+                        addReviewComment(user, commentText, review._id);
                         setCommentInput(false);
                       }}
                     >
@@ -172,7 +179,7 @@ const ShowReview = ({
                 <button
                   className="btn w-full my-4"
                   onClick={() => {
-                    addReviewComment(review.user, "this is a comment");
+                    addReviewComment(user, commentText, review._id);
                     setCommentInput(false);
                   }}
                 >

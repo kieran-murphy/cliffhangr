@@ -175,33 +175,6 @@ app.post("/shows/:id/deletereview/", (req, res) => {
   });
 });
 
-// app.post("/shows/:id/addreaction/", (req, res) => {
-//   const id = req.params.id;
-//   const user = req.body.user;
-//   const reaction = req.body.reaction;
-//   const listingQuery = {
-//     _id: id,
-//     reviews: { $elemMatch: { user: { $eq: user } } },
-//   };
-
-//   const updates = {
-//     $push: {
-//       "reviews.$.reacts": { reaction: reaction, user: user },
-//     },
-//   };
-//   Shows.updateOne(listingQuery, updates, function (err, _result) {
-//     if (err) {
-//       res
-//         .status(400)
-//         .send(
-//           `Error updating review from ${user} on show with id ${listingQuery.id}!`
-//         );
-//     } else {
-//       console.log("1 review updated");
-//     }
-//   });
-// });
-
 app.post("/reviews/:id/addreaction/", (req, res) => {
   const id = req.params.id;
   const reaction = req.body.reaction;
@@ -231,32 +204,57 @@ app.post("/reviews/:id/addreaction/", (req, res) => {
   });
 });
 
-app.post("/shows/:id/addreviewcomment/", (req, res) => {
+app.post("/reviews/:id/addreviewcomment/", (req, res) => {
   const id = req.params.id;
-  const user = req.body.user;
+  const userID = req.body.userID;
+  const username = req.body.username;
   const comment = req.body.comment;
   const listingQuery = {
     _id: id,
-    reviews: { $elemMatch: { user: { $eq: user } } },
   };
 
   const updates = {
     $push: {
-      "reviews.$.comments": { user: user, text: comment },
+      comments: { userID: userID, username: username, text: comment },
     },
   };
-  Shows.updateOne(listingQuery, updates, function (err, _result) {
+  Reviews.updateOne(listingQuery, updates, function (err, _result) {
     if (err) {
       res
         .status(400)
-        .send(
-          `Error updating review from ${user} on show with id ${listingQuery.id}!`
-        );
+        .send(`Error updating review on show with id ${listingQuery.id}!`);
     } else {
       console.log("1 comment added");
     }
   });
 });
+
+// app.post("/shows/:id/addreviewcomment/", (req, res) => {
+//   const id = req.params.id;
+//   const user = req.body.user;
+//   const comment = req.body.comment;
+//   const listingQuery = {
+//     _id: id,
+//     reviews: { $elemMatch: { user: { $eq: user } } },
+//   };
+
+//   const updates = {
+//     $push: {
+//       "reviews.$.comments": { user: user, text: comment },
+//     },
+//   };
+//   Shows.updateOne(listingQuery, updates, function (err, _result) {
+//     if (err) {
+//       res
+//         .status(400)
+//         .send(
+//           `Error updating review from ${user} on show with id ${listingQuery.id}!`
+//         );
+//     } else {
+//       console.log("1 comment added");
+//     }
+//   });
+// });
 
 app.get("/users", (req, res) => {
   Users.find().exec((err, users) => {
