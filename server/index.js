@@ -229,32 +229,6 @@ app.post("/reviews/:id/addreviewcomment/", (req, res) => {
   });
 });
 
-// app.post("/shows/:id/addreviewcomment/", (req, res) => {
-//   const id = req.params.id;
-//   const user = req.body.user;
-//   const comment = req.body.comment;
-//   const listingQuery = {
-//     _id: id,
-//     reviews: { $elemMatch: { user: { $eq: user } } },
-//   };
-
-//   const updates = {
-//     $push: {
-//       "reviews.$.comments": { user: user, text: comment },
-//     },
-//   };
-//   Shows.updateOne(listingQuery, updates, function (err, _result) {
-//     if (err) {
-//       res
-//         .status(400)
-//         .send(
-//           `Error updating review from ${user} on show with id ${listingQuery.id}!`
-//         );
-//     } else {
-//       console.log("1 comment added");
-//     }
-//   });
-// });
 
 app.get("/users", (req, res) => {
   Users.find().exec((err, users) => {

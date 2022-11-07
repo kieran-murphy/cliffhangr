@@ -74,19 +74,14 @@ const ControlPanel = () => {
       >
         Populate users
       </label>
-      <label
-        className="btn btn-success mt-4 w-full"
-        onClick={() => addTestReviews()}
-      >
-        Populate reviews
-      </label>
+      
       <div className="divider"></div>
-      <label
+      {/* <label
         className="btn btn-info w-full"
         onClick={() => console.log("needs to be added")}
       >
         Reset everything
-      </label>
+      </label> */}
     </div>
   );
 };

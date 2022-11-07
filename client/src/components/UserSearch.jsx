@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import Search from "./Search";
-import getAllShows from "../functions/getAllShows";
+import getAllUsers from "../functions/getAllUsers";
 import { SwapSpinner } from "react-spinners-kit";
 
 function UserSearch() {
-  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    getAllUsers(setUsers, setLoading);
+    return;
+  }, []);
 
   return loading === true ? (
     <div className="py-10 w-full flex flex-row place-content-center">
@@ -15,6 +21,11 @@ function UserSearch() {
       <div>
         <div className="flex flex-col justify-center">
           <Search />
+          {users.map((u) => {
+            return (
+              <h1>{u.name}</h1>
+            );
+          })}
         </div>
       </div>
     </div>
