@@ -33,15 +33,12 @@ const Navbar = () => {
             tabIndex="0"
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
-              <a>Top 🏆</a>
-            </li>
-            <li>
-              <a>Explore 🧭</a>
-            </li>
-            <li>
-              <a>Theme 🎨</a>
-            </li>
+            <Link to={`/cliffhangr/search/users`}>
+              <li>
+                <div>Users 🧑</div>
+              </li>
+            </Link>
+
             <Link to={`/cliffhangr/admin/settings`}>
               <li>
                 <div>Control panel ⚙️</div>
@@ -57,15 +54,12 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
-          <li>
-            <a>Top 🏆</a>
-          </li>
-          <li tabIndex="0">
-            <a>Explore 🧭</a>
-          </li>
-          <li>
-            <a>Theme 🎨</a>
-          </li>
+          <Link to={`/cliffhangr/search/users`}>
+            <li>
+              <div>Users 🧑</div>
+            </li>
+          </Link>
+
           <Link to={`/cliffhangr/admin/settings`}>
             <li>
               <div>Control panel ⚙️</div>
