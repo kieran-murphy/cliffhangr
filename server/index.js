@@ -58,6 +58,24 @@ const Users = mongoose.model("users", UsersSchema, "users");
 
 const Reviews = mongoose.model("reviews", ReviewsSchema, "reviews");
 
+app.get("/users", (req, res) => {
+  Users.find().exec((err, users) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      Users.estimatedDocumentCount().exec((err, count) => {
+        if (err) {
+          console.log(err);
+        }
+        res.status(200).send({
+          users: users,
+          total: count,
+        });
+      });
+    }
+  });
+});
+
 app.get("/shows", (req, res) => {
   Shows.find().exec((err, shows) => {
     if (err) {
@@ -225,25 +243,6 @@ app.post("/reviews/:id/addreviewcomment/", (req, res) => {
         .send(`Error updating review on show with id ${listingQuery.id}!`);
     } else {
       console.log("1 comment added");
-    }
-  });
-});
-
-
-app.get("/users", (req, res) => {
-  Users.find().exec((err, users) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      Users.estimatedDocumentCount().exec((err, count) => {
-        if (err) {
-          console.log(err);
-        }
-        res.status(200).send({
-          users: users,
-          total: count,
-        });
-      });
     }
   });
 });

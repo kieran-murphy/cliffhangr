@@ -23,7 +23,7 @@ function Index() {
         <Route path="/cliffhangr/login" element={<Login />} />
         <Route path="/cliffhangr/search/users" element={<UserSearch />} />
         <Route path="/cliffhangr/admin/settings" element={<ControlPanel />} />
-        <Route path="cliffhangr/user/:username" element={<Profile />} />
+        <Route path="cliffhangr/profile/:username" element={<Profile />} />
         <Route path="cliffhangr/show/:id" element={<ShowDetail />} />
         <Route
           path="cliffhangr/show/:id/create_review"

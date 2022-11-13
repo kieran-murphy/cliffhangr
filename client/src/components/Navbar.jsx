@@ -68,7 +68,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to={`cliffhangr/user/${username}`}>
+        <Link to={`cliffhangr/profile/${username}`}>
           <button className="btn">Profile</button>
         </Link>
       </div>

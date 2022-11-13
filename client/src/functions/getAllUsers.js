@@ -7,7 +7,7 @@ async function getAllUsers(setUsers, setLoading) {
   }
   console.log(response);
   const records = await response.json();
-  setUsers(records.shows);
+  setUsers(records.users);
   setLoading(false);
 }
 
