@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Search from "./Search";
+import UserCard from "./UserCard";
 import getAllUsers from "../functions/getAllUsers";
 import { SwapSpinner } from "react-spinners-kit";
 
 function UserSearch() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     getAllUsers(setUsers, setLoading);
     return;
@@ -21,10 +22,8 @@ function UserSearch() {
       <div>
         <div className="flex flex-col justify-center">
           <Search />
-          {users.map((u) => {
-            return (
-              <h1>{u.name}</h1>
-            );
+          {users.map((user) => {
+            return <UserCard user={user} />;
           })}
         </div>
       </div>
