@@ -23,6 +23,7 @@ const ShowDetail = () => {
   const [reviewScore, setReviewScore] = useState(0);
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
+  const [avgScore, setAvgScore] = useState(0);
   const username = "Steve";
 
   const [user, setUser] = useState({
@@ -168,11 +169,24 @@ const ShowDetail = () => {
     setReviewComment(event.target.value);
   };
 
+  const getAvgScore = (reviews) => {
+    let avg = reviews.reduce((r, c) => r + c.score, 0) / reviews.length;
+    setAvgScore(avg);
+  };
+
   useEffect(() => {
-    getUser(username, setUser, setLoading);
-    getShow(id, setShow, setLoading);
-    getReviews(id, setReviews, setLoading, "show");
-    return;
+    const loadShowData = async () => {
+      try {
+        await getUser(username, setUser, setLoading);
+        await getShow(id, setShow, setLoading)
+          .then(await getReviews(id, setReviews, setLoading, "show"))
+          .then(await getAvgScore(reviews));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loadShowData();
   }, [loading]);
 
   return loading === true ? (
@@ -210,7 +224,7 @@ const ShowDetail = () => {
         <div className="flex w-full place-content-center ">
           <div className="flex flex-col w-full place-content-between">
             <h1 className="font-light text-lg text-center">
-              {show.score} out of 5 stars ⭐
+              {avgScore} out of 5 stars ⭐
             </h1>
             <label
               htmlFor="my-modal"
