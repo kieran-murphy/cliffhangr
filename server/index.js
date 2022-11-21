@@ -523,10 +523,6 @@ app.get("/reviews/user/:userid/", (req, res) => {
     });
 });
 
-app.get("/api", (req, res) => {
-  res.json({ users: ["user man", "userTwo", "userThree", "userFour"] });
-});
-
 app.listen(8080, () => {
   console.log("API is running on port 8080");
 });

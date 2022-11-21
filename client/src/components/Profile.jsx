@@ -49,10 +49,7 @@ const Profile = () => {
       <div className="w-full flex flex-row lg:flex-col place-content-evenly">
         <div className="avatar my-8 ">
           <div className="w-20 rounded-full ring ring-slate-400 ring-offset-base-100 ring-offset-2">
-            <img
-              src="https://staticg.sportskeeda.com/editor/2022/03/8a925-16473693898539-1920.jpg"
-              alt="profile"
-            />
+            <img src={user.profilePicture} alt="profile" />
           </div>
         </div>
         <h1 className="text-4xl font-bold self-center">{user.name}</h1>

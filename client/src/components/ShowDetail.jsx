@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Rating from "./Rating";
 import { useParams } from "react-router-dom";
 import { SwapSpinner } from "react-spinners-kit";
 import ShowReviewList from "./ShowReviewList";
+import Rating from "./Rating";
 import ReviewConfirmation from "./ReviewConfirmation";
 import getUser from "../functions/getUser";
 import getShow from "../functions/getShow";
@@ -23,9 +23,8 @@ const ShowDetail = () => {
   const [reviewScore, setReviewScore] = useState(0);
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
-  // const [isFav, setIsFav] = useState(false);
-  // const [isWatchlist, setIsWatchlist] = useState(false);
   const username = "Steve";
+
   const [user, setUser] = useState({
     _id: "ejhfbehfbf",
     name: "loading",
@@ -38,34 +37,6 @@ const ShowDetail = () => {
     profilePicture: "",
     bio: "loading bio",
   });
-
-  // const addReview = (text, reviewScore, show, user) => {
-  //   let reviewUser = user;
-  //   let reviewTime = new Date().toLocaleDateString();
-  //   const showRequestOptions = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       reviewUser: reviewUser,
-  //       text: text,
-  //       reviewScore: reviewScore,
-  //       reviewTime: reviewTime,
-  //     }),
-  //   };
-  //   const userRequestOptions = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       userID: user._id,
-  //       showID: show._id,
-  //       text: text,
-  //       reviewScore: reviewScore,
-  //       reviewTime: reviewTime,
-  //     }),
-  //   };
-  //   fetch(`/shows/${show._id}/addreview`, showRequestOptions);
-  //   fetch(`/users/addreview`, userRequestOptions);
-  // };
 
   const addReview = (text, reviewScore, show, user) => {
     let reviewTime = new Date().toLocaleDateString();
