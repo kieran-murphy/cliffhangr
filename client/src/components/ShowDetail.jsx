@@ -171,6 +171,7 @@ const ShowDetail = () => {
 
   const getAvgScore = (reviews) => {
     let avg = reviews.reduce((r, c) => r + c.score, 0) / reviews.length;
+    avg = avg.toFixed(2);
     setAvgScore(avg);
   };
 
@@ -178,9 +179,8 @@ const ShowDetail = () => {
     const loadShowData = async () => {
       try {
         await getUser(username, setUser, setLoading);
-        await getShow(id, setShow, setLoading)
-          .then(await getReviews(id, setReviews, setLoading, "show"))
-          .then(await getAvgScore(reviews));
+        await getShow(id, setShow, setLoading);
+        await getReviews(id, setReviews, setLoading, "show");
       } catch (error) {
         console.log(error);
       }
@@ -188,6 +188,10 @@ const ShowDetail = () => {
 
     loadShowData();
   }, [loading]);
+
+  useEffect(() => {
+    getAvgScore(reviews);
+  }, [reviews]);
 
   return loading === true ? (
     <div className="py-10 w-full flex flex-row place-content-center">
