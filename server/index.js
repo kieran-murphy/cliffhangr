@@ -37,6 +37,7 @@ const UsersSchema = new mongoose.Schema({
   watchList: Array,
   profilePicture: String,
   bio: String,
+  isAdmin: Boolean,
 });
 
 const ReviewsSchema = new mongoose.Schema({

@@ -6,7 +6,7 @@ const Search = () => {
       <div className="input-group">
         <input
           type="text"
-          placeholder="Search…"
+          placeholder="Search for a show…"
           className="input input-bordered w-full"
         />
         <button className="btn btn-square">

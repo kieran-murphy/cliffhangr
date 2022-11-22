@@ -6,6 +6,7 @@ import Favourites from "./Favourites";
 import ProfileReviews from "./ProfileReviews";
 import getUser from "../functions/getUser";
 import getReviews from "../functions/getReviews";
+import { FaWrench, FaCheckCircle } from "react-icons/fa";
 
 const Profile = () => {
   const { username } = useParams();
@@ -52,7 +53,18 @@ const Profile = () => {
             <img src={user.profilePicture} alt="profile" />
           </div>
         </div>
-        <h1 className="text-4xl font-bold self-center">{user.name}</h1>
+        <div className="self-center flex flex-col">
+        <h1 className="text-4xl font-bold ">{user.name}  </h1> 
+        {user.isAdmin ? (
+          <div className="flex flex-row">
+          <FaCheckCircle className="h-4 ml-6 mr-1 text-info"/> <h1 className="font-light text-xs">Admin</h1>
+          </div>
+        )
+          :
+          null
+        }
+        </div>
+        
       </div>
       <div className="flex place-content-center tabs tabs-boxed ">
         <a
