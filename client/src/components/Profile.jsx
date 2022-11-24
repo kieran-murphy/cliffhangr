@@ -6,7 +6,7 @@ import Favourites from "./Favourites";
 import ProfileReviews from "./ProfileReviews";
 import getUser from "../functions/getUser";
 import getReviews from "../functions/getReviews";
-import { FaWrench, FaCheckCircle } from "react-icons/fa";
+import { FaWrench, FaCheckCircle, FaRegCheckSquare } from "react-icons/fa";
 
 const Profile = () => {
   const { username } = useParams();
@@ -14,6 +14,7 @@ const Profile = () => {
   const [tab, setTab] = useState("profile");
   const [avgScore, setAvgScore] = useState(0.0);
   const [reviews, setReviews] = useState([]);
+  const [following, setFollowing] = useState(false);
   const [user, setUser] = useState({
     name: "loading",
     age: 0,
@@ -54,17 +55,14 @@ const Profile = () => {
           </div>
         </div>
         <div className="self-center flex flex-col">
-        <h1 className="text-4xl font-bold ">{user.name}  </h1> 
-        {user.isAdmin ? (
-          <div className="flex flex-row">
-          <FaCheckCircle className="h-4 ml-6 mr-1 text-info"/> <h1 className="font-light text-xs">Admin</h1>
-          </div>
-        )
-          :
-          null
-        }
+          <h1 className="text-4xl font-bold ">{user.name} </h1>
+          {user.isAdmin ? (
+            <div className="flex flex-row">
+              <FaCheckCircle className="h-4 ml-6 mr-1 text-info" />{" "}
+              <h1 className="font-light text-xs">Admin</h1>
+            </div>
+          ) : null}
         </div>
-        
       </div>
       <div className="flex place-content-center tabs tabs-boxed ">
         <a
@@ -92,37 +90,59 @@ const Profile = () => {
           Watchlist
         </a>
       </div>
+
       <div className="w-full flex place-content-center">
         {tab === "profile" ? (
-          <div className="w-full stats stats-vertical shadow text-center m-6 bg-base-200">
-            <div className="stat">
-              <div className="stat-title">Reviews</div>
-              <div className="stat-value text-success">{reviews.length}</div>
-              <div className="stat-desc">Jan 1st - Feb 1st</div>
-            </div>
-
-            <div className="stat">
-              <div className="stat-title">Avg Score</div>
-              <div className="stat-value text-success">
-                {isNaN(avgScore) ? 0 : avgScore.toFixed(2)}
+          <div className="flex flex-col w-full place-content-center">
+            {following ? (
+              <div className="flex place-content-center mx-6 mt-6">
+                <button
+                  className="btn w-full"
+                  onClick={() => setFollowing(false)}
+                >
+                  Following <FaRegCheckSquare className="ml-2" />
+                </button>
               </div>
-              <div className="stat-desc">Out of five stars</div>
-            </div>
-
-            <div className="stat">
-              <div className="stat-title">Following</div>
-              <div className="stat-value text-warning">
-                {user.following.length}
+            ) : (
+              <div className="flex place-content-center mx-6 mt-6">
+                <button
+                  className="btn btn-info w-full"
+                  onClick={() => setFollowing(true)}
+                >
+                  Follow +
+                </button>
               </div>
-              <div className="stat-desc">↗︎ 400 (22%)</div>
-            </div>
-
-            <div className="stat">
-              <div className="stat-title">Followers</div>
-              <div className="stat-value text-secondary">
-                {user.followers.length}
+            )}
+            <div className=" stats stats-vertical shadow text-center m-6 bg-base-200">
+              <div className="stat">
+                <div className="stat-title">Reviews</div>
+                <div className="stat-value text-success">{reviews.length}</div>
+                <div className="stat-desc">Jan 1st - Feb 1st</div>
               </div>
-              <div className="stat-desc">↗︎ 90 (14%)</div>
+
+              <div className="stat">
+                <div className="stat-title">Avg Score</div>
+                <div className="stat-value text-success">
+                  {isNaN(avgScore) ? 0 : avgScore.toFixed(2)}
+                </div>
+                <div className="stat-desc">Out of five stars</div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-title">Following</div>
+                <div className="stat-value text-warning">
+                  {user.following.length}
+                </div>
+                <div className="stat-desc">↗︎ 400 (22%)</div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-title">Followers</div>
+                <div className="stat-value text-secondary">
+                  {user.followers.length}
+                </div>
+                <div className="stat-desc">↗︎ 90 (14%)</div>
+              </div>
             </div>
           </div>
         ) : tab === "watchlist" ? (
