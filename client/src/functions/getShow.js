@@ -5,9 +5,9 @@ async function getShow(id, setShow, setLoading) {
     window.alert(message);
     return;
   }
-  const records = await response.json();
-  console.log(records);
-  setShow(records.shows);
+  const f = await response.json();
+  console.log(f);
+  setShow(f.shows);
   setLoading(false);
 }
 

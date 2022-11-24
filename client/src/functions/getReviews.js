@@ -5,9 +5,9 @@ async function getReviews(id, setShow, setLoading, type) {
     window.alert(message);
     return;
   }
-  const records = await response.json();
-  console.log(records);
-  setShow(records.reviews);
+  const f = await response.json();
+  console.log(f);
+  setShow(f.reviews);
   setLoading(false);
 }
 

@@ -15,13 +15,17 @@ function UserSearch() {
     const search = async () => {
       try {
         if (!searchTerm.trim()) {
-          setUsers([]);
-          return;
-        }
-        const res = await fetch(`/users/${searchTerm}`);
-        const f = await res.json();
-        if (f.user) {
-          setUsers([f.user]);
+          const res = await fetch(`/users`);
+          const f = await res.json();
+          setUsers(f.users);
+        } else {
+          const res = await fetch(`/users/${searchTerm}`);
+          const f = await res.json();
+          if (f.user) {
+            setUsers([f.user]);
+          } else {
+            setUsers([]);
+          }
         }
       } catch (error) {
         console.log(error);

@@ -5,8 +5,8 @@ async function getAllShows(setShows, setLoading) {
     window.alert(message);
     return;
   }
-  const records = await response.json();
-  setShows(records.shows);
+  const f = await response.json();
+  setShows(f.shows);
   setLoading(false);
 }
 
