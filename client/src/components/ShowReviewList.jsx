@@ -34,7 +34,7 @@ const ShowReviewList = ({
             />
           ))
         ) : (
-          <div>no reviews yet</div>
+          <div className="mx-2">No reviews yet</div>
         )}
       </div>
     </div>

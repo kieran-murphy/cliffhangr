@@ -227,9 +227,12 @@ const ShowDetail = () => {
 
         <div className="flex w-full place-content-center ">
           <div className="flex flex-col w-full place-content-between">
-            <h1 className="font-light text-lg text-center">
-              {avgScore} out of 5 stars ⭐
-            </h1>
+            {reviews.length > 0 ? (
+              <h1 className="font-light text-lg text-center">
+                {avgScore} out of 5 stars ⭐
+              </h1>
+            ) : null}
+
             <label
               htmlFor="my-modal"
               className="btn btn-success w-full mt-4 gap-2"
