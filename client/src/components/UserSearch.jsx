@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import UserSearchBar from "./UserSearchBar";
 import UserCard from "./UserCard";
-import axios from "axios";
 import getAllUsers from "../functions/getAllUsers";
 import getSearchUser from "../functions/getSearchUser";
 import { SwapSpinner } from "react-spinners-kit";
@@ -19,9 +18,10 @@ function UserSearch() {
           setUsers([]);
           return;
         }
-        const res = await axios.get(`/users/${searchTerm}`);
-        if (res.data.user) {
-          setUsers([res.data.user]);
+        const res = await fetch(`/users/${searchTerm}`);
+        const f = await res.json();
+        if (f.user) {
+          setUsers([f.user]);
         }
       } catch (error) {
         console.log(error);
