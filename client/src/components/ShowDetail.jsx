@@ -218,7 +218,10 @@ const ShowDetail = () => {
               href={`https://www.youtube.com/results?sp=mAEA&search_query=${show.title}+trailer`}
             >
               <button className="btn btn-sm btn-info gap-2">
-                <ImPlay /> Trailer
+                <div className="flex flex-row">
+                  <ImPlay className="mr-1" />
+                  Trailer
+                </div>
               </button>
             </a>
           </div>
