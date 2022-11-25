@@ -24,7 +24,7 @@ const ShowDetail = () => {
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
   const [avgScore, setAvgScore] = useState(0);
-  const username = "Steve";
+  const loggedInUsername = "Steve";
 
   const [user, setUser] = useState({
     _id: "ejhfbehfbf",
@@ -178,7 +178,7 @@ const ShowDetail = () => {
   useEffect(() => {
     const loadShowData = async () => {
       try {
-        await getUser(username, setUser, setLoading);
+        await getUser(loggedInUsername, setUser, setLoading);
         await getShow(id, setShow, setLoading);
         await getReviews(id, setReviews, setLoading, "show");
       } catch (error) {

@@ -348,6 +348,46 @@ app.post("/users/addwatchlist", (req, res) => {
   });
 });
 
+app.post("/users/followsomeone", (req, res) => {
+  const name = req.body.name;
+  const someone = req.body.someone;
+
+  const listingQuery = { name: name };
+
+  const updates = {
+    $push: {
+      following: someone,
+    },
+  };
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error favoriting`);
+    } else {
+      console.log("1 follow added");
+    }
+  });
+});
+
+app.post("/users/receivefollow", (req, res) => {
+  const name = req.body.name;
+  const follower = req.body.follower;
+
+  const listingQuery = { name: name };
+
+  const updates = {
+    $push: {
+      followers: follower,
+    },
+  };
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error following`);
+    } else {
+      console.log("1 follower added");
+    }
+  });
+});
+
 app.post("/users/unfavoriteshow", (req, res) => {
   const name = req.body.name;
   const showID = req.body.showID;

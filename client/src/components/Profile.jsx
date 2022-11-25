@@ -15,6 +15,7 @@ const Profile = () => {
   const [avgScore, setAvgScore] = useState(0.0);
   const [reviews, setReviews] = useState([]);
   const [following, setFollowing] = useState(false);
+  const loggedInUsername = "Steve";
   const [user, setUser] = useState({
     name: "loading",
     age: 0,
@@ -33,6 +34,23 @@ const Profile = () => {
       reviews.reduce((total, next) => total + next.score, 0) / reviews.length;
     setAvgScore(average);
     console.log(avgScore);
+  };
+
+  const follow = async (follower, following) => {
+    const requestOptions_followsomeone = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: follower, someone: following }),
+    };
+    const requestOptions_receivefollow = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: following, follower: follower }),
+    };
+
+    await fetch(`/users/followsomeone`, requestOptions_followsomeone).then(
+      await fetch(`/users/receivefollow`, requestOptions_receivefollow)
+    );
   };
 
   useEffect(() => {
@@ -94,24 +112,31 @@ const Profile = () => {
       <div className="w-full flex place-content-center">
         {tab === "profile" ? (
           <div className="flex flex-col w-full place-content-center">
-            {following ? (
-              <div className="flex place-content-center mx-6 mt-6">
-                <button
-                  className="btn w-full"
-                  onClick={() => setFollowing(false)}
-                >
-                  Following <FaRegCheckSquare className="ml-2" />
-                </button>
-              </div>
-            ) : (
-              <div className="flex place-content-center mx-6 mt-6">
-                <button
-                  className="btn btn-info w-full"
-                  onClick={() => setFollowing(true)}
-                >
-                  Follow +
-                </button>
-              </div>
+            {user.name === loggedInUsername ? null : (
+              <>
+                {following ? (
+                  <div className="flex place-content-center mx-6 mt-6">
+                    <button
+                      className="btn w-full"
+                      onClick={() => setFollowing(false)}
+                    >
+                      Following <FaRegCheckSquare className="ml-2" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex place-content-center mx-6 mt-6">
+                    <button
+                      className="btn btn-info w-full"
+                      onClick={() => {
+                        setFollowing(true);
+                        follow("Steve", user.name);
+                      }}
+                    >
+                      Follow +
+                    </button>
+                  </div>
+                )}
+              </>
             )}
             <div className=" stats stats-vertical shadow text-center m-6 bg-base-200">
               <div className="stat">
