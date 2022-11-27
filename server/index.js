@@ -27,7 +27,7 @@ const ShowsSchema = new mongoose.Schema({
 
 const UsersSchema = new mongoose.Schema({
   _id: mongoose.Schema.ObjectId,
-  name: String,
+  name: { type: String, unique: true },
   age: Number,
   following: Array,
   followers: Array,

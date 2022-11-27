@@ -74,14 +74,27 @@ const ControlPanel = () => {
       >
         Populate users
       </label>
-      
+
       <div className="divider"></div>
-      {/* <label
+      <label
         className="btn btn-info w-full"
-        onClick={() => console.log("needs to be added")}
+        onClick={async () => {
+          let promise1 = new Promise((resolve, reject) => {
+            deleteShows();
+            deleteUsers();
+            deleteReviews();
+          });
+
+          let promise2 = new Promise((resolve, reject) => {
+            addAllShows();
+            addAllUsers();
+          });
+
+          await promise1().then(promise2());
+        }}
       >
         Reset everything
-      </label> */}
+      </label>
     </div>
   );
 };
