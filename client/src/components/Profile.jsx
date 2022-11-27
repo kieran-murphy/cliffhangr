@@ -35,11 +35,10 @@ const Profile = () => {
     }
   };
 
-  const calcAvgScore = (reviews, setAvgScore) => {
-    const average =
-      reviews.reduce((total, next) => total + next.score, 0) / reviews.length;
-    setAvgScore(average);
-    console.log(avgScore);
+  const getAvgScore = (reviews) => {
+    let avg = reviews.reduce((r, c) => r + c.score, 0) / reviews.length;
+    avg = avg.toFixed(2);
+    setAvgScore(avg);
   };
 
   const follow = async (follower, following) => {
@@ -82,14 +81,16 @@ const Profile = () => {
 
   useEffect(() => {
     getUser(username, setUser, setLoading);
-    getReviews(user._id, setReviews, setLoading, "user").then(() => {
-      calcAvgScore(reviews, setAvgScore);
-    });
+    getReviews(user._id, setReviews, setLoading, "user");
   }, [loading]);
 
   useEffect(() => {
     calculateFollowing();
   }, [user]);
+
+  useEffect(() => {
+    getAvgScore(reviews, setAvgScore);
+  }, [reviews]);
 
   return loading === true ? (
     <div className="py-10 w-full flex flex-row place-content-center">
@@ -174,15 +175,15 @@ const Profile = () => {
               <div className="stat">
                 <div className="stat-title">Reviews</div>
                 <div className="stat-value text-success">{reviews.length}</div>
-                <div className="stat-desc">Jan 1st - Feb 1st</div>
+                {/* <div className="stat-desc">Jan 1st - Feb 1st</div> */}
               </div>
 
               <div className="stat">
                 <div className="stat-title">Avg Score</div>
                 <div className="stat-value text-success">
-                  {isNaN(avgScore) ? 0 : avgScore.toFixed(2)}
+                  {reviews.length > 0 ? avgScore : 0}
                 </div>
-                <div className="stat-desc">Out of five stars</div>
+                {/* <div className="stat-desc">Out of five stars</div> */}
               </div>
 
               <div className="stat">
