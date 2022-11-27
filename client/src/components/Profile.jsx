@@ -29,6 +29,12 @@ const Profile = () => {
     bio: "loading bio",
   });
 
+  const calculateFollowing = () => {
+    if (user.followers.includes(loggedInUsername)) {
+      setFollowing(true);
+    }
+  };
+
   const calcAvgScore = (reviews, setAvgScore) => {
     const average =
       reviews.reduce((total, next) => total + next.score, 0) / reviews.length;
@@ -49,16 +55,41 @@ const Profile = () => {
     };
 
     await fetch(`/users/followsomeone`, requestOptions_followsomeone).then(
-      await fetch(`/users/receivefollow`, requestOptions_receivefollow)
+      await fetch(`/users/receivefollow`, requestOptions_receivefollow).then(
+        setFollowing(true)
+      )
+    );
+  };
+
+  const unfollow = async (follower, following) => {
+    const requestOptions_followsomeone = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: follower, someone: following }),
+    };
+    const requestOptions_receivefollow = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: following, follower: follower }),
+    };
+
+    await fetch(`/users/unfollowsomeone`, requestOptions_followsomeone).then(
+      await fetch(`/users/unreceivefollow`, requestOptions_receivefollow).then(
+        setFollowing(false)
+      )
     );
   };
 
   useEffect(() => {
     getUser(username, setUser, setLoading);
-    getReviews(user._id, setReviews, setLoading, "user").then(
-      calcAvgScore(reviews, setAvgScore)
-    );
+    getReviews(user._id, setReviews, setLoading, "user").then(() => {
+      calcAvgScore(reviews, setAvgScore);
+    });
   }, [loading]);
+
+  useEffect(() => {
+    calculateFollowing();
+  }, [user]);
 
   return loading === true ? (
     <div className="py-10 w-full flex flex-row place-content-center">
@@ -118,7 +149,9 @@ const Profile = () => {
                   <div className="flex place-content-center mx-6 mt-6">
                     <button
                       className="btn w-full"
-                      onClick={() => setFollowing(false)}
+                      onClick={() => {
+                        unfollow("Steve", user.name);
+                      }}
                     >
                       Following <FaRegCheckSquare className="ml-2" />
                     </button>
@@ -128,7 +161,6 @@ const Profile = () => {
                     <button
                       className="btn btn-info w-full"
                       onClick={() => {
-                        setFollowing(true);
                         follow("Steve", user.name);
                       }}
                     >
@@ -158,7 +190,7 @@ const Profile = () => {
                 <div className="stat-value text-warning">
                   {user.following.length}
                 </div>
-                <div className="stat-desc">↗︎ 400 (22%)</div>
+                {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
               </div>
 
               <div className="stat">
@@ -166,7 +198,7 @@ const Profile = () => {
                 <div className="stat-value text-secondary">
                   {user.followers.length}
                 </div>
-                <div className="stat-desc">↗︎ 90 (14%)</div>
+                {/* <div className="stat-desc">↗︎ 90 (14%)</div> */}
               </div>
             </div>
           </div>

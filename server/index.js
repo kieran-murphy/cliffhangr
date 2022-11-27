@@ -388,6 +388,46 @@ app.post("/users/receivefollow", (req, res) => {
   });
 });
 
+app.post("/users/unfollowsomeone", (req, res) => {
+  const name = req.body.name;
+  const someone = req.body.someone;
+
+  const listingQuery = { name: name };
+
+  const updates = {
+    $pull: {
+      following: someone,
+    },
+  };
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error favoriting`);
+    } else {
+      console.log("1 follow removed");
+    }
+  });
+});
+
+app.post("/users/unreceivefollow", (req, res) => {
+  const name = req.body.name;
+  const follower = req.body.follower;
+
+  const listingQuery = { name: name };
+
+  const updates = {
+    $pull: {
+      followers: follower,
+    },
+  };
+  Users.updateOne(listingQuery, updates, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error following`);
+    } else {
+      console.log("1 follower removed");
+    }
+  });
+});
+
 app.post("/users/unfavoriteshow", (req, res) => {
   const name = req.body.name;
   const showID = req.body.showID;
