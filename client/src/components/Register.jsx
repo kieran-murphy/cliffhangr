@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -12,10 +13,15 @@ const Login = () => {
     setPassword(event.target.value);
   };
 
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+  };
+
   const submitLogin = () => {
-    alert(`logged in ${username} ${password}`);
+    alert(`logged in ${username} ${password} ${confirmPassword}`);
     setUsername("");
     setPassword("");
+    setConfirmPassword("");
   };
 
   return (
@@ -40,9 +46,18 @@ const Login = () => {
           value={password}
           onChange={handlePasswordChange}
         />
+
+        <h1 className="my-2">Confirm Password</h1>
+        <input
+          type="confirmpassword"
+          placeholder="Type here"
+          className="input input-bordered input-secondary w-full max-w-xs"
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+        />
         <br />
-        <a className="link link-primary" href="./register">
-          Don't have an account? Register here!
+        <a className="link link-primary" href="./login">
+          Already have an account? Login!
         </a>
         <button className="btn mt-10 w-full" onClick={submitLogin}>
           Submit
@@ -67,4 +82,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

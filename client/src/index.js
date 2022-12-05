@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import ControlPanel from "./components/ControlPanel";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import UserSearch from "./components/UserSearch";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -21,6 +22,7 @@ function Index() {
       <Routes>
         <Route path="/cliffhangr" element={<App />} />
         <Route path="/cliffhangr/login" element={<Login />} />
+        <Route path="/cliffhangr/register" element={<Register />} />
         <Route path="/cliffhangr/search/users" element={<UserSearch />} />
         <Route path="/cliffhangr/admin/settings" element={<ControlPanel />} />
         <Route path="cliffhangr/profile/:username" element={<Profile />} />

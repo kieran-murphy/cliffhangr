@@ -33,6 +33,11 @@ const Navbar = () => {
             tabIndex="0"
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
+            <Link to={`/cliffhangr/login`}>
+              <li>
+                <div>Login 🖥️</div>
+              </li>
+            </Link>
             <Link to={`/cliffhangr/search/users`}>
               <li>
                 <div>Users 🧑</div>
@@ -54,6 +59,11 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
+          <Link to={`/cliffhangr/login`}>
+            <li>
+              <div>Login 🖥️</div>
+            </li>
+          </Link>
           <Link to={`/cliffhangr/search/users`}>
             <li>
               <div>Users 🧑</div>
