@@ -604,6 +604,12 @@ app.get("/reviews/user/:userid/", (req, res) => {
     });
 });
 
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  console.log(username, password);
+});
+
 app.listen(8080, () => {
   console.log("API is running on port 8080");
 });

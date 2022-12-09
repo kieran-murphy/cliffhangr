@@ -26,7 +26,7 @@ const Register = () => {
 
   return (
     <div className="py-10 w-full h-80 flex flex-col items-center justify-between">
-      <h1 className="text-3xl font-bold">Cliffhangr</h1>
+      <h1 className="text-3xl font-bold">Register</h1>
 
       <div className="mt-10">
         <h1 className="my-2">Username</h1>
