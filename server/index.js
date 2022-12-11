@@ -1,11 +1,29 @@
-const mongoose = require("mongoose");
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
+const session = require("express-session");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 var defaultShows = require("../client/src/data/shows.json");
 var defaultUsers = require("../client/src/data/users.json");
 var defaultReviews = require("../client/src/data/reviews.json");
 
 const app = express();
 app.use(express.json());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+// app.use(passport.initialize());
+// app.use(passport.session());
+
 mongoose.connect(
   "mongodb+srv://mongo:X4LVTsp23GqQyeYp@cluster0.bve17ml.mongodb.net/cliffhangr?retryWrites=true&w=majority",
   {
@@ -38,6 +56,7 @@ const UsersSchema = new mongoose.Schema({
   profilePicture: String,
   bio: String,
   isAdmin: Boolean,
+  password: String,
 });
 
 const ReviewsSchema = new mongoose.Schema({
@@ -272,40 +291,6 @@ app.get("/users/:username/", (req, res) => {
         });
       }
     });
-});
-
-app.post("/users/addreview", (req, res) => {
-  const userID = req.body.userID;
-  const showID = req.body.showID;
-  const text = req.body.text;
-  const reviewScore = req.body.reviewScore;
-  const reviewTime = req.body.reviewTime;
-  const reviewReacts = [];
-  const reviewComments = [];
-  const listingQuery = { _id: userID };
-
-  const updates = {
-    $push: {
-      reviews: {
-        showID: showID,
-        score: reviewScore,
-        text: text,
-        reacts: reviewReacts,
-        comments: reviewComments,
-        time: reviewTime,
-      },
-    },
-  };
-
-  Users.updateOne(listingQuery, updates, function (err, _result) {
-    if (err) {
-      res
-        .status(400)
-        .send(`Error updating reviews on listing with id ${listingQuery.id}!`);
-    } else {
-      console.log("1 review added");
-    }
-  });
 });
 
 app.post("/users/favoriteshow", (req, res) => {
@@ -604,10 +589,110 @@ app.get("/reviews/user/:userid/", (req, res) => {
     });
 });
 
-app.post("/login", (req, res) => {
+// app.post("/login", (req, res) => {
+//   let user;
+//   const username = req.body.username;
+//   const password = req.body.password;
+//   // console.log(password);
+//   Users.find({
+//     name: username,
+//   })
+//     .collation({ locale: "en", strength: 2 })
+//     .exec((err, users) => {
+//       if (err) {
+//         res.status(500).send(err);
+//       } else {
+//         Users.estimatedDocumentCount({
+//           name: username,
+//         }).exec((err, count) => {
+//           if (err) {
+//             console.log(err);
+//           }
+//           user = users[0];
+//         });
+//       }
+//     });
+
+//   if (bcrypt.compareSync(password, user.password)) {
+//     console.log("match");
+//   } else {
+//     console.log("no match");
+//   }
+// });
+
+app.post("/users/add/", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  console.log(username, password);
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const user = {
+    name: username,
+    age: 0,
+    following: [],
+    followers: [],
+    reviews: [],
+    favoriteReviews: [],
+    favoriteShows: [],
+    watchList: [],
+    profilePicture:
+      "https://reformedpilate.wpenginepowered.com/wp-content/uploads/2019/07/blank-profile-picture-973460_1280.png",
+    bio: "",
+    isAdmin: false,
+    password: hashedPassword,
+  };
+
+  Users.insertMany(user, function (err, _result) {
+    if (err) {
+      res.status(400).send(`Error adding review!`);
+      console.log(req.body);
+    } else {
+      console.log("user registered");
+    }
+  });
+});
+
+app.post("/api/login", async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  const user = await Users.findOne({
+    name: username,
+  });
+
+  if (!user) {
+    return { status: "error", error: "Invalid login" };
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (isPasswordValid) {
+    const token = jwt.sign(
+      {
+        name: user.name,
+        email: user.email,
+      },
+      "secret123"
+    );
+
+    return res.json({ status: "ok", user: token });
+  } else {
+    return res.json({ status: "error", user: false });
+  }
+});
+
+app.get("/api/checklogin", async (req, res) => {
+  const token = req.headers["x-access-token"];
+
+  try {
+    const decoded = jwt.verify(token, "secret123");
+    const email = decoded.email;
+    const user = await User.findOne({ email: email });
+
+    return res.json({ status: "ok", quote: user.quote });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "invalid token" });
+  }
 });
 
 app.listen(8080, () => {

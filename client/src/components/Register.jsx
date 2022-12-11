@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  let navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -18,10 +21,32 @@ const Register = () => {
   };
 
   const submitLogin = () => {
-    alert(`logged in ${username} ${password} ${confirmPassword}`);
+    // alert(`logged in ${username} ${password}`);
+    const RequestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    };
+    fetch(`/users/add`, RequestOptions)
+      .then((res) => {
+        if (!res.ok) {
+          return res.text().then((text) => {
+            throw new Error(text);
+          });
+        } else {
+          return;
+        }
+      })
+      .catch((err) => {
+        console.log("caught it!", err);
+      });
     setUsername("");
     setPassword("");
     setConfirmPassword("");
+    navigate(`/cliffhangr/login`);
   };
 
   return (
@@ -49,7 +74,7 @@ const Register = () => {
 
         <h1 className="my-2">Confirm Password</h1>
         <input
-          type="confirmpassword"
+          type="password"
           placeholder="Type here"
           className="input input-bordered input-secondary w-full max-w-xs"
           value={confirmPassword}
@@ -63,21 +88,6 @@ const Register = () => {
           Submit
         </button>
       </div>
-      {/* <div className="mt-10">
-        <div className="animate-bounce bg-white dark:bg-slate-800 p-2 w-10 h-10 ring-1 ring-slate-900/5 dark:ring-slate-200/20 shadow-lg rounded-full flex items-center justify-center">
-          <svg
-            className="w-6 h-6 text-violet-500"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
-        </div>
-      </div> */}
     </div>
   );
 };

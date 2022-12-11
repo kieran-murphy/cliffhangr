@@ -17,40 +17,65 @@ const Login = () => {
   };
 
   const validateLogin = () => {
-    if (username === "steve" && password === "password") {
-      navigate(`/cliffhangr/profile/${username}`);
-    } else {
-      setWarning("Warning: Invalid username or password!");
-    }
+    // if (username === "steve" && password === "password") {
+    //   navigate(`/cliffhangr/profile/${username}`);
+    // } else {
+    //   setWarning("Warning: Invalid username or password!");
+    // }
     setUsername("");
     setPassword("");
   };
 
-  const submitLogin = () => {
-    // alert(`logged in ${username} ${password}`);
-    const RequestOptions = {
+  // const submitLogin = () => {
+  //   // alert(`logged in ${username} ${password}`);
+  //   const RequestOptions = {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       username: username,
+  //       password: password,
+  //     }),
+  //   };
+  //   fetch(`/api/login`, RequestOptions)
+  //     .then((res) => {
+  //       if (!res.ok) {
+  //         return res.text().then((text) => {
+  //           throw new Error(text);
+  //         });
+  //       } else {
+  //         return;
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log("caught it!", err);
+  //     });
+  //   validateLogin();
+  // };
+
+  async function loginUser() {
+    const response = await fetch("/api/login", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        username: username,
-        password: password,
+        username,
+        password,
       }),
-    };
-    fetch(`/login`, RequestOptions)
-      .then((res) => {
-        if (!res.ok) {
-          return res.text().then((text) => {
-            throw new Error(text);
-          });
-        } else {
-          return;
-        }
-      })
-      .catch((err) => {
-        console.log("caught it!", err);
-      });
-    validateLogin();
-  };
+    });
+
+    const data = await response.json();
+
+    if (data.user) {
+      localStorage.setItem("token", data.user);
+      alert("Login successful");
+      navigate(`/cliffhangr/profile/${username}`);
+      validateLogin();
+    } else {
+      alert("Please check your username and password");
+      validateLogin();
+    }
+  }
 
   return (
     <div className="py-10 w-full h-80 flex flex-col items-center justify-between">
@@ -98,7 +123,8 @@ const Login = () => {
         <a className="link link-primary" href="./register">
           Don't have an account? Register here!
         </a>
-        <button className="btn mt-10 w-full" onClick={submitLogin}>
+        {/* <button className="btn mt-10 w-full" onClick={submitLogin}> */}
+        <button className="btn mt-10 w-full" onClick={loginUser}>
           Submit
         </button>
       </div>
