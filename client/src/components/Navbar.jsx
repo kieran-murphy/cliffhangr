@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { themeChange } from "theme-change";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useJwt } from "react-jwt";
+import jwt from "jwt-decode";
 
 const Navbar = () => {
   const username = "steve";
 
+  const [theme, setTheme] = useState("dracula");
+  const toggleTheme = () => {
+    setTheme(theme === "dracula" ? "pastel" : "dracula");
+  };
+
   useEffect(() => {
-    themeChange(false);
-  }, []);
+    document.querySelector("html").setAttribute("data-theme", theme);
+  }, [theme]);
 
   return (
     <div className="navbar bg-base-300">
@@ -44,6 +50,12 @@ const Navbar = () => {
               </li>
             </Link>
 
+            <li>
+              <div onClick={toggleTheme}>
+                Theme {theme === "dracula" ? "🌙" : "☀️"}
+              </div>
+            </li>
+
             <Link to={`/cliffhangr/admin/settings`}>
               <li>
                 <div>Control panel ⚙️</div>
@@ -70,6 +82,10 @@ const Navbar = () => {
             </li>
           </Link>
 
+          <li>
+            <div>Theme {theme === "dracula" ? "🌙" : "☀️"}</div>
+          </li>
+
           <Link to={`/cliffhangr/admin/settings`}>
             <li>
               <div>Control panel ⚙️</div>
@@ -79,7 +95,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <Link to={`cliffhangr/profile/${username}`}>
-          <button className="btn">Profile</button>
+          <button className="btn">{username}</button>
         </Link>
       </div>
     </div>
