@@ -1,21 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { LoggedInContext } from "../context/LoggedInContext";
 import { useJwt } from "react-jwt";
 import jwt from "jwt-decode";
 
 const Navbar = () => {
   const username = "steve";
-
   const [theme, setTheme] = useState("dracula");
+  const { loggedIn, toggleLoggedIn } = useContext(LoggedInContext);
+
   const toggleTheme = () => {
     setTheme(theme === "dracula" ? "pastel" : "dracula");
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    toggleLoggedIn(false);
   };
 
   useEffect(() => {
     document.querySelector("html").setAttribute("data-theme", theme);
   }, [theme]);
 
-  return (
+  return loggedIn ? (
     <div className="navbar bg-base-300">
       <div className="navbar-start">
         <div className="dropdown">
@@ -39,11 +46,6 @@ const Navbar = () => {
             tabIndex="0"
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <Link to={`/cliffhangr/login`}>
-              <li>
-                <div>Login 🖥️</div>
-              </li>
-            </Link>
             <Link to={`/cliffhangr/search/users`}>
               <li>
                 <div>Users 🧑</div>
@@ -61,6 +63,11 @@ const Navbar = () => {
                 <div>Control panel ⚙️</div>
               </li>
             </Link>
+            <Link to={`/cliffhangr/login`}>
+              <li onClick={logout}>
+                <div>Logout 🖥️</div>
+              </li>
+            </Link>
           </ul>
         </div>
         <Link to={`/cliffhangr`}>
@@ -71,11 +78,6 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">
-          <Link to={`/cliffhangr/login`}>
-            <li>
-              <div>Login 🖥️</div>
-            </li>
-          </Link>
           <Link to={`/cliffhangr/search/users`}>
             <li>
               <div>Users 🧑</div>
@@ -91,6 +93,11 @@ const Navbar = () => {
               <div>Control panel ⚙️</div>
             </li>
           </Link>
+          <Link to={`/cliffhangr/login`}>
+            <li onClick={logout}>
+              <div>Logout 🖥️</div>
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="navbar-end">
@@ -99,7 +106,8 @@ const Navbar = () => {
         </Link>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
-
 export default Navbar;

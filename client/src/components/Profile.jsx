@@ -4,6 +4,7 @@ import { SwapSpinner } from "react-spinners-kit";
 import Watchlist from "./Watchlist";
 import Favourites from "./Favourites";
 import ProfileReviews from "./ProfileReviews";
+import TestComponent from "./TestComponent";
 import getUser from "../functions/getUser";
 import getReviews from "../functions/getReviews";
 import { FaWrench, FaCheckCircle, FaRegCheckSquare } from "react-icons/fa";
@@ -172,6 +173,8 @@ const Profile = () => {
               </>
             )}
             <div className=" stats stats-vertical shadow text-center m-6 bg-base-200">
+              <TestComponent />
+
               <div className="stat">
                 <div className="stat-title">Reviews</div>
                 <div className="stat-value text-success">{reviews.length}</div>

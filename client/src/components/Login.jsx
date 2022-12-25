@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { LoggedInContext } from "../context/LoggedInContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [warning, setWarning] = useState("");
+  const { loggedIn, toggleLoggedIn } = useContext(LoggedInContext);
 
   let navigate = useNavigate();
 
@@ -67,8 +69,10 @@ const Login = () => {
     const data = await response.json();
 
     if (data.user) {
+      console.log("setting token");
       localStorage.setItem("token", data.user);
       alert("Login successful");
+      toggleLoggedIn(true);
       navigate(`/cliffhangr/profile/${username}`);
       validateLogin();
     } else {
@@ -120,9 +124,12 @@ const Login = () => {
           onChange={handlePasswordChange}
         />
         <br />
-        <a className="link link-primary" href="./register">
+        <span
+          className="link link-primary"
+          onClick={() => navigate(`/cliffhangr/register`)}
+        >
           Don't have an account? Register here!
-        </a>
+        </span>
         {/* <button className="btn mt-10 w-full" onClick={submitLogin}> */}
         <button className="btn mt-10 w-full" onClick={loginUser}>
           Submit

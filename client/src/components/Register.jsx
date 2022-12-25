@@ -81,9 +81,12 @@ const Register = () => {
           onChange={handleConfirmPasswordChange}
         />
         <br />
-        <a className="link link-primary" href="./login">
+        <span
+          className="link link-primary"
+          onClick={() => navigate(`/cliffhangr/login`)}
+        >
           Already have an account? Login!
-        </a>
+        </span>
         <button className="btn mt-10 w-full" onClick={submitLogin}>
           Submit
         </button>

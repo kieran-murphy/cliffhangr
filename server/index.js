@@ -668,8 +668,7 @@ app.post("/api/login", async (req, res) => {
   if (isPasswordValid) {
     const token = jwt.sign(
       {
-        name: user.name,
-        email: user.email,
+        username: user.name,
       },
       "secret123"
     );
@@ -685,10 +684,12 @@ app.get("/api/checklogin", async (req, res) => {
 
   try {
     const decoded = jwt.verify(token, "secret123");
-    const email = decoded.email;
-    const user = await User.findOne({ email: email });
+    const username = decoded.username;
+    const user = await Users.findOne({
+      name: username,
+    });
 
-    return res.json({ status: "ok", quote: user.quote });
+    return res.json({ status: "ok", username: user.name });
   } catch (error) {
     console.log(error);
     res.json({ status: "error", error: "invalid token" });
